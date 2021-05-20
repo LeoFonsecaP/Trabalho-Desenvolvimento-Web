@@ -1,0 +1,163 @@
+/* Comum */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --main: tomato;
+  --light-grey: #ddd;
+}
+
+@font-face {
+  font-family: nexaLight;
+  src: url(./fontes/nexaLight.otf);
+}
+
+@font-face {
+  font-family: nexaBold;
+  src: url(./fontes/nexaBold.otf);
+}
+
+h1,
+h2,
+h3 {
+  font-family: "nexaBold", sans-serif;
+}
+
+body {
+  background-color: var(--light-grey);
+  font-family: "nexaLight", sans-serif;
+}
+
+.flex-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.container {
+  width: 95%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.titulo {
+  padding: 10px 0;
+}
+
+.titulo h1 {
+  font-size: 28px;
+}
+
+.card {
+  background-color: #fff;
+  width: 100%;
+  padding: 20px;
+  margin-bottom: 30px;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+button {
+  margin-top: 10px;
+  padding: 15px 20px;
+  border: 0;
+  border-radius: 4px;
+  font-family: "nexaBold", sans-serif;
+  font-size: 15px;
+  text-transform: uppercase;
+}
+
+.btn-principal {
+  background-color: var(--main);
+  color: #fff;
+}
+
+.text-right {
+  text-align: right;
+}
+
+/* Tabela */
+.wrapperTable {
+  overflow-x: auto;
+}
+
+table {
+  font-family: "nexaLight", sans-serif;
+  border-collapse: collapse;
+  white-space: nowrap;
+  width: 100%;
+  margin: 20px 0;
+}
+
+td,
+th {
+  font-size: 18px;
+  border: 1px solid var(--light-grey);
+  padding: 8px;
+}
+
+tr {
+  transition: background-color 0.6s;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  cursor: pointer;
+  background-color: var(--light-grey);
+}
+
+th {
+  cursor: default;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: var(--main);
+  color: #fff;
+}
+/* Fim tabela */
+
+/* Fim comum */
+
+/* Cabecalho */
+
+header {
+  background-color: #fff;
+  margin-bottom: 20px;
+}
+
+#logo {
+  color: var(--main);
+}
+
+nav ul {
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+nav li a {
+  display: block;
+  background-color: #fff;
+  color: #000;
+  font-size: 18px;
+  font-family: "nexaBold", sans-serif;
+  text-align: center;
+  text-decoration: none;
+  border: 1px solid #ccc;
+  border-width: 0 1px;
+  padding: 25px;
+  transition: opacity 0.6s;
+}
+
+nav li a:hover {
+  opacity: 0.6;
+}
+
+/* Fim cabeçalho */
