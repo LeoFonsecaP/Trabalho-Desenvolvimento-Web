@@ -152,7 +152,9 @@ th {
   margin-bottom: 15px;
 }
 
-input[type="text"] {
+input[type="text"],
+input[type="email"],
+input[type="password"] {
   width: 100%;
   padding: 12px 20px;
   margin: 10px 0;

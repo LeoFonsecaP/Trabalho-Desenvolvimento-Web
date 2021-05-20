@@ -21,8 +21,8 @@ O sistema possui 2 tipos de usuarios: Clientes e Administradores.
 
 O sistema conta com 4 principais entidades: administradores, clientes, livros, categorias
 
-- O registro de administradores deve conter: id, nome, telefone e email
-- O registro de clientes deve conter: id, nome, endereço, telefone e email.
+- O registro de administradores deve conter: id, nome, telefone e email, senha
+- O registro de clientes deve conter: id, nome, endereço, telefone e email, senha.
 - O registro de livros deve conter: id, título, foto, descrição, preço, quantidade em estoque, quantidade vendida, autor, categoria, dados de pré-visualização.
 - O registro de categorias deve conter: id, nome
 
