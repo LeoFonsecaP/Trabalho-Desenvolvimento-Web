@@ -6,6 +6,7 @@
 
 :root {
   --main: tomato;
+  --cancel: #e60e0e;
   --light-grey: #ddd;
 }
 
@@ -59,7 +60,8 @@ body {
   box-sizing: border-box;
 }
 
-button {
+button,
+input[type="submit"] {
   margin-top: 10px;
   padding: 15px 20px;
   border: 0;
@@ -67,15 +69,29 @@ button {
   font-family: "nexaBold", sans-serif;
   font-size: 15px;
   text-transform: uppercase;
+  transition: filter 0.6s;
 }
 
+button:hover,
+input[type="submit"]:hover {
+  filter: brightness(0.8);
+}
 .btn-principal {
   background-color: var(--main);
   color: #fff;
 }
 
+.btn-cancel {
+  background-color: var(--cancel);
+  color: #fff;
+}
+
 .text-right {
   text-align: right;
+}
+
+.margin-right {
+  margin-right: 20px;
 }
 
 /* Tabela */
@@ -120,6 +136,33 @@ th {
   color: #fff;
 }
 /* Fim tabela */
+
+/* Formularios */
+
+.form-box {
+  background-color: #eee;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  margin: 20px 0;
+}
+
+.form-titulo {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 10px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Fim formulario */
 
 /* Fim comum */
 
