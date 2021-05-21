@@ -26,6 +26,11 @@ h3 {
   font-family: "nexaBold", sans-serif;
 }
 
+h1 {
+  padding: 10px 0;
+  font-size: 28px;
+}
+
 body {
   background-color: var(--light-grey);
   font-family: "nexaLight", sans-serif;
@@ -41,14 +46,6 @@ body {
   width: 95%;
   max-width: 1280px;
   margin: 0 auto;
-}
-
-.titulo {
-  padding: 10px 0;
-}
-
-.titulo h1 {
-  font-size: 28px;
 }
 
 .card {
