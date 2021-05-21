@@ -211,11 +211,15 @@ nav li a:hover {
 
 .banner {
   background-image: url('./imgs/banner-background.jpg');
-  margin: 0 0 25px 0;
-  padding: 50px 200px 50px 0;
-  text-align: justify;
-  height: 150px;
+  padding: 50px 0;
   background-size: contain;
+  box-sizing: border-box;
+  margin-bottom: 25px;
+}
+
+.banner .card {
+  width: 85%;
+  margin: 0;
 }
 
 .grid {
@@ -223,6 +227,30 @@ nav li a:hover {
   padding: 50px;
   grid-gap: 50px 50px;
   grid-template-columns: auto auto auto auto;
+}
+
+@media only screen and (min-width: 1650px) {
+  .grid {
+    grid-template-columns: auto auto auto auto;
+  }
+}
+
+@media only screen and (min-width: 1100px) and (max-width: 1650px) {
+  .grid {
+    grid-template-columns: auto auto auto;
+  }
+}
+
+@media only screen and (min-width: 550px) and (max-width: 1100px) {
+  .grid {
+    grid-template-columns: auto auto;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  .grid {
+    grid-template-columns: auto;
+  }
 }
 
 .grid-item {
