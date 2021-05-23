@@ -101,8 +101,20 @@ input[type="submit"]:hover {
   text-align: center;
 }
 
+.small-font {
+  font-size: 0.75em;
+}
+
+.negrito {
+  font-weight: bold;
+}
+
 .margin-right {
   margin-right: 20px;
+}
+
+.margin-bottom {
+  margin-bottom: 15px;
 }
 
 /* Tabela */
@@ -275,10 +287,31 @@ nav li a:hover {
   margin: 10px auto;
 }
 
-.small-font {
-  font-size: 0.75em;
+.img-livro{
+  width: 200px;
 }
 
-.negrito {
-  font-weight: bold;
+.info-livro{
+  flex: 2;
+  margin: 0 50px;
+}
+
+.info-livro h3{
+  padding-bottom: 15px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.pagamento{
+  padding: 20px 0;
+  flex: 1;
+  text-align: center;
+}
+
+.preview{
+  width: 100%;
+  max-width: 489px;
+  text-align: center;
 }
