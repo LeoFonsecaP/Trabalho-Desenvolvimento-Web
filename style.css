@@ -48,6 +48,10 @@ body {
   align-items: center;
 }
 
+.flex-box-wrap {
+  flex-wrap: wrap;
+}
+
 .container {
   width: 95%;
   max-width: 1280px;

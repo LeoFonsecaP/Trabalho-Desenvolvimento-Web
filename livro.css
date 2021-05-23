@@ -11,6 +11,10 @@
   padding-bottom: 15px;
 }
 
+.text-center {
+  text-align: center;
+}
+
 .pagamento{
   padding: 20px 0;
   flex: 1;
@@ -18,7 +22,8 @@
 }
 
 .preview{
-  width: 50%;
+  width: 100%;
+  max-width: 489px;
   margin: auto;
   text-align: center;
 }
