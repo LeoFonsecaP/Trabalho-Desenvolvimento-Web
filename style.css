@@ -82,7 +82,9 @@ input[type="submit"] {
 button:hover,
 input[type="submit"]:hover {
   filter: brightness(0.8);
+  transition: filter 0.6s;
 }
+
 .btn-principal {
   background-color: var(--main);
   color: #fff;
@@ -275,16 +277,39 @@ nav li a:hover {
 }
 
 .grid-item {
-  margin: 10px 0;
   width: 100%;
-  height: 200px;
+  height: 225px;
+  padding: 10px 0;
 }
 
-.grid-item img {
-  display: block;
+.grid-item-img-wrapper {
   width: 150px;
   height: 150px;
   margin: 10px auto;
+}
+
+.grid-item-img-wrapper img {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.block-link {
+  display: block;
+  text-decoration: none;
+  background-color: #fff;
+  filter: brightness(1);
+  transition: filter 0.6s;
+  border-radius: 4px;
+}
+
+.block-link:hover {
+  background-color: #fff;
+  filter: brightness(0.9);
+  transition: filter 0.6s;
+}
+
+.block-link:visited {
+  color: #000;
 }
 
 .img-livro{
