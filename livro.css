@@ -1,43 +1,43 @@
 
 :root {
-	--main: tomato;
-	--cancel: #e60e0e;
-	--light-grey: #ddd;
-  }
+  --main: tomato;
+  --cancel: #e60e0e;
+  --light-grey: #ddd;
+}
 
 .livro{
-	background-color: white;
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
-	align-items: flex-start;
-	width: 90%;
-	margin: 50px auto;
-  	padding: 20px;
+  background-color: white;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 90%;
+  margin: 50px auto;
+  padding: 20px;
 }
 .imglivro{
-	width: 200px;
+  width: 200px;
 }
 .info{
-	flex: 2;
-	margin: 0 50px;
+  flex: 2;
+  margin: 0 50px;
 }
 
 .info h3{
-	padding-bottom: 15px;
+  padding-bottom: 15px;
 }
 
 .pagamento{
-	padding: 20px 0;
-	flex: 1;
-	text-align: center;
+  padding: 20px 0;
+  flex: 1;
+  text-align: center;
 }
 button{
-	background-color: var(--main);
+  background-color: var(--main);
 }
 
 .preview{
-	width: 50%;
-	margin: auto;
-	text-align: center;
+  width: 50%;
+  margin: auto;
+  text-align: center;
 }
