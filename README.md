@@ -58,10 +58,11 @@ A interface do sistema deve buscar oferecer uma boa usabilidade, implementando r
 # Descrição do Projeto
 
 O projeto **Livraria Mundo das Letras** tem como intuito ser um e-commerce focado em livros físicos. A livraria digital tem como principal diferencial a pré-visualização gratuita dos livros vendidos.
+No site, cada livro tem uma categoria, permitindo que o usuário filtre de acordo com a sua preferência. O site permite dois tipos de login, como cliente ou administrador, ambos fornecendo ID, nome, telefone, email e senha, com a adição de endereço para o cliente.
+Na página inicial o usuário poderá escolher o livro olhando livremente ou usando o filtro de categoria. Nela ele tem acesso ao título, autor, capa e preço. Clicando no livro, ele pode ver a página específica do mesmo, onde, além das informações que ele já tinha na página inicial, o usuário pode ver uma descrição do livro, o número de cópias vendidas e em estoque, além de poder comprar ou abrir um preview do livro.
+A preview só está disponível após o clique e contém algumas das páginas iniciais do livro, permitindo que o usuário leia-as e decida se quer ou não comprá-lo.
+Ainda é possível que o usuário visite seu carrinho, logue ou crie uma conta, que pode ser de cliente ou de administrador. A de cliente funciona da mesma forma de qualquer conta de site de vendas online, ou seja, ele deve ter uma conta para comprar um produto, com as informações básicas. Na conta de administrador, o dono pode cadastrar novos produtos ou administradores, por meio de um formulário, que aparece após o clique no botão “adicionar” referente à tabela.
 
-```
-Descreva como seu projeto implementa a funcionalidade nos requisitos. Os diagramas podem ajudar muito aqui.
-```
 # Comentários sobre o código
 
 # Plano pra teste
