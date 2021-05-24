@@ -61,11 +61,11 @@ O projeto **Livraria Mundo das Letras** tem como intuito ser um e-commerce focad
 
 No site, cada livro tem uma categoria, permitindo que o usuário filtre de acordo com a sua preferência. O site permite dois tipos de login, como cliente ou administrador, ambos fornecendo ID, nome, telefone, email e senha, com a adição de endereço para o cliente.
 
-Na página inicial o usuário poderá escolher o livro olhando livremente ou usando o filtro de categoria. Nela ele tem acesso ao título, autor, capa e preço. Clicando no livro, ele pode ver a página específica do mesmo, onde, além das informações que ele já tinha na página inicial, o usuário pode ver uma descrição do livro, o número de cópias vendidas e em estoque, além de poder comprar ou abrir um preview do livro.
+Na página inicial o usuário poderá escolher o livro olhando livremente ou usando o filtro de categoria, tendo acesso ao título, autor, capa e preço. Clicando no livro, ele pode ver a página específica do mesmo, onde, além das informações que ele já tinha na página inicial, o usuário pode ver uma descrição do livro, o número de cópias vendidas e em estoque, além de poder comprar ou abrir um preview do livro.
 
 A preview só está disponível após o clique e contém algumas das páginas iniciais do livro, permitindo que o usuário leia-as e decida se quer ou não comprá-lo.
 
-O usuário pode visitar seu carrinho, onde ele pode confirmar a compra, editar a quantidade de itens ou remover um livro da lista. Ainda é possível que ele logue ou crie uma conta, que pode ser de cliente ou de administrador. A de cliente funciona da mesma forma de qualquer conta de site de vendas online, ou seja, ele deve ter uma conta para comprar um produto, com as informações básicas. Na conta de administrador, o dono pode editar dados já cadastrados ou cadastrar novos produtos ou administradores, por meio de um formulário, que aparece após o clique no botão “adicionar” referente à tabela ou até apagar livros.
+O usuário pode visitar seu carrinho, onde ele pode confirmar a compra, editar a quantidade de itens ou remover um livro da lista. Ainda é possível que ele logue ou crie uma conta, que pode ser de cliente ou de administrador. A de cliente funciona da mesma forma de qualquer conta de site de vendas online, ou seja, ele deve ter uma conta para comprar um produto, com as informações básicas. Na conta de administrador, o dono pode editar dados já cadastrados, cadastrar novos produtos ou administradores, por meio de um formulário, que aparece após o clique no botão “adicionar” referente à tabela ou até apagar livros.
 
 # Comentários sobre o código
 
