@@ -62,3 +62,15 @@ O projeto **Livraria Mundo das Letras** tem como intuito ser um e-commerce focad
 ```
 Descreva como seu projeto implementa a funcionalidade nos requisitos. Os diagramas podem ajudar muito aqui.
 ```
+# Comentários sobre o código
+
+# Plano pra teste
+
+# Resultado dos testes
+
+# Procedimentos de instalação
+
+# Problemas
+
+# Comentários
+
