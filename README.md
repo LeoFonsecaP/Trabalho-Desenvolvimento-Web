@@ -67,6 +67,9 @@ A preview só está disponível após o clique e contém algumas das páginas in
 
 O usuário pode visitar seu carrinho, onde ele pode confirmar a compra, editar a quantidade de itens ou remover um livro da lista. Ainda é possível que ele logue ou crie uma conta, que pode ser de cliente ou de administrador. A de cliente funciona da mesma forma de qualquer conta de site de vendas online, ou seja, ele deve ter uma conta para comprar um produto, com as informações básicas. Na conta de administrador, o dono pode editar dados já cadastrados, cadastrar novos produtos ou administradores, por meio de um formulário, que aparece após o clique no botão “adicionar” referente à tabela ou até apagar livros.
 
+## Diagrama de navegação
+![image](./navigation-diagram.png)
+
 # Comentários sobre o código
 
 # Plano pra teste
