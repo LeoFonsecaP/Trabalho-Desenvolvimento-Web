@@ -1,33 +1,11 @@
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Administrador</title>
-    <link href="style.css" rel="stylesheet" />
-  </head>
-
-  <body>
-    <header>
-      <div class="container">
-        <div class="flex-box">
-          <div id="logo">
-            <h1>Mundo das Letras</h1>
-          </div>
-          <nav>
-            <ul>
-              <li><a href="./index.html">Inicio</a></li>
-              <li><a href="#">Sair</a></li>
-            </ul>
-          </nav>
-        </div>
-      </div>
-    </header>
-
+function Admin() {
+  return (
     <div class="container">
       <h1>Administrador</h1>
       <div class="card">
         <h2>Gerenciar administradores do sistema</h2>
 
-        <!-- O usuario deve poder selecionar um administrador e esolher edita-lo ou exclui-lo -->
+        {/*  O usuario deve poder selecionar um administrador e esolher edita-lo ou exclui-lo  */}
         <div class="wrapperTable">
           <table id="administradores">
             <tr>
@@ -110,7 +88,7 @@
       <div class="card">
         <h2>Gerenciar livros</h2>
 
-        <!-- O usuario deve poder selecionar um administrador e esolher edita-lo ou exclui-lo -->
+        {/*  O usuario deve poder selecionar um administrador e esolher edita-lo ou exclui-lo  */}
         <div class="wrapperTable">
           <table id="livros">
             <tr>
@@ -145,7 +123,7 @@
       <div class="card">
         <h2>Gerenciar clientes sistema</h2>
 
-        <!-- id, nome, endereço, telefone e email. -->
+        {/* id, nome, endereço, telefone e email. */}
         <div class="wrapperTable">
           <table id="clientes">
             <tr>
@@ -177,5 +155,7 @@
         </div>
       </div>
     </div>
-  </body>
-</html>
+  );
+}
+
+export default Admin;
