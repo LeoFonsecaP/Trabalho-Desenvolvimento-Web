@@ -28,9 +28,7 @@ function AdminAddForm({ submitAction, setAddNewAdminOpen }) {
 
   return (
     <form className="folded-box">
-      <h3 className="folded-titulo">
-        Novo administrador (só estará visivel ao clicar em "Adicionar")
-      </h3>
+      <h3 className="folded-titulo">Novo administrador</h3>
       <label htmlFor="nomeAdmin">Nome</label>
       <input
         type="text"

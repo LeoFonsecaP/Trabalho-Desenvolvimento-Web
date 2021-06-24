@@ -1,58 +1,12 @@
-import React, { useEffect, useState } from "react";
-import AdminTable from "../AdminTable";
-import AdminAddForm from "../AdminAddForm";
-
-import { getAdmins } from "../../Mock/getAdmins";
+import React from "react";
+import ManageAdmins from "../../Components/ManageAdmins";
 
 function Admin() {
-  const [loadingAdmins, setLoadingAdmins] = useState(false);
-  const [admins, setAdmins] = useState([]);
-  useEffect(() => {
-    async function fetchAdmins() {
-      setLoadingAdmins(true);
-      const response = await getAdmins();
-      setAdmins(response);
-      setLoadingAdmins(false);
-    }
-
-    fetchAdmins();
-  }, []);
-
-  const [addNewAdminOpen, setAddNewAdminOpen] = useState(false);
-
-  const addNewAdmin = (newAdminData) => {
-    // perform server admin insert and get new row id...
-    const id = admins[admins.length - 1]?.id + 1;
-    setAdmins([...admins, { ...newAdminData, id }]);
-    setAddNewAdminOpen(false);
-  };
-
   return (
     <div className="container">
       <h1>Administrador</h1>
-      <div className="card">
-        <h2>Gerenciar administradores do sistema</h2>
 
-        <AdminTable admins={admins} loading={loadingAdmins} />
-
-        <div className="text-right">
-          <button
-            className="btn-principal"
-            onClick={() => {
-              setAddNewAdminOpen(!addNewAdminOpen);
-            }}
-          >
-            {!addNewAdminOpen ? "Adicionar" : "Cancelar"}
-          </button>
-        </div>
-
-        {addNewAdminOpen && (
-          <AdminAddForm
-            submitAction={addNewAdmin}
-            setAddNewAdminOpen={setAddNewAdminOpen}
-          />
-        )}
-      </div>
+      <ManageAdmins />
 
       <div className="card">
         <h2>Gerenciar livros</h2>
