@@ -1,51 +1,15 @@
 import React from "react";
 import ManageAdmins from "../../Components/ManageAdmins";
+import ManageBooks from "../../Components/ManageBooks";
 
 function Admin() {
   return (
     <div className="container">
-      <h1>Administrador</h1>
+      <h1>Página de Administrador</h1>
 
       <ManageAdmins />
 
-      <div className="card">
-        <h2>Gerenciar livros</h2>
-
-        {/*  O usuario deve poder selecionar um administrador e esolher edita-lo ou exclui-lo  */}
-        <div className="wrapperTable">
-          <table id="livros">
-            <thead>
-              <tr>
-                <th>Id</th>
-                <th>Titulo</th>
-                <th>Preço</th>
-                <th>Qunatidade em estoque</th>
-                <th>Qunatidade vendida</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>Harry Potter</td>
-                <td>R$ 29.99</td>
-                <td>25</td>
-                <td>10</td>
-              </tr>
-
-              <tr>
-                <td>1</td>
-                <td>Harry Potter 2</td>
-                <td>R$ 59.99</td>
-                <td>5</td>
-                <td>100</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div className="text-right">
-          <button className="btn-principal">Adicionar</button>
-        </div>
-      </div>
+      <ManageBooks />
 
       <div className="card">
         <h2>Gerenciar clientes sistema</h2>
