@@ -36,7 +36,7 @@ function BookTable({ books, loading }) {
       </table>
       {loading && "Carregando..."}
 
-      {selected && "Editar ou apagar: " + selected.name}
+      {selected && "Editar ou apagar: " + selected.title}
     </div>
   );
 }
