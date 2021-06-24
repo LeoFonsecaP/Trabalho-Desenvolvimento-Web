@@ -20,10 +20,10 @@ function ManageBooks() {
 
   const [addNewBookOpen, setAddNewBookOpen] = useState(false);
 
-  const addNewBook = (newAdminData) => {
+  const addNewBook = (newBookData) => {
     // perform server book insert and get new row id...
     const id = books[books.length - 1]?.id + 1;
-    setBooks([...books, { ...newAdminData, id }]);
+    setBooks([...books, { ...newBookData, id }]);
     setAddNewBookOpen(false);
   };
 
@@ -47,7 +47,7 @@ function ManageBooks() {
       {addNewBookOpen && (
         <BookAddForm
           submitAction={addNewBook}
-          setAddNewAdminOpen={setAddNewBookOpen}
+          setAddNewBookOpen={setAddNewBookOpen}
         />
       )}
     </div>

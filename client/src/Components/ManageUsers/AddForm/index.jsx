@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
-function BookAddForm({ submitAction, setAddNewBookOpen }) {
-  const [bookData, setBookData] = useState({
-    title: "",
-    price: "",
-    availableQtd: "",
-    soldQtd: 0,
+function UserAddForm({ submitAction, setAddNewUserOpen }) {
+  const [userData, setUserData] = useState({
+    name: "",
+    address: "",
+    phone: "",
+    email: 0,
   });
 
   const handleInputChange = (event) => {
@@ -13,8 +13,8 @@ function BookAddForm({ submitAction, setAddNewBookOpen }) {
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
 
-    setBookData({
-      ...bookData,
+    setUserData({
+      ...userData,
       [name]: value,
     });
   };
@@ -22,36 +22,45 @@ function BookAddForm({ submitAction, setAddNewBookOpen }) {
   const submit = (event) => {
     event.preventDefault();
     // validate data is needed
-    submitAction(bookData);
+    submitAction(userData);
   };
 
   return (
     <form className="folded-box">
-      <h3 className="folded-titulo">Novo administrador</h3>
-      <label htmlFor="titleBook">Titulo</label>
+      <h3 className="folded-titulo">Novo usuario</h3>
+      <label htmlFor="nameUser">Nome</label>
       <input
         type="text"
-        id="titleBook"
-        name="title"
-        placeholder="Titulo"
+        id="nameUser"
+        name="name"
+        placeholder="Nome"
         onChange={handleInputChange}
       />
 
-      <label htmlFor="priceBook">Preço</label>
+      <label htmlFor="address">Endereço</label>
       <input
         type="text"
-        id="priceBook"
-        name="price"
-        placeholder="Preço"
+        id="address"
+        name="address"
+        placeholder="Endereço"
         onChange={handleInputChange}
       />
 
-      <label htmlFor="emailAdmin">Itens disponiveis</label>
+      <label htmlFor="phoneUser">Telefone</label>
       <input
         type="text"
-        id="availableQtdBook"
-        name="availableQtd"
-        placeholder="Quantidade disponivel"
+        id="phoneUser"
+        name="phone"
+        placeholder="Telefone"
+        onChange={handleInputChange}
+      />
+
+      <label htmlFor="emailUseer">E-mail</label>
+      <input
+        type="text"
+        id="emailUser"
+        name="email"
+        placeholder="E-mail"
         onChange={handleInputChange}
       />
 
@@ -59,7 +68,7 @@ function BookAddForm({ submitAction, setAddNewBookOpen }) {
         <button
           className="btn-cancel margin-right"
           onClick={() => {
-            setAddNewBookOpen(false);
+            setAddNewUserOpen(false);
           }}
         >
           Cancelar
@@ -75,4 +84,4 @@ function BookAddForm({ submitAction, setAddNewBookOpen }) {
   );
 }
 
-export default BookAddForm;
+export default UserAddForm;
