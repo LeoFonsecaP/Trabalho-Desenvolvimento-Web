@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function AdminAddForm({ submitAction, setAddNewAdminOpen, data }) {
+function AdminForm({ submitAction, setAddNewAdminOpen, data }) {
   const [adminData, setAdminData] = useState({
     name: (data && data.name) || "",
     phone: (data && data.phone) || "",
@@ -28,12 +28,16 @@ function AdminAddForm({ submitAction, setAddNewAdminOpen, data }) {
       adminData.name &&
       adminData.phone &&
       adminData.email &&
-      adminData.password &&
-      adminData.passwordConfirmation &&
+      ((adminData.password && adminData.passwordConfirmation) || data) &&
       adminData.password === adminData.passwordConfirmation
     ) {
       setShowError(false);
-      submitAction(adminData);
+
+      if (!data) {
+        submitAction(adminData);
+      } else {
+        submitAction({ ...data, ...adminData });
+      }
     } else {
       setShowError(true);
     }
@@ -50,6 +54,7 @@ function AdminAddForm({ submitAction, setAddNewAdminOpen, data }) {
         id="nomeAdmin"
         name="name"
         placeholder="Nome"
+        value={adminData.name}
         onChange={handleInputChange}
         className={showError && !adminData.name ? "error" : ""}
       />
@@ -59,6 +64,7 @@ function AdminAddForm({ submitAction, setAddNewAdminOpen, data }) {
         type="text"
         id="telefoneAdmin"
         name="phone"
+        value={adminData.phone}
         placeholder="Telefone"
         onChange={handleInputChange}
         className={showError && !adminData.phone ? "error" : ""}
@@ -69,26 +75,31 @@ function AdminAddForm({ submitAction, setAddNewAdminOpen, data }) {
         type="email"
         id="emailAdmin"
         name="email"
+        value={adminData.email}
         placeholder="E-mail"
         onChange={handleInputChange}
         className={showError && !adminData.email ? "error" : ""}
       />
 
-      <label htmlFor="senhaAdmin">Senha</label>
+      <label htmlFor="senhaAdmin">{!data ? "Senha" : "Nova senha"}</label>
       <input
         type="password"
         id="senhaAdmin"
         name="password"
+        value={adminData.password}
         placeholder="Senha"
         onChange={handleInputChange}
         className={showError && !adminData.password ? "error" : ""}
       />
 
-      <label htmlFor="confirmarSenhaAdmin">Confirmar Senha</label>
+      <label htmlFor="confirmarSenhaAdmin">
+        {!data ? "Confirmnar senha" : "Confirmar nova senha"}
+      </label>
       <input
         type="password"
         id="confirmarSenhaAdmin"
         name="passwordConfirmation"
+        value={adminData.passwordConfirmation}
         placeholder="Confirmar Senha"
         onChange={handleInputChange}
         className={showError && !adminData.passwordConfirmation ? "error" : ""}
@@ -105,7 +116,7 @@ function AdminAddForm({ submitAction, setAddNewAdminOpen, data }) {
         </button>
         <input
           type="submit"
-          value="Cadastrar"
+          value={!data ? "Cadastrar" : "Salvar"}
           className="btn-principal"
           onClick={submit}
         />
@@ -120,4 +131,4 @@ function AdminAddForm({ submitAction, setAddNewAdminOpen, data }) {
   );
 }
 
-export default AdminAddForm;
+export default AdminForm;

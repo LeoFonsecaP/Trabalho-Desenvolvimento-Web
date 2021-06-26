@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import AdminTable from "./Table";
-import AdminAddForm from "./AddForm";
+import AdminForm from "./Form";
 
 import { getAdmins } from "../../Mock/getAdmins";
 
@@ -27,11 +27,42 @@ function ManageAdmins() {
     setAddNewAdminOpen(false);
   };
 
+  const [selected, setSelected] = useState(null);
+  const [editOpen, setEditOpen] = useState(false);
+  const selectRow = (rowData) => {
+    setEditOpen(false);
+    setSelected(rowData);
+  };
+
+  const editAdmin = (newData) => {
+    // perform server admin edit
+
+    const adminsNew = admins.filter((item) => {
+      return item.id !== newData.id;
+    });
+    setSelected(newData);
+    setAdmins([...adminsNew, newData]);
+    setEditOpen(false);
+  };
+
+  const deleteAdmin = () => {
+    setAdmins(
+      admins.filter((item) => {
+        return item.id !== selected.id;
+      })
+    );
+    setSelected(null);
+  };
+
   return (
     <div className="card">
       <h2>Gerenciar administradores do sistema</h2>
 
-      <AdminTable admins={admins} loading={loadingAdmins} />
+      <AdminTable
+        selectRow={selectRow}
+        admins={admins}
+        loading={loadingAdmins}
+      />
 
       <div className="text-right">
         <button
@@ -45,9 +76,33 @@ function ManageAdmins() {
       </div>
 
       {addNewAdminOpen && (
-        <AdminAddForm
+        <AdminForm
           submitAction={addNewAdmin}
           setAddNewAdminOpen={setAddNewAdminOpen}
+        />
+      )}
+
+      {/* Manage selected admin user */}
+      {selected && (
+        <>
+          <h3>Administrador:</h3>
+          <h4>{selected.name}</h4>
+          <button
+            style={{ marginRight: 10 }}
+            onClick={() => {
+              setEditOpen(!editOpen);
+            }}
+          >
+            {editOpen ? "Cancelar" : "Editar"}
+          </button>
+          <button onClick={deleteAdmin}>Apagar</button>
+        </>
+      )}
+      {editOpen && (
+        <AdminForm
+          submitAction={editAdmin}
+          setAddNewAdminOpen={setEditOpen}
+          data={selected}
         />
       )}
     </div>

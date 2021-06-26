@@ -1,12 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
-function AdminTable({ admins, loading }) {
-  const [selected, setSelected] = useState(null);
-
-  const selectRow = (rowData) => {
-    setSelected(rowData);
-  };
-
+function AdminTable({ selectRow, admins, loading }) {
   return (
     /*  O usuario deve poder selecionar um administrador e esolher edita-lo ou exclui-lo  */
     <div className="wrapperTable">
@@ -33,8 +27,6 @@ function AdminTable({ admins, loading }) {
         </tbody>
       </table>
       {loading && "Carregando..."}
-
-      {selected && "Editar ou apagar: " + selected.name}
     </div>
   );
 }
