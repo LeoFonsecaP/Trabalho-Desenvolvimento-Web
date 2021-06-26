@@ -69,6 +69,10 @@ body {
   font-family: "nexaLight", sans-serif;
 }
 
+.error {
+  color: #e60e0e;
+}
+
 .flex-box {
   display: flex;
   justify-content: space-between;
@@ -214,6 +218,12 @@ input[type="password"] {
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
+}
+
+input[type="text"].error,
+input[type="email"].error,
+input[type="password"].error {
+  border-color: #e60e0e;
 }
 
 /* Fim formulario */

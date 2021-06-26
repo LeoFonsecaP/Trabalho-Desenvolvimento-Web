@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 
-function AdminAddForm({ submitAction, setAddNewAdminOpen }) {
+function AdminAddForm({ submitAction, setAddNewAdminOpen, data }) {
   const [adminData, setAdminData] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    password: "",
-    passwordConfirmation: "",
+    name: (data && data.name) || "",
+    phone: (data && data.phone) || "",
+    email: (data && data.email) || "",
+    password: (data && data.password) || "",
+    passwordConfirmation: (data && data.passwordConfirmation) || "",
   });
+  const [showError, setShowError] = useState(false);
 
   const handleInputChange = (event) => {
     const target = event.target;
@@ -22,13 +23,27 @@ function AdminAddForm({ submitAction, setAddNewAdminOpen }) {
 
   const submit = (event) => {
     event.preventDefault();
-    // validate data is needed
-    submitAction(adminData);
+    // validate data
+    if (
+      adminData.name &&
+      adminData.phone &&
+      adminData.email &&
+      adminData.password &&
+      adminData.passwordConfirmation &&
+      adminData.password === adminData.passwordConfirmation
+    ) {
+      setShowError(false);
+      submitAction(adminData);
+    } else {
+      setShowError(true);
+    }
   };
 
   return (
     <form className="folded-box">
-      <h3 className="folded-titulo">Novo administrador</h3>
+      <h3 className="folded-titulo">
+        {data ? "Editar" : "Novo"} administrador
+      </h3>
       <label htmlFor="nomeAdmin">Nome</label>
       <input
         type="text"
@@ -36,6 +51,7 @@ function AdminAddForm({ submitAction, setAddNewAdminOpen }) {
         name="name"
         placeholder="Nome"
         onChange={handleInputChange}
+        className={showError && !adminData.name ? "error" : ""}
       />
 
       <label htmlFor="telefoneAdmin">Telefone</label>
@@ -45,6 +61,7 @@ function AdminAddForm({ submitAction, setAddNewAdminOpen }) {
         name="phone"
         placeholder="Telefone"
         onChange={handleInputChange}
+        className={showError && !adminData.phone ? "error" : ""}
       />
 
       <label htmlFor="emailAdmin">E-mail</label>
@@ -54,6 +71,7 @@ function AdminAddForm({ submitAction, setAddNewAdminOpen }) {
         name="email"
         placeholder="E-mail"
         onChange={handleInputChange}
+        className={showError && !adminData.email ? "error" : ""}
       />
 
       <label htmlFor="senhaAdmin">Senha</label>
@@ -63,6 +81,7 @@ function AdminAddForm({ submitAction, setAddNewAdminOpen }) {
         name="password"
         placeholder="Senha"
         onChange={handleInputChange}
+        className={showError && !adminData.password ? "error" : ""}
       />
 
       <label htmlFor="confirmarSenhaAdmin">Confirmar Senha</label>
@@ -72,6 +91,7 @@ function AdminAddForm({ submitAction, setAddNewAdminOpen }) {
         name="passwordConfirmation"
         placeholder="Confirmar Senha"
         onChange={handleInputChange}
+        className={showError && !adminData.passwordConfirmation ? "error" : ""}
       />
 
       <div className="text-right">
@@ -90,6 +110,12 @@ function AdminAddForm({ submitAction, setAddNewAdminOpen }) {
           onClick={submit}
         />
       </div>
+      {showError && <p className="error">Preencha os campos obrigatórios</p>}
+      {showError &&
+        adminData.password &&
+        adminData.password !== adminData.passwordConfirmation && (
+          <p className="error">As senhas não coincidem</p>
+        )}
     </form>
   );
 }
