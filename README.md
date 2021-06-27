@@ -87,7 +87,7 @@ Utilizando os testes manuais descritos no plano de testes, foi possivel observar
 
 Para instalar o sistema e ser capaz de executa-lo em seu computador, primeiramente é necessário instalar o [Node.js](https://nodejs.org/) e o NPM (que vem junto com a instalação do Node).
 
-Feito isso, basta executar o comando `npm start` dentro da pasta do cliente ou servidor.
+Agora, dentro da pasta do cliente ou servidor, rode o comando `npm install` para instalar as dependencias do projeto e em sequencia, o comando `npm start` para executa-lo.
 
 # Problemas
 

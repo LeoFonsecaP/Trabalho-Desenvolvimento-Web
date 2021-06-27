@@ -69,6 +69,9 @@ function ManageAdmins() {
           className="btn-principal"
           onClick={() => {
             setAddNewAdminOpen(!addNewAdminOpen);
+            if (!addNewAdminOpen) {
+              setSelected(null);
+            }
           }}
         >
           {!addNewAdminOpen ? "Adicionar" : "Cancelar"}
