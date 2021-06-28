@@ -43,7 +43,7 @@ function BookPreview({ title, author, img, price, id }) {
   return (
     <Link
       className={"grid-item text-center block-link"}
-      to={`/books/${id}`}
+      to={`/${id}`}
     >
       <div>
         <h3>{title}</h3>
@@ -65,7 +65,6 @@ function BooksList({ filters }) {
   });
 
   useEffect(() => {
-    console.log(filters);
     getBookPreviews(filters)
       .then((bookPreviews) => {
         setState({
@@ -83,7 +82,6 @@ function BooksList({ filters }) {
   }, [filters]);
 
   const refetchPreview = () => {
-    console.log(filters);
     getBookPreviews(filters)
       .then((bookPreviews) => {
         setState({
@@ -156,7 +154,6 @@ function BooksFilterableList() {
     }
     return newFilters;
   }
-  console.log(filters)
 
   return (
     <div>

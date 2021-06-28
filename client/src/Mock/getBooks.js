@@ -1,5 +1,10 @@
 import CoverMockup from '../assets/imgs/cover-mockup.jpg';
 import HPCover from '../assets/imgs/HP.png';
+import HPCover2 from '../assets/imgs/HP2.png';
+import HPPreview from '../assets/imgs/Preview1.png';
+import PreviewMockup from '../assets/imgs/preview-mockup.png';
+
+
 
 const HPbooks = [
   {
@@ -10,8 +15,9 @@ const HPbooks = [
     genre: "Aventura",
     availableQtd: "10",
     soldQtd: "5",
-    description: "",
-    img: HPCover
+    description: " Harry Potter e a Pedra Filosofal é o primeiro dos sete livros da série de fantasia Harry Potter, escrita por J. K. Rowling. O livro conta a história de Harry Potter, um órfão criado pelos tios que descobre, em seu décimo primeiro aniversário, que é um bruxo. No romance, são narrados seus primeiros passos na comunidade bruxa, sua entrada na Escola de Magia e Bruxaria de Hogwarts e o início de sua amizade com Rony Weasley e Hermione Granger, os quais o ajudam a enfrentar Lord Voldemort — Lorde das Trevas e assassino dos pais de Harry, que agora procura um objeto lendário conhecido como a pedra filosofal.",
+    img: HPCover,
+    preview: HPPreview
   },
   {
     id: 2,
@@ -21,8 +27,9 @@ const HPbooks = [
     genre: "Aventura",
     availableQtd: "7",
     soldQtd: "2",
-    description: "",
-    img: HPCover
+    description: "Depois de férias aborrecidas na casa dos tios trouxas, está na hora de Harry Potter voltar a estudar. Coisas acontecem, no entanto, para dificultar o regresso de Harry. Persistente e astuto, o herói não se deixa intimidar pelos obstáculos e, com a ajuda dos fiéis amigos Weasley, começa o ano letivo na Escola de Magia e Bruxaria de Hogwarts. As novidades não são poucas. Novos colegas, novos professores, muitas e boas descobertas e um grande e perigosos desafio. Alguém ou alguma coisa ameaça a segurança e a tranquilidade dos membros de Hogwarts.",
+    img: HPCover2,
+    preview: HPPreview
   },
 ]
 
@@ -52,7 +59,8 @@ function generateBookMocks(genre, amount) {
       availableQtd: Math.round(100 * Math.random()).toString(),
       soldQtd: Math.round(100 * Math.random()).toString(),
       description: LoremIpsum,
-      img: CoverMockup
+      img: CoverMockup,
+      preview: PreviewMockup
     }
   });
   maxId += amount;
@@ -99,6 +107,23 @@ export function getBookPreviews(activeFilters) {
       } else {
         resolve(
           books.filter((book) => activeFilters[book.genre]).map(bookToPreview)
+        );
+      }
+    })
+  });
+}
+
+export function getBook(filter) {
+  return new Promise((resolve, reject) => {
+    const timeoutId = setTimeout(() => {
+      clearTimeout(timeoutId);
+      callsCounter = (callsCounter + 1) % 5;
+      if (callsCounter === 0) {
+        reject();
+      } else {
+        const index = books.find((book) => filter === book.id)
+        resolve(
+          index
         );
       }
     })

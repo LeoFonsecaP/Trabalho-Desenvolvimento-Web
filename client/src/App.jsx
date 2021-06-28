@@ -9,6 +9,7 @@ import Footer from "./Components/Footer";
 import Admin from "./Pages/Admin";
 import Cart from "./Pages/Cart";
 import Home from './Pages/Home';
+import Book from './Pages/Book';
 
 function App() {
   return (
@@ -28,6 +29,9 @@ function App() {
           </Route>
           <Route path="/home/:filters?">
             <Home/>
+          </Route>
+          <Route path="/:book">
+            <Book />
           </Route>
         </Switch>
 
