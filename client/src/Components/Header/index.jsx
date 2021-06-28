@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function Header() {
   return (
     <header>
@@ -11,9 +13,9 @@ function Header() {
               <a href="./login.html">Entrar/Criar conta</a>
             </li>
             <li>
-              <a href="./carrinho.html">
+              <Link to="/cart">
                 <i className="fa fa-shopping-cart"></i>
-              </a>
+              </Link>
             </li>
           </ul>
         </nav>

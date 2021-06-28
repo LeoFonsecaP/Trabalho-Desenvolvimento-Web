@@ -269,6 +269,50 @@ nav li a:hover {
 
 /* Fim cabeçalho */
 
+/* Carrinho */
+
+.itemCart {
+  display: flex;
+  background-color: #eee;
+  padding: 20px;
+  margin: 15px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.itemName {
+  font-size: 18px;
+  font-weight: bolder;
+}
+
+.itemBtns {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.itemBtn {
+  cursor: pointer;
+  opacity: 0.4;
+  transition: opacity 0.5s;
+}
+.itemBtn:hover {
+  opacity: 1;
+}
+
+.itemInput {
+  padding: 5px;
+  width: 40px;
+}
+
+#buyBtn {
+  color: #fff;
+  font-size: 17px;
+  background-color: var(--main);
+}
+
 .banner {
   background-image: url("./assets/imgs/banner-background.jpg");
   padding: 50px 0;
