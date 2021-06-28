@@ -1,19 +1,21 @@
+import {Link} from 'react-router-dom'
+
 function Header() {
   return (
     <header>
       <div className="container flex-box">
         <div id="logo">
-          <h1>Mundo das Letras</h1>
+          <Link to="/"><h1>Mundo das Letras</h1></Link>
         </div>
         <nav>
           <ul>
             <li>
-              <a href="./login.html">Entrar/Criar conta</a>
+            <Link to="/login"><h1>Entrar/Criar conta</h1></Link>
             </li>
             <li>
-              <a href="./carrinho.html">
-                <i className="fa fa-shopping-cart"></i>
-              </a>
+            <Link to="/carrinho">
+              <i className="fa fa-shopping-cart"></i>
+            </Link>
             </li>
           </ul>
         </nav>
