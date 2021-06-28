@@ -45,7 +45,7 @@ const LoremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
  
 
 
-let maxId = 2
+let maxId = 3
 
 function generateBookMocks(genre, amount) {
   const range = [...Array(amount).keys()] 
