@@ -441,3 +441,8 @@ footer {
   background-color: #fff;
   padding: 20px 0;
 }
+
+.error-message {
+  font-size: 40px;
+  padding: 100px;
+}

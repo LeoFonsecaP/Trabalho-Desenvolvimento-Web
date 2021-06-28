@@ -1,9 +1,14 @@
-import { Switch, BrowserRouter as Router, Route } from "react-router-dom";
-
+import {
+  Switch,
+  BrowserRouter as Router,
+  Route,
+  Redirect
+} from "react-router-dom";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 import Admin from "./Pages/Admin";
 import Cart from "./Pages/Cart";
+import Home from './Pages/Home';
 
 function App() {
   return (
@@ -17,6 +22,12 @@ function App() {
           </Route>
           <Route path="/cart">
             <Cart />
+          </Route>
+          <Route exact path="/">
+            <Redirect to="/home/" />
+          </Route>
+          <Route path="/home/:filters?">
+            <Home/>
           </Route>
         </Switch>
 
