@@ -15,6 +15,7 @@ function Header() {
             <li>
               <Link to="/cart">
                 <i className="fa fa-shopping-cart"></i>
+                <span className="qtdItensCart">3</span>
               </Link>
             </li>
           </ul>
