@@ -1,5 +1,6 @@
 import { getBook } from "../../Mock/getBooks";
-import { useState, useEffect } from "react"; 
+import { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
 
 function GetSpecificBook(id){
 
@@ -39,7 +40,7 @@ function GetSpecificBook(id){
 							<h2>Em estoque: {book.availableQtd}</h2>
 							<h1>U$ {book.price}</h1>
 							<button className="btn-principal" onClick={() => SetPreview(!ShowPreview) }>Preview</button>
-							<button className="btn-principal">COMPRAR</button>
+							<Link to="/cart"><button className="btn-principal">COMPRAR</button></Link>
 						</div>
 					</div>
 					{ShowPreview &&
