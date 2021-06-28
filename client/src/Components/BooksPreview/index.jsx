@@ -13,6 +13,7 @@ function ActiveFilterButton({ property, filters }) {
     </Link>
   );
 }
+
 function DefaultFilterButton({ property, filters }) {
   return (
     <Link
@@ -24,6 +25,7 @@ function DefaultFilterButton({ property, filters }) {
     </Link>
   );
 }
+
 function FilterButton({ property }) {
   const { filters } = useParams();
   const propertyRegex = new RegExp(`${property},`);
@@ -37,7 +39,7 @@ function FilterButton({ property }) {
   return <DefaultFilterButton property={property} filters={link_to}/>;
 }
 
-function BookPreview({ title, author, imgUrl, price, id }) {
+function BookPreview({ title, author, img, price, id }) {
   return (
     <Link
       className={"grid-item text-center block-link"}
@@ -47,7 +49,7 @@ function BookPreview({ title, author, imgUrl, price, id }) {
         <h3>{title}</h3>
         <p className="small-font">{author}</p>
         <div className="grid-item-img-wrapper">
-            <img src={imgUrl} alt={"Falha ao carregar imagem."}/>
+            <img src={img} alt={"Falha ao carregar imagem."}/>
         </div>
         <p>Preço: R${price}</p>
       </div>
