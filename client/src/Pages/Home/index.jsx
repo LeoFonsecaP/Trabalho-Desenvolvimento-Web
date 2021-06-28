@@ -2,10 +2,10 @@ import BooksFilterableList from '../../Components/BooksPreview'
 
 function Home() {
   return (
-    <div class="container">
+    <div className="container">
       <h1>Seja bem vindo ao Mundo das Letras!</h1>
-      <div class="banner">
-        <div class="card">
+      <div className="banner">
+        <div className="card">
           <h2>Por que comprar no nosso site?</h2>
           <p>
           Aqui no Mundo das Letras você pode encontrar livros de todos os tipos
@@ -15,7 +15,7 @@ function Home() {
         </p>
         </div>
       </div>
-      <div class="card">
+      <div className="card">
         <BooksFilterableList/>
       </div>
     </div>
