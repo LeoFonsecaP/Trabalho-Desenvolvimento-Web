@@ -1,4 +1,4 @@
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 
 function Header() {
   return (
@@ -13,9 +13,10 @@ function Header() {
             <Link to="/login"><h1>Entrar/Criar conta</h1></Link>
             </li>
             <li>
-            <Link to="/carrinho">
-              <i className="fa fa-shopping-cart"></i>
-            </Link>
+              <Link to="/cart">
+                <i className="fa fa-shopping-cart"></i>
+                <span className="qtdItensCart">3</span>
+              </Link>
             </li>
           </ul>
         </nav>

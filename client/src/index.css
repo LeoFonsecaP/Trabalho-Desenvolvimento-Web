@@ -75,6 +75,7 @@ body {
 
 .flex-box {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
 }
@@ -243,6 +244,7 @@ header {
 
 nav ul {
   display: flex;
+  flex-wrap: wrap;
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -257,8 +259,6 @@ nav li a {
   font-family: "nexaBold", sans-serif;
   text-align: center;
   text-decoration: none;
-  border: 1px solid #ccc;
-  border-width: 0 1px;
   padding: 25px;
   transition: opacity 0.6s;
 }
@@ -267,7 +267,66 @@ nav li a:hover {
   opacity: 0.6;
 }
 
+.qtdItensCart {
+  font-size: 13px;
+  color: #fff;
+  margin-left: 8px;
+  background-color: var(--main);
+  height: 25px;
+  width: 25px;
+  line-height: 28px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
 /* Fim cabeçalho */
+
+/* Carrinho */
+
+.itemCart {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  background-color: #eee;
+  padding: 20px;
+  margin: 15px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.itemName {
+  font-size: 18px;
+  font-weight: bolder;
+}
+
+.itemBtns {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.itemBtn {
+  cursor: pointer;
+  opacity: 0.4;
+  transition: opacity 0.5s;
+}
+.itemBtn:hover {
+  opacity: 1;
+}
+
+.itemInput {
+  padding: 5px;
+  width: 40px;
+}
+
+#buyBtn {
+  color: #fff;
+  font-size: 17px;
+  background-color: var(--main);
+}
 
 .banner {
   background-image: url("./assets/imgs/banner-background.jpg");
