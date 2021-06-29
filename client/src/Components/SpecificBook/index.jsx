@@ -12,15 +12,24 @@ function GetSpecificBook(id){
 	  async function fetchBooks() {
 		setLoadingBooks(true);
 		const response = await getBook(id);
-		setBook(response);
-		setLoadingBooks(false);
+		if(response != undefined){
+			setBook(response);
+			setLoadingBooks(false);
+		}
 	  }
 	  fetchBooks();
 	}, [id]);
 
 	if(LoadingBooks){
 		return(
-			<h1>Carregando livro...</h1>
+			<div className="text-center">
+				<h1>Erro ao carregar o livro...</h1>
+				<Link to="/home">
+				<button id="buyBtn">
+					Voltar
+				</button> 
+				</Link>
+			</div>
 		)
 	}
 	else{
