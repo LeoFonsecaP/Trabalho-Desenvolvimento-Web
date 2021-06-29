@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 function GetSpecificBook(id){
 
 	const [ShowPreview, SetPreview] = useState(false);
-	const [book, setBook] = useState([]);
+	const [Book, setBook] = useState([]);
 	const [LoadingBooks, setLoadingBooks] = useState(false);
 	
 	useEffect(() => {
@@ -28,24 +28,24 @@ function GetSpecificBook(id){
 			<div className="container">
 				<div className="card">
 					<div className="flex-box flex-box-wrap">
-					<img src={book.img} alt={"Falha ao carregar imagem." }className="img-livro"/>
+					<img src={Book.img} alt={"Falha ao carregar imagem." }className="img-livro"/>
 						<div className="info-livro">
-							<h1>{book.title}</h1>
-							<h3>{book.author}</h3>
-							<h3>{book.genre}</h3>
-							<p>{book.description}</p>
+							<h1>{Book.title}</h1>
+							<h3>{Book.author}</h3>
+							<h3>{Book.genre}</h3>
+							<p>{Book.description}</p>
 						</div>
 						<div className="pagamento">
-							<h2>Vendidos:   {book.soldQtd}</h2>
-							<h2>Em estoque: {book.availableQtd}</h2>
-							<h1>U$ {book.price}</h1>
+							<h2>Vendidos:   {Book.soldQtd}</h2>
+							<h2>Em estoque: {Book.availableQtd}</h2>
+							<h1>U$ {Book.price}</h1>
 							<button className="btn-principal" onClick={() => SetPreview(!ShowPreview) }>Preview</button>
 							<Link to="/cart"><button className="btn-principal">COMPRAR</button></Link>
 						</div>
 					</div>
 					{ShowPreview &&
 					<div className="folded-box text-center preview">
-							<img src={book.preview} alt={"Falha ao carregar imagem." }className="preview"/>
+							<img src={Book.preview} alt={"Falha ao carregar imagem." }className="preview"/>
 	  			  	</div>
 					}
 				</div>

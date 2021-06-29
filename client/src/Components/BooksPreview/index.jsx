@@ -43,7 +43,7 @@ function BookPreview({ title, author, img, price, id }) {
   return (
     <Link
       className={"grid-item text-center block-link"}
-      to={`/${id}`}
+      to={`/book/${id}`}
     >
       <div>
         <h3>{title}</h3>

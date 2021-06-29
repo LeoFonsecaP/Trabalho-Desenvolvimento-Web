@@ -30,7 +30,7 @@ function App() {
           <Route path="/home/:filters?">
             <Home/>
           </Route>
-          <Route path="/:book">
+          <Route path="/book/:book">
             <Book />
           </Route>
         </Switch>

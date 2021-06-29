@@ -4,7 +4,7 @@ import GetSpecificBook from '../../Components/SpecificBook'
 
 
 function Book() {
-	const idString = useLocation().pathname.substring(1); 
+	const idString = useLocation().pathname.substring(6); 
 	const idNum = parseInt(idString, 10)
 
   return (
