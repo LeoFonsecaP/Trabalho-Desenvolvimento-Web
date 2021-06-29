@@ -12,7 +12,7 @@ function GetSpecificBook(id){
 	  async function fetchBooks() {
 		setLoadingBooks(true);
 		const response = await getBook(id);
-		if(response != undefined){
+		if(response !== undefined){
 			setBook(response);
 			setLoadingBooks(false);
 		}
