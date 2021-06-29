@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import ItemCart from "../../Components/ItemCart";
+import { Link } from 'react-router-dom';
+
 
 function Cart() {
   const [itensCart, setItensCart] = useState(localStorage.getItem("itensCart"));
   const [totalPrice, setTotalPrice] = useState(0);
-  const [finishOrder, setFinishOrder] = useState(false);
 
   useEffect(() => {
     // simulate that there is some itens saved on the storage
@@ -53,7 +54,6 @@ function Cart() {
       <h1>Meu Carrinho</h1>
 
       <div className="card">
-        {!finishOrder ? (
           <>
             <h2>Itens no carrinho</h2>
             {itensCart &&
@@ -72,44 +72,13 @@ function Cart() {
               <span style={{ marginRight: 20 }}>
                 TOTAL: R$ {totalPrice.toFixed(2)}
               </span>
-              <button id="buyBtn" onClick={() => setFinishOrder(true)}>
-                Efetuar compra
-              </button>
+              <Link to="/checkout">
+                <button id="buyBtn">
+                  Efetuar compra
+                </button>           
+              </Link>
             </div>
           </>
-        ) : (
-          <>
-            <h2>Compra realizada com sucesso!</h2>
-            <table id="orderTable">
-              <thead>
-                <tr>
-                  <th>Livro</th>
-                  <th>Preço por unidade</th>
-                  <th>Quantidade</th>
-                  <th>Preço total</th>
-                </tr>
-              </thead>
-              <tbody>
-                {itensCart &&
-                  itensCart.map((item) => {
-                    return (
-                      <tr key={item.id}>
-                        <td>{item.name}</td>
-                        <td>R$ {item.price.toFixed(2)}</td>
-                        <td>{item.qtdWanted}</td>
-                        <td>R$ {(item.price * item.qtdWanted).toFixed(2)}</td>
-                      </tr>
-                    );
-                  })}
-              </tbody>
-            </table>
-            <div className="text-right">
-              <span style={{ marginRight: 20 }}>
-                TOTAL: R$ {totalPrice.toFixed(2)}
-              </span>
-            </div>
-          </>
-        )}
       </div>
     </div>
   );

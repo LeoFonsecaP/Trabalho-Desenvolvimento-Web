@@ -10,6 +10,7 @@ import Admin from "./Pages/Admin";
 import Cart from "./Pages/Cart";
 import Home from './Pages/Home';
 import Book from './Pages/Book';
+import Checkout from "./Pages/Checkout";
 
 function App() {
   return (
@@ -32,6 +33,9 @@ function App() {
           </Route>
           <Route path="/book/:book">
             <Book />
+          </Route>
+          <Route path="/checkout">
+            <Checkout />
           </Route>
         </Switch>
 
