@@ -47,7 +47,7 @@ function GetSpecificBook(id){
 						<div className="pagamento">
 							<h2>Vendidos:   {Book.soldQtd}</h2>
 							<h2>Em estoque: {Book.availableQtd}</h2>
-							<h1>U$ {Book.price}</h1>
+							<h1>R$ {Book.price}</h1>
 							<button className="btn-principal" onClick={() => SetPreview(!ShowPreview) }>Preview</button>
 							<Link to="/cart"><button className="btn-principal">COMPRAR</button></Link>
 						</div>
