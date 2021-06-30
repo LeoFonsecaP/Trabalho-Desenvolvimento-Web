@@ -27,7 +27,7 @@ function UserAddForm({ submitAction, setAddNewUserOpen }) {
 
   return (
     <form className="folded-box">
-      <h3 className="folded-titulo">Novo usuario</h3>
+      <h3 className="folded-titulo">Novo usuário</h3>
       <label htmlFor="nameUser">Nome</label>
       <input
         type="text"

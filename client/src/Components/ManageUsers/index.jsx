@@ -29,7 +29,7 @@ function ManageUsers() {
 
   return (
     <div className="card">
-      <h2>Gerenciar usuarios</h2>
+      <h2>Gerenciar usuários</h2>
 
       <AdminTable users={users} loading={loadingUsers} />
 

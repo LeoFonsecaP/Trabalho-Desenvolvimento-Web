@@ -28,12 +28,12 @@ function BookAddForm({ submitAction, setAddNewBookOpen }) {
   return (
     <form className="folded-box">
       <h3 className="folded-titulo">Novo administrador</h3>
-      <label htmlFor="titleBook">Titulo</label>
+      <label htmlFor="titleBook">Título</label>
       <input
         type="text"
         id="titleBook"
         name="title"
-        placeholder="Titulo"
+        placeholder="Título"
         onChange={handleInputChange}
       />
 
@@ -46,12 +46,12 @@ function BookAddForm({ submitAction, setAddNewBookOpen }) {
         onChange={handleInputChange}
       />
 
-      <label htmlFor="emailAdmin">Itens disponiveis</label>
+      <label htmlFor="emailAdmin">Itens disponíveis</label>
       <input
         type="text"
         id="availableQtdBook"
         name="availableQtd"
-        placeholder="Quantidade disponivel"
+        placeholder="Quantidade disponível"
         onChange={handleInputChange}
       />
 

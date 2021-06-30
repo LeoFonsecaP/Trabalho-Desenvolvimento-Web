@@ -93,7 +93,7 @@ function AdminForm({ submitAction, setAddNewAdminOpen, data }) {
       />
 
       <label htmlFor="confirmarSenhaAdmin">
-        {!data ? "Confirmnar senha" : "Confirmar nova senha"}
+        {!data ? "Confirmar senha" : "Confirmar nova senha"}
       </label>
       <input
         type="password"
