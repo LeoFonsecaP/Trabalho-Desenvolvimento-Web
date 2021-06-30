@@ -53,7 +53,7 @@ function Cart() {
     <div className="container">
       <h1>Meu Carrinho</h1>
 
-      <div className="card">
+      <div className="card minheight">
           <>
             <h2>Itens no carrinho</h2>
             {itensCart &&

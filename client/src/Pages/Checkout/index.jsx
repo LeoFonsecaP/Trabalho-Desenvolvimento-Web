@@ -82,12 +82,12 @@ function Checkout() {
                   &nbsp;Shipping address same as billing
                 </label>
             </form>
-            </div>
-          </div>
-          <div className = "text-right">
+              <div className = "text-right">
               <button id="buyBtn" onClick={() => setFinishOrder(true)}>
                 Finalizar
               </button>
+          </div>
+            </div>
           </div>
           </>
         ) : (

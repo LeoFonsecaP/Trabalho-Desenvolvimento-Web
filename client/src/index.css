@@ -99,6 +99,10 @@ body {
   box-sizing: border-box;
 }
 
+.minheight{
+  min-height: 70vh;
+}
+
 button,
 input[type="submit"] {
   margin: 10px 0;
@@ -234,11 +238,14 @@ input[type="password"].error {
   width: 30%;
   margin-left: 10px;
   margin-right: 10px;
+  min-width: 100px;
 }
 
 .checkout .mip{
   width: 40%;
   margin-right: 10px;
+  min-width:150px;
+
 }
 
 .checkout input{
@@ -253,6 +260,7 @@ input[type="password"].error {
   display: flex;
   flex-wrap: wrap;
   padding: 0 5px;
+  min-height: 75vh;
 }
 
 .form-left{

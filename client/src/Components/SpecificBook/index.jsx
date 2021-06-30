@@ -35,7 +35,7 @@ function GetSpecificBook(id){
 	else{
 		return(
 			<div className="container">
-				<div className="card">
+				<div className="card minheight">
 					<div className="flex-box flex-box-wrap">
 					<img src={Book.img} alt={"Falha ao carregar imagem." }className="img-livro"/>
 						<div className="info-livro">
