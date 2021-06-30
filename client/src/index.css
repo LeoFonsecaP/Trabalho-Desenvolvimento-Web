@@ -228,6 +228,54 @@ input[type="password"].error {
   border-color: #e60e0e;
 }
 
+/* Formulario de compra */
+
+.checkout .sip{
+  width: 30%;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.checkout .mip{
+  width: 40%;
+  margin-right: 10px;
+}
+
+.checkout input{
+  border-radius: 8px;
+}
+
+.checkout select{
+  border-radius: 8px;
+}
+
+.form-2-sides{
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 5px;
+}
+
+.form-left{
+  width: 46%;
+  float: left;
+  margin-right: 3%;
+  margin-left: 1%;  
+}
+
+.form-right{
+  margin-left: 3%;
+  margin-right: 1%;
+  float: right;
+  width: 46%;
+}
+
+.sel{
+  background-color: white;
+  padding: 10px;
+  max-width: 100px;
+  border: 1px solid darkgrey;
+}
+
 /* Fim formulario */
 
 /* Fim comum */
