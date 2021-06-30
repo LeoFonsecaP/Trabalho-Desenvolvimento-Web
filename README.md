@@ -68,17 +68,27 @@ A preview só está disponível após o clique e contém algumas das páginas in
 O usuário pode visitar seu carrinho, onde ele pode confirmar a compra, editar a quantidade de itens ou remover um livro da lista. Ainda é possível que ele logue ou crie uma conta, que pode ser de cliente ou de administrador. A de cliente funciona da mesma forma de qualquer conta de site de vendas online, ou seja, ele deve ter uma conta para comprar um produto, com as informações básicas. Na conta de administrador, o dono pode editar dados já cadastrados, cadastrar novos produtos ou administradores, por meio de um formulário, que aparece após o clique no botão “adicionar” referente à tabela ou até apagar livros.
 
 ## Diagrama de navegação
+
 ![image](./navigation-diagram.png)
 
 # Comentários sobre o código
 
+A aplicação front-end foi desenvolvida utilizando a tecnologia [React.js](https://pt-br.reactjs.org/) e o código está sub-divido em páginas e componentes, buscando separar as funcionalidades e utilizar os conceitos de componentes para obter um código de fácil manutenção e reusabilidade.
+
 # Plano pra teste
+
+Os testes foram executados de forma manual a partir de um navegador, em que todos os fluxos de páginas e ações foram executados verificando se o resultado esperado era obtido.
 
 # Resultado dos testes
 
+Utilizando os testes manuais descritos no plano de testes, foi possivel observar que a aplicação está funcionando adequadamente uma vez que exibe as telas corretas e reage corretamente as ações efetuas.
+
 # Procedimentos de instalação
+
+Para instalar o sistema e ser capaz de executa-lo em seu computador, primeiramente é necessário instalar o [Node.js](https://nodejs.org/) e o NPM (que vem junto com a instalação do Node).
+
+Agora, dentro da pasta do cliente ou servidor, rode o comando `npm install` para instalar as dependencias do projeto e em sequencia, o comando `npm start` para executa-lo.
 
 # Problemas
 
 # Comentários
-
