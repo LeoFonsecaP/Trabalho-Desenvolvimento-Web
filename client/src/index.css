@@ -100,7 +100,7 @@ body {
 }
 
 .minheight{
-  min-height: 70vh;
+  min-height: 75vh;
 }
 
 button,
@@ -236,16 +236,16 @@ input[type="password"].error {
 
 .checkout .sip{
   width: 30%;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: 2px;
+  margin-right: 2px;
   min-width: 100px;
 }
 
 .checkout .mip{
-  width: 40%;
-  margin-right: 10px;
-  min-width:150px;
-
+  width: 35%;
+  margin-left: 2px;
+  margin-right: 2px;
+  min-width:120px;
 }
 
 .checkout input{
@@ -256,7 +256,7 @@ input[type="password"].error {
   border-radius: 8px;
 }
 
-.form-2-sides{
+.form-3-sides{
   display: flex;
   flex-wrap: wrap;
   padding: 0 5px;
@@ -264,17 +264,23 @@ input[type="password"].error {
 }
 
 .form-left{
-  width: 46%;
+  width: 30%;
   float: left;
   margin-right: 3%;
   margin-left: 1%;  
 }
 
+.form-center{
+  margin-left: 3%;
+  margin-right: 3%;
+  float: middle;
+  width: 30%;
+}
+
 .form-right{
   margin-left: 3%;
-  margin-right: 1%;
   float: right;
-  width: 46%;
+  width: 26%;
 }
 
 .sel{
@@ -282,6 +288,11 @@ input[type="password"].error {
   padding: 10px;
   max-width: 100px;
   border: 1px solid darkgrey;
+}
+
+.price h3{
+  font-size: 1.2em;
+  margin: 6px 0;
 }
 
 /* Fim formulario */
@@ -339,6 +350,25 @@ nav li link:hover {
   border-radius: 50%;
   display: inline-block;
 }
+
+.itemCheckout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  background-color: white;
+  padding: 15px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.conclusao{
+  width: 30%;
+  margin:auto;
+}
+
 
 /* Fim cabeçalho */
 

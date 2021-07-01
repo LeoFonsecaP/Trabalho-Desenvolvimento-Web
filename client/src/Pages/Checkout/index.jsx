@@ -1,17 +1,32 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
+import cartContext from "../../Contexts/cart";
+import ItemCheckout from "../../Components/itemCheckout";
+
+
 
 
 function Checkout() {
 
   const [finishOrder, setFinishOrder] = useState(false);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const { itensCart} = useContext(cartContext);
 
+  useEffect(() => {
+    let sum = 0;
+    if (itensCart) {
+      for (const item of itensCart) {
+        sum += Number(item.price) * item.qtdWanted;
+      }
+    }
+    setTotalPrice(sum);
+  }, [itensCart]);
 
   return (
     <div className="container">
         {!finishOrder ? (
           <>
-          <div className="form-2-sides">
+          <div className="form-3-sides">
             <div className="form-left">
               <h2>Informações</h2>
             <form className = "checkout">
@@ -54,47 +69,80 @@ function Checkout() {
                 </form>
             </div>
 
+            <div className="form-center">
+              <form className="checkout">
+                <h2>Pagamento</h2>
+                  <input type="text" id="cname" name="cardname" placeholder="Card name"></input>
+                  <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444"></input>
+                  <select className="sel">
+                    <option value="" disabled selected hidden>Mês</option>
+                    <option value="1">Janeiro</option>
+                    <option value="2">Fevereiro</option>
+                    <option value="3">Março</option>
+                    <option value="4">Abril</option>
+                    <option value="5">Maio</option>
+                    <option value="6">Junho</option>
+                    <option value="7">Julho</option>
+                    <option value="8">Agosto</option>
+                    <option value="9">Setembro</option>
+                    <option value="10">Outubro</option>
+                    <option value="11">Novembro</option>
+                    <option value="12">Dezembro</option>
+                  </select>
+                  <input type="text" id="expyear" className="sip" name="expyear" placeholder="Ano"></input>
+                  <input type="text" id="cvv" className="sip" name="cvv" placeholder="CVV"></input>
+                  <br></br>
+                  <label>
+                    <input type="checkbox" checked="checked" name="sameadr"></input>
+                    &nbsp;Shipping address same as billing
+                  </label>
+              </form>
+            </div>
             <div className="form-right">
-            <form className="checkout">
-              <h2>Pagamento</h2>
-                <input type="text" id="cname" name="cardname" placeholder="Card name"></input>
-                <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444"></input>
-                <select className="sel">
-                  <option value="" disabled selected hidden>Mês</option>
-                  <option value="1">Janeiro</option>
-                  <option value="2">Fevereiro</option>
-                  <option value="3">Março</option>
-                  <option value="4">Abril</option>
-                  <option value="5">Maio</option>
-                  <option value="6">Junho</option>
-                  <option value="7">Julho</option>
-                  <option value="8">Agosto</option>
-                  <option value="9">Setembro</option>
-                  <option value="10">Outubro</option>
-                  <option value="11">Novembro</option>
-                  <option value="12">Dezembro</option>
-                </select>
-                <input type="text" id="expyear" className="sip" name="expyear" placeholder="Ano"></input>
-                <input type="text" id="cvv" className="sip" name="cvv" placeholder="CVV"></input>
-                <br></br>
-                <label>
-                  <input type="checkbox" checked="checked" name="sameadr"></input>
-                  &nbsp;Shipping address same as billing
-                </label>
-            </form>
+              <h2>Resumo da compra</h2>
+                {itensCart &&
+                itensCart.map((item) => {
+                return (
+                  <ItemCheckout
+                    item={item}
+                  />
+                );
+              })}
+              <span className="price">
+                <h3>TOTAL: R$ {Number(totalPrice).toFixed(2)}</h3>
+              </span>
               <div className = "text-right">
-              <button id="buyBtn" onClick={() => setFinishOrder(true)}>
-                Finalizar
-              </button>
-          </div>
+                <Link to="/cart">
+                  <button className="btn-principal">
+                    Editar
+                  </button> 
+                </Link>
+                <button className="btn-principal" onClick={() => setFinishOrder(true)}>
+                  Finalizar
+                </button>
+              </div>
             </div>
           </div>
           </>
         ) : (
           <>
-          <div className="text-center">
+          <div className="text-center minheight">
             <h2>Compra realizada com sucesso!  <br></br>
               Obrigado por comprar com a Mundo das Letras</h2>
+              <h2>Resumo da compra</h2>
+              <div className="conclusao">
+                {itensCart &&
+                itensCart.map((item) => {
+                return (
+                  <ItemCheckout
+                    item={item}
+                  />
+                );
+                })}
+                <span className="price">
+                  <h3>TOTAL: R$ {Number(totalPrice).toFixed(2)}</h3>
+                </span>
+              </div>
               <Link to="/home">
               <button id="buyBtn">
                 Voltar
