@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import AdminTable from "./Table";
-import BookAddForm from "./AddForm";
+import UserTable from "./Table";
+import UserAddForm from "./AddForm";
 
 import { getUsers } from "../../Mock/getUsers";
 
@@ -27,17 +27,51 @@ function ManageUsers() {
     setAddNewUserOpen(false);
   };
 
+  const [selected, setSelected] = useState(null);
+  const [editOpen, setEditOpen] = useState(false);
+  const selectRow = (rowData) => {
+    setEditOpen(false);
+    setSelected(rowData);
+  };
+
+  const editUser = (newData) => {
+    // perform server user edit
+
+    const userNew = users.filter((item) => {
+      return item.id !== newData.id;
+    });
+    setSelected(newData);
+    setUsers([...userNew, newData]);
+    setEditOpen(false);
+  };
+
+  const deleteUser = () => {
+    setUsers(
+      users.filter((item) => {
+        return item.id !== selected.id;
+      })
+    );
+    setSelected(null);
+  };
+
   return (
     <div className="card">
       <h2>Gerenciar usuários</h2>
 
-      <AdminTable users={users} loading={loadingUsers} />
+      <UserTable
+       selectRow={selectRow}
+       users={users}
+       loading={loadingUsers} 
+       />
 
       <div className="text-right">
         <button
           className="btn-principal"
           onClick={() => {
             setAddNewUserOpen(!addNewUserOpen);
+            if (!addNewUserOpen) {
+              setSelected(null);
+            }
           }}
         >
           {!addNewUserOpen ? "Adicionar" : "Cancelar"}
@@ -45,9 +79,32 @@ function ManageUsers() {
       </div>
 
       {addNewUserOpen && (
-        <BookAddForm
+        <UserAddForm
           submitAction={addNewUser}
           setAddNewUserOpen={setAddNewUserOpen}
+        />
+      )}
+      {/* Manage selected user user */}
+      {selected && (
+        <>
+          <h3>Usuário:</h3>
+          <h4>{selected.name}</h4>
+          <button
+            style={{ marginRight: 10 }}
+            onClick={() => {
+              setEditOpen(!editOpen);
+            }}
+          >
+            {editOpen ? "Cancelar" : "Editar"}
+          </button>
+          <button onClick={deleteUser}>Apagar</button>
+        </>
+      )}
+      {editOpen && (
+        <UserAddForm
+          submitAction={editUser}
+          setAddNewUserOpen={setEditOpen}
+          data={selected}
         />
       )}
     </div>

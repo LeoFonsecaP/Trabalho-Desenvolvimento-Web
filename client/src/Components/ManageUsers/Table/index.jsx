@@ -1,12 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
-function BookTable({ users, loading }) {
-  const [selected, setSelected] = useState(null);
-
-  const selectRow = (rowData) => {
-    setSelected(rowData);
-  };
-
+function UserTable({ selectRow, users, loading }) {
   return (
     /*  O usuario deve poder selecionar um cliente e esolher edita-lo ou exclui-lo  */
     <div className="wrapperTable">
@@ -35,10 +29,8 @@ function BookTable({ users, loading }) {
         </tbody>
       </table>
       {loading && "Carregando..."}
-
-      {selected && "Editar ou apagar: " + selected.name}
     </div>
   );
 }
 
-export default BookTable;
+export default UserTable;

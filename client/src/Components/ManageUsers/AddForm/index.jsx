@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
-function UserAddForm({ submitAction, setAddNewUserOpen }) {
+function UserAddForm({ submitAction, setAddNewUserOpen, data }) {
   const [userData, setUserData] = useState({
-    name: "",
-    address: "",
-    phone: "",
-    email: 0,
+    name: (data && data.name) || "",
+    address: (data && data.address) || "",
+    phone: (data && data.phone) || "",
+    email: (data && data.email) || "",
   });
 
   const handleInputChange = (event) => {
@@ -18,22 +18,28 @@ function UserAddForm({ submitAction, setAddNewUserOpen }) {
       [name]: value,
     });
   };
+  
 
   const submit = (event) => {
     event.preventDefault();
     // validate data is needed
-    submitAction(userData);
+    if (!data) {
+      submitAction(userData);
+    } else {
+      submitAction({ ...data, ...userData });
   };
+}
 
   return (
     <form className="folded-box">
-      <h3 className="folded-titulo">Novo usuário</h3>
+      <h3 className="folded-titulo">{data ? "Editar" : "Novo"} usuário</h3>
       <label htmlFor="nameUser">Nome</label>
       <input
         type="text"
         id="nameUser"
         name="name"
         placeholder="Nome"
+        value={userData.name}
         onChange={handleInputChange}
       />
 
@@ -43,6 +49,7 @@ function UserAddForm({ submitAction, setAddNewUserOpen }) {
         id="address"
         name="address"
         placeholder="Endereço"
+        value={userData.address}
         onChange={handleInputChange}
       />
 
@@ -52,6 +59,7 @@ function UserAddForm({ submitAction, setAddNewUserOpen }) {
         id="phoneUser"
         name="phone"
         placeholder="Telefone"
+        value={userData.phone}
         onChange={handleInputChange}
       />
 
@@ -61,6 +69,7 @@ function UserAddForm({ submitAction, setAddNewUserOpen }) {
         id="emailUser"
         name="email"
         placeholder="E-mail"
+        value={userData.email}
         onChange={handleInputChange}
       />
 
