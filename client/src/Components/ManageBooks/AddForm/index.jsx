@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
-function BookAddForm({ submitAction, setAddNewBookOpen }) {
+function BookAddForm({ submitAction, setAddNewBookOpen, data }) {
   const [bookData, setBookData] = useState({
-    title: "",
-    price: "",
-    availableQtd: "",
+    title: (data && data.title) || "",
+    price: (data && data.price) || "",
+    availableQtd: (data && data.availableQtd) || "",
     soldQtd: 0,
   });
 
@@ -23,6 +23,12 @@ function BookAddForm({ submitAction, setAddNewBookOpen }) {
     event.preventDefault();
     // validate data is needed
     submitAction(bookData);
+
+    if (!data) {
+      submitAction(bookData);
+    } else {
+      submitAction({ ...data, ...bookData });
+    }
   };
 
   return (
@@ -33,6 +39,7 @@ function BookAddForm({ submitAction, setAddNewBookOpen }) {
         type="text"
         id="titleBook"
         name="title"
+        value={bookData.title}
         placeholder="Título"
         onChange={handleInputChange}
       />
@@ -42,6 +49,7 @@ function BookAddForm({ submitAction, setAddNewBookOpen }) {
         type="text"
         id="priceBook"
         name="price"
+        value={bookData.price}
         placeholder="Preço"
         onChange={handleInputChange}
       />
@@ -51,6 +59,7 @@ function BookAddForm({ submitAction, setAddNewBookOpen }) {
         type="text"
         id="availableQtdBook"
         name="availableQtd"
+        value={bookData.availableQtd}
         placeholder="Quantidade disponível"
         onChange={handleInputChange}
       />

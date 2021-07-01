@@ -1,12 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 
-function BookTable({ books, loading }) {
-  const [selected, setSelected] = useState(null);
 
-  const selectRow = (rowData) => {
-    setSelected(rowData);
-  };
-
+function BookTable({ selectRow, books, loading }) {
   return (
     /*  O usuario deve poder selecionar um livro e esolher edita-lo ou exclui-lo  */
     <div className="wrapperTable">
@@ -35,8 +30,6 @@ function BookTable({ books, loading }) {
         </tbody>
       </table>
       {loading && "Carregando..."}
-
-      {selected && "Editar ou apagar: " + selected.title}
     </div>
   );
 }
