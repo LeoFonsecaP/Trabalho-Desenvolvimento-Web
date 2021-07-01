@@ -1,10 +1,10 @@
 function ItemCart({ item, changeQtd, deleteItem }) {
   return (
     <div className="itemCart">
-      <div className="itemName">{item.name}</div>
+      <div className="itemName">{item.title}</div>
       <div className="itemBtns">
         <div className="itemPrice" style={{ marginRight: 20 }}>
-          R$ {item.price.toFixed(2)}
+          R$ {Number(item.price).toFixed(2)}
         </div>
         <i
           className="fa fa-minus itemBtn"
