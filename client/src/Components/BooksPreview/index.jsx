@@ -132,7 +132,6 @@ const ALL_FILTERS = [
 ]
 
 function BooksFilterableList() {
-  //const [ filters, setFilters ] = useState({});
   const { filters } = useParams();
 
   function parseUrlFilters(params) {

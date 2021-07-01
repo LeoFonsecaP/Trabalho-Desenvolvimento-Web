@@ -14,38 +14,60 @@ import Cart from "./Pages/Cart";
 import Home from "./Pages/Home";
 import Book from "./Pages/Book";
 import Checkout from "./Pages/Checkout";
+import Login from "./Pages/Login";
+import SignUp from "./Pages/SignUp"
+import UserPermissionsProvider from "./Authentication/UserPermissions";
+import { Permissions } from "./Authentication/UserPermissions";
+import PrivateRoute from "./Authentication/PrivateRoute";
 
 function App() {
   return (
     <CartProvider>
-      <Router>
-        <div className="App">
-          <Header />
+      <UserPermissionsProvider>
+        <Router>
+          <div className="App">
+            <Header />
 
-          <Switch>
-            <Route path="/admin">
-              <Admin />
-            </Route>
-            <Route path="/cart">
-              <Cart />
-            </Route>
-            <Route exact path="/">
-              <Redirect to="/home/" />
-            </Route>
-            <Route path="/home/:filters?">
-              <Home />
-            </Route>
-            <Route path="/book/:book">
-              <Book />
-            </Route>
-            <Route path="/checkout">
-              <Checkout />
-            </Route>
-          </Switch>
+            <Switch>
+              <Route path="/admin">
+                <Admin />
+              </Route>
+              <Route path="/cart">
+                <Cart />
+              </Route>
+              <Route exact path="/">
+                <Redirect to="/home/" />
+              </Route>
+              <Route path="/home/:filters?">
+                <Home />
+              </Route>
+              <Route path="/book/:book">
+                <Book />
+              </Route>
+              <PrivateRoute
+                path="/checkout"
+                requiredPermissions={[Permissions.USER, Permissions.ADMIN]}
+              >
+                <Checkout />
+              </PrivateRoute>
+              <PrivateRoute
+                path="/login"
+                requiredPermissions={[Permissions.GUEST]}
+              >
+                <Login/>
+              </PrivateRoute>
+              <PrivateRoute
+                path="/signup"
+                requiredPermissions={[Permissions.GUEST]}
+              >
+                <SignUp/>
+              </PrivateRoute>
+            </Switch>
 
-          <Footer />
-        </div>
-      </Router>
+            <Footer />
+          </div>
+        </Router>
+      </UserPermissionsProvider>
     </CartProvider>
   );
 }
