@@ -9,7 +9,58 @@ function Checkout() {
   const [finishOrder, setFinishOrder] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
   const { itensCart, clearCart } = useContext(cartContext);
+  const [showError, setShowError] = useState(false);
 
+
+  const [checkoutData, setCheckoutData] = useState({
+    name: "",
+    address: "",
+    email: "",
+    city: "",
+    state: "",
+    zip: "",
+    cardname: "",
+    cardnumber: "",
+    cardmonth: "",
+    cardyear: "",
+    cvv: "",
+    shipping: "",
+
+
+  });
+
+  const handleInputChange = (event) => {
+    const target = event.target;
+    const value = target.type === "checkbox" ? target.checked : target.value;
+    const name = target.name;
+
+    setCheckoutData({
+      ...checkoutData,
+      [name]: value,
+    });
+  };
+
+  const submit = (event) => {
+    event.preventDefault();
+    // validate data
+    if (checkoutData.name &&
+        checkoutData.address &&
+        checkoutData.city &&
+        checkoutData.state &&
+        checkoutData.email &&
+        checkoutData.zip && 
+        checkoutData.cardname && 
+        checkoutData.cardnumber && 
+        checkoutData.cardmonth && 
+        checkoutData.cardyear){
+          setShowError(false);
+          setFinishOrder(true);
+          clearCart();
+        }
+      else {
+      setShowError(true);
+    }
+  };
 
 
   useEffect(() => {
@@ -30,11 +81,36 @@ function Checkout() {
             <div className="form-left">
               <h2>Informações</h2>
             <form className = "checkout">
-                  <input type="text" id="name"  placeholder="Nome Completo"></input>
-                  <input type="text" id="email" name="email" placeholder="email@exemplo.com"></input>
-                  <input type="text" id="adress" placeholder="Endereço"></input>
-                  <input type="text" id="city" className="mip" placeholder="Cidade"></input>
-                  <select className="sel">
+                  <input 
+                  type="text" 
+                  name="name"  
+                  placeholder="Nome Completo"
+                  onChange={handleInputChange}
+                  ></input>
+
+                  <input 
+                  type="text"
+                  name="email"
+                  placeholder="email@exemplo.com"
+                  onChange={handleInputChange}
+                  ></input>
+
+                  <input 
+                  type="text" 
+                  name="address" 
+                  placeholder="Endereço"
+                  onChange={handleInputChange}
+                  ></input>
+
+                  <input 
+                  type="text" 
+                  name="city" 
+                  className="mip" 
+                  placeholder="Cidade"
+                  onChange={handleInputChange}
+                  ></input>
+
+                  <select name="state" className="sel" onChange={handleInputChange}>
                     <option value="" disabled selected hidden>Estado</option>
                     <option value="AC">Acre</option>
                     <option value="AL">Alagoas</option>
@@ -65,16 +141,37 @@ function Checkout() {
                     <option value="TO">Tocantins</option>
                     <option value="EX">Estrangeiro</option>
                   </select>
-                  <input type="text" id="zip" name="zip" placeholder="CEP" className="sip"></input>
+
+                  <input 
+                  type="text" 
+                  name="zip" 
+                  placeholder="CEP" 
+                  className="sip"
+                  onChange={handleInputChange}
+                  ></input>
                 </form>
             </div>
 
             <div className="form-center">
               <form className="checkout">
                 <h2>Pagamento</h2>
-                  <input type="text" id="cname" name="cardname" placeholder="Card name"></input>
-                  <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444"></input>
-                  <select className="sel">
+                  <input 
+                  type="text" 
+                  id="cname" 
+                  name="cardname" 
+                  placeholder="Card name"
+                  onChange={handleInputChange}
+                  ></input>
+
+                  <input 
+                  type="text" 
+                  id="ccnum" 
+                  name="cardnumber" 
+                  placeholder="1111-2222-3333-4444"
+                  onChange={handleInputChange}
+                  ></input>
+
+                  <select className="sel" name="cardmonth" onChange={handleInputChange}>
                     <option value="" disabled selected hidden>Mês</option>
                     <option value="1">Janeiro</option>
                     <option value="2">Fevereiro</option>
@@ -89,11 +186,33 @@ function Checkout() {
                     <option value="11">Novembro</option>
                     <option value="12">Dezembro</option>
                   </select>
-                  <input type="text" id="expyear" className="sip" name="expyear" placeholder="Ano"></input>
-                  <input type="text" id="cvv" className="sip" name="cvv" placeholder="CVV"></input>
+
+                  <input 
+                  type="text" 
+                  id="expyear" 
+                  className="sip" 
+                  name="cardyear" 
+                  placeholder="Ano"
+                  onChange={handleInputChange}
+                  ></input>
+
+                  <input 
+                  type="text" 
+                  id="cvv" 
+                  className="sip" 
+                  name="cvv" 
+                  placeholder="CVV"
+                  onChange={handleInputChange}
+                  ></input>
+
                   <br></br>
                   <label>
-                    <input type="checkbox" checked="checked" name="sameadr"></input>
+                    <input 
+                    type="checkbox" 
+                    name="shipping"
+                    onChange={handleInputChange}
+                    ></input>
+
                     &nbsp;Shipping address same as billing
                   </label>
               </form>
@@ -117,14 +236,12 @@ function Checkout() {
                     Editar
                   </button> 
                 </Link>
-                <button className="btn-principal" onClick={() => {
-                  setFinishOrder(true);
-                  clearCart();
-                  }}>
+                <button className="btn-principal" onClick={submit}>
                   Finalizar
                 </button>
               </div>
             </div>
+              {showError && <p className="error">Preencha os campos obrigatórios</p>}
           </div>
           </>
         ) : (
