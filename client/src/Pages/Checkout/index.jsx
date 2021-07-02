@@ -4,13 +4,13 @@ import cartContext from "../../Contexts/cart";
 import ItemCheckout from "../../Components/itemCheckout";
 
 
-
-
 function Checkout() {
 
   const [finishOrder, setFinishOrder] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
-  const { itensCart} = useContext(cartContext);
+  const { itensCart, clearCart } = useContext(cartContext);
+
+
 
   useEffect(() => {
     let sum = 0;
@@ -117,7 +117,10 @@ function Checkout() {
                     Editar
                   </button> 
                 </Link>
-                <button className="btn-principal" onClick={() => setFinishOrder(true)}>
+                <button className="btn-principal" onClick={() => {
+                  setFinishOrder(true);
+                  clearCart();
+                  }}>
                   Finalizar
                 </button>
               </div>
@@ -129,20 +132,6 @@ function Checkout() {
           <div className="text-center minheight">
             <h2>Compra realizada com sucesso!  <br></br>
               Obrigado por comprar com a Mundo das Letras</h2>
-              <h2>Resumo da compra</h2>
-              <div className="conclusao">
-                {itensCart &&
-                itensCart.map((item) => {
-                return (
-                  <ItemCheckout
-                    item={item}
-                  />
-                );
-                })}
-                <span className="price">
-                  <h3>TOTAL: R$ {Number(totalPrice).toFixed(2)}</h3>
-                </span>
-              </div>
               <Link to="/home">
               <button id="buyBtn">
                 Voltar
