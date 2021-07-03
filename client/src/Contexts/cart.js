@@ -34,6 +34,12 @@ export const CartProvider = ({ children }) => {
     setNumberOfItens(itens.length);
   };
 
+  const clearCart = () => {
+    localStorage.clear();
+    setItensCard([]);
+    setNumberOfItens(0);
+  }
+
   const removeItem = (item, allOfThem = false) => {
     let found = false;
     let itens = itensCart.map((curItem) => {
@@ -64,6 +70,7 @@ export const CartProvider = ({ children }) => {
         itensCart,
         addItem,
         removeItem,
+        clearCart,
       }}
     >
       {children}

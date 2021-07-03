@@ -61,6 +61,9 @@ function App() {
               >
                 <SignUp/>
               </PrivateRoute>
+              <Route>
+                <Redirect to="/home/"/>
+              </Route>
             </Switch>
 
             <Footer />
