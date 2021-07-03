@@ -16,9 +16,8 @@ import Book from "./Pages/Book";
 import Checkout from "./Pages/Checkout";
 import Login from "./Pages/Login";
 import SignUp from "./Pages/SignUp"
-import UserPermissionsProvider from "./Authentication/UserPermissions";
-import { Permissions } from "./Authentication/UserPermissions";
-import PrivateRoute from "./Authentication/PrivateRoute";
+import UserPermissionsProvider, { Permissions } from "./Contexts/userPermissions";
+import PrivateRoute from "./Components/PrivateRoute";
 
 function App() {
   return (

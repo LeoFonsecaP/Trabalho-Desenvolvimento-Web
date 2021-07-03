@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 function Login() {
   return (
     <div className="container">
-      <div className="card flex-box">
+      <div className="card">
         <LoginForm/>
-        <Link to={"/signup"} replace={true}>
+        <Link name={"signup"} to={"/signup"} replace={true}>
           <p>Criar uma conta.</p>
         </Link>
       </div>

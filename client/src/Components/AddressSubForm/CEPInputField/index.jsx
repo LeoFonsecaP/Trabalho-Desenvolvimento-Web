@@ -33,7 +33,7 @@ function CepInputField ({
     if (isValid) {
       onIsValid(copy);
     }
-  })
+  }, [onChange, onIsValid])
   
   return (
     <div>

@@ -1,8 +1,6 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useContext } from "react";
 import { useHistory, withRouter } from 'react-router-dom';
-import {
-  useUserPermissionsChangeSignalRaiser,
-} from '../../Authentication/UserPermissions';
+import { UserPermissions } from '../../Contexts/userPermissions';
 import { loginUser } from '../../Mock/authentication'
 
 function LoginForm() {
@@ -10,30 +8,25 @@ function LoginForm() {
     email: '',
     password: ''
   })
-  const [redirect, setRedirect] = useState(false);
+  const { setUserPermissions } = useContext(UserPermissions);
   const history = useHistory();
-  const raiseSignal = useUserPermissionsChangeSignalRaiser();
   
 
   const handleInputChange = useCallback((event) => {
     event.target.setCustomValidity("");
     setLoginData({...loginData, [event.target.name]: event.target.value})
-  });
+  }, [loginData]);
 
   const submit = useCallback((event) => {
     event.preventDefault();
     loginUser(loginData)
-      .then(() => {
-        raiseSignal();
-        setRedirect(true);
+      .then((permissions) => {
+        setUserPermissions(permissions);
+        history.goBack();
       }).catch((reason) => {
         event.target[0].setCustomValidity(reason);
       });
-  });
-
-  if (redirect) {
-    history.goBack();
-  }
+  }, [history, setUserPermissions, loginData]);
 
   return (
     <form className="folded-box" onSubmit={submit}>

@@ -1,16 +1,13 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import {
-  useUserPermissionsChangeSignalRaiser,
-  Permissions
-} from "../../Authentication/UserPermissions";
-import PrivateContent from "../../Authentication/PrivateContent";
+import PrivateContent from "../PrivateContent";
 import { logoffUser } from "../../Mock/authentication";
 import cartContext from "../../Contexts/cart";
+import { UserPermissions, Permissions } from "../../Contexts/userPermissions";
 
 function Header() {
   const { numberOfItens } = useContext(cartContext);
-  const raiseSignal = useUserPermissionsChangeSignalRaiser();
+  const { setUserPermissions } = useContext(UserPermissions);
 
   return (
     <header>
@@ -33,9 +30,8 @@ function Header() {
               requiredPermissions={[Permissions.USER, Permissions.ADMIN]}
             >
               <li>
-                <button onClick={() => {
-                  logoffUser().then(raiseSignal);
-                  }}
+                <button
+                  onClick={() => logoffUser().then(setUserPermissions)}
                 >
                   Sair
                 </button>

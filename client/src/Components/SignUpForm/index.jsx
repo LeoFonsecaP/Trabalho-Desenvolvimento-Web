@@ -1,9 +1,8 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useContext } from "react";
 import { useHistory, withRouter } from "react-router-dom";
 import {
-  useUserPermissionsChangeSignalRaiser,
-  Permissions 
-} from "../../Authentication/UserPermissions";
+    UserPermissions, Permissions
+} from "../../Contexts/userPermissions";
 import AddressSubForm from "../AddressSubForm";
 import { registerUser } from "../../Mock/authentication";
 
@@ -22,7 +21,7 @@ function PasswordWithConfirmationField({
         event.target.setCustomValidity("");
     }
     setConfirmation(event.target.value);
-  })
+  }, [value])
 
   return (
     <>
@@ -48,43 +47,41 @@ function PasswordWithConfirmationField({
   )
 }
 
-function CreateAccountForm(permissionsGranted=Permissions.GUEST) {
+function CreateAccountForm() {
   const [signUpData, setSignUpData] = useState({
     name: "",
     email: "",
     password: "",
     address: {},
-    permissions: permissionsGranted
+    permissions: Permissions.USER
   });
-  const [redirect, setRedirect] = useState(false);
 
 
   const history = useHistory();
-  const raiseSignal = useUserPermissionsChangeSignalRaiser();
+  const { setUserPermissions } = useContext(UserPermissions);
 
   const handleInputChange = useCallback((event) => {
-    setSignUpData({...signUpData, [event.target.name]: event.target.value})
-  });
+    event.target.setCustomValidity("");
+    setSignUpData((signUpData) => (
+      {...signUpData, [event.target.name]: event.target.value}
+    ));
+  }, []);
 
   const setAddressData = useCallback((address) => {
-    setSignUpData({...signUpData, address});
-  })
+    setSignUpData((signUpData) => ({...signUpData, address}));
+  }, [])
 
-  function submit(event) {
+  const submit = useCallback((event) => {
     event.preventDefault();
-    console.log(signUpData);
     registerUser(signUpData)
-      .then(() => {
-        raiseSignal(); 
-        setRedirect(true);
+      .then((permissions) => {
+        setUserPermissions(permissions);
+        history.goBack();
       }).catch((reason) => {
         event.target["email"].setCustomValidity(reason);
       });
-  }
+  }, [signUpData, history, setUserPermissions]);
 
-  if (redirect) {
-    history.goBack();
-  }
 
   return (
     <form className="folded-box" onSubmit={submit}>

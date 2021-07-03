@@ -1,4 +1,4 @@
-import { Permissions } from "../Authentication/UserPermissions";
+import { Permissions } from "../Contexts/userPermissions"
 
 export function loginUser({ email, password }) {
   return new Promise((resolve, reject) => {
@@ -9,7 +9,7 @@ export function loginUser({ email, password }) {
       if (typeof user !== "undefined" && user.password === password) {
         const currentUser = {id: user.id, permissions: user.permissions};
         window.sessionStorage.setItem("currentUser", JSON.stringify(currentUser));
-        resolve();
+        resolve(currentUser.permissions);
       } else {
         reject("O Email ou a senha não é válido.");
       }
@@ -35,7 +35,7 @@ export function logoffUser() {
   return new Promise((resolve) => {
     setTimeout(() => {
       window.sessionStorage.removeItem("currentUser");
-      resolve();
+      resolve(Permissions.GUEST);
     }, 500);
   });
 }
@@ -53,7 +53,7 @@ export function registerUser(user) {
         window.localStorage.setItem("registeredUsers", JSON.stringify(users))
         const currentUser = {id: user.id, permissions: user.permissions};
         window.sessionStorage.setItem("currentUser", JSON.stringify(currentUser));
-        resolve();
+        resolve(currentUser.permissions);
       }
     }, 500);
   });

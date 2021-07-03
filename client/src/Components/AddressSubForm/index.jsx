@@ -18,34 +18,33 @@ function AddressSubForm ({ setAddress }) {
     fetch(`https://viacep.com.br/ws/${event.target.value}/json/`)
       .then((response) => response.json())
       .then((address) => {
-        if (typeof address.error === "undefined" || !address.error) {
-          setAddressValues({
+        if (typeof address.erro === "undefined" || !address.erro) {
+          setAddressValues((addressValues) => ({
             ...addressValues,
             cep: address.cep,
             county: address.localidade,
             state: address.uf,
             neighbourhood: address.bairro,
             street: address.logradouro 
-          });
+          }));
         }
       }).catch((reason) => {
         console.error(reason);
       })
-  }, [addressValues.cep]);
+  }, []);
 
   const handleInputChange = useCallback((event) => {
     const name = event.target.name;
     const value = event.target.value;
-    setAddressValues({...addressValues, [name]: value});
-  }, [addressValues])
+    setAddressValues((addressValues) => ({...addressValues, [name]: value}));
+  }, [])
 
   useEffect(() => {
     setAddress(addressValues);
-  }, [addressValues]);
+  }, [addressValues, setAddress]);
 
   return (
     <>
-      <legend>Endereço</legend>
       <CepInputField
         id="cep"
         name="cep"

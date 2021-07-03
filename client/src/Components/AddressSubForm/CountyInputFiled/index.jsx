@@ -20,33 +20,31 @@ function CountyInputField({
   const [countiesList, setCountiesList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const fetchCounties = useCallback(() => {
-    if (stateWasReceived(state)) {
-      setIsLoading(true);
-      fetch(getApiEndpoint(state))
-        .then((response) => response.json())
-        .then((counties) => counties.map(({ nome }) => nome ))
-        .then((counties) => {
-          setCountiesList(counties);
-          setIsLoading(false);
-        }).catch(() =>{
-          setTimeout(fetchCounties, 1000);
-        });
-    }
-  }, [state])
-
   useEffect(() => {
+    function fetchCounties() {
+      if (stateWasReceived(state)) {
+        setIsLoading(true);
+        fetch(getApiEndpoint(state))
+          .then((response) => response.json())
+          .then((counties) => counties.map(({ nome }) => nome ))
+          .then((counties) => {
+            setCountiesList(counties);
+            setIsLoading(false);
+          }).catch(() =>{
+            setTimeout(fetchCounties, 1000);
+        });
+      }
+    }
     fetchCounties();
-  }, [fetchCounties]);
+  }, [state]);
 
   const setErrorMessage = useCallback((event) => {
-    console.log(event.target.validity)
     if (event.target.validity.patternMismatch) {
       event.target.setCustomValidity(
         `Por favor insira um município válido para o estado fornecido.`
       );
     }
-  }, [state]);
+  }, []);
 
   return (
     <>
@@ -57,7 +55,6 @@ function CountyInputField({
         type="text"
         onChange={onChange}
         value={isLoading? "Carregando..." : value}
-        readOnly={isLoading}
         onInvalid={setErrorMessage}
         pattern={countiesList.join("|")}
         list="counties"
