@@ -6,14 +6,14 @@ export async function getUsers() {
   });
   return [
     {
-      id: 1,
       name: "Leonardo",
-      address: "Avenida Paulista",
+      address: {
+        street: "Avenida Paulista",
+      },
       phone: "12-93456-7890",
       email: "leo@leo.cm",
     },
     {
-      id: 2,
       name: "Cesar",
       address: "Rua da Sorte",
       phone: "12-12345-7890",
