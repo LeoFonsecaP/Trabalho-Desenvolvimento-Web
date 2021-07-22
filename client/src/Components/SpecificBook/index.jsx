@@ -10,17 +10,19 @@ function GetSpecificBook({ id }) {
 
   const { addItem } = useContext(cartContext);
 
-  useEffect(async () => {
-    const uri = `http://127.0.0.1:3333/api/books/${id}`;
-    setLoadingBooks(true);
-    try {
-      const response = await fetch(uri);
-      const data = await response.json();
-      setBook(data);
-      setLoadingBooks(false);
-    } catch (error) {
-      console.error(error);
-    }
+  useEffect(() => {
+    (async () => {
+      const uri = `http://127.0.0.1:3333/api/books/${id}`;
+      setLoadingBooks(true);
+      try {
+        const response = await fetch(uri);
+        const data = await response.json();
+        setBook(data);
+        setLoadingBooks(false);
+      } catch (error) {
+        console.error(error);
+      }
+    })()
   }, [id]);
 
   if (LoadingBooks) {

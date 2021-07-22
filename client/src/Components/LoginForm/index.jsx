@@ -1,7 +1,6 @@
 import { useState, useCallback, useContext } from "react";
 import { useHistory, withRouter } from 'react-router-dom';
-import { UserPermissions } from '../../Contexts/userPermissions';
-import { loginUser } from '../../Mock/authentication'
+import { UserPermissions, Permissions } from '../../Contexts/userPermissions';
 
 function LoginForm() {
   const [loginData, setLoginData] = useState({
@@ -17,15 +16,23 @@ function LoginForm() {
     setLoginData({...loginData, [event.target.name]: event.target.value})
   }, [loginData]);
 
-  const submit = useCallback((event) => {
+  const submit = useCallback(async (event) => {
     event.preventDefault();
-    loginUser(loginData)
-      .then((permissions) => {
-        setUserPermissions(permissions);
+    try {
+      const configs = {
+        method: 'POST',
+        headers: new Headers({'Content-Type': 'application/json'}),
+        body: JSON.stringify(loginData)
+      };
+      const response = await fetch('http://127.0.0.1:3333/api/users', configs);
+      const data = response.json();
+      if (data.authenticated) {
+        setUserPermissions(data.isAdmin ? Permissions.ADMIN : Permissions.USER);
         history.goBack();
-      }).catch((reason) => {
-        event.target[0].setCustomValidity(reason);
-      });
+      }
+    } catch (error) {
+      event.target[0].setCustomValidity(error);
+    }
   }, [history, setUserPermissions, loginData]);
 
   return (

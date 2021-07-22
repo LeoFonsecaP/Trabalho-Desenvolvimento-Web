@@ -1,5 +1,4 @@
-import { Link, useParams, useLocation } from 'react-router-dom';
-import { getBookPreviews } from '../../Mock/getBooks'
+import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState, useCallback } from 'react';
 
 function ActiveFilterButton({ property, filters }) {
@@ -42,7 +41,7 @@ function FilterButton({ property }) {
   let activeFilters = urlQueryStringToFiltersArray(search);
   let Component = null
   if (activeFilters.includes(property)) {
-    activeFilters = activeFilters.filter(value => value != property);
+    activeFilters = activeFilters.filter(value => value !== property);
     Component = ActiveFilterButton;
   } else {
     activeFilters.push(property);

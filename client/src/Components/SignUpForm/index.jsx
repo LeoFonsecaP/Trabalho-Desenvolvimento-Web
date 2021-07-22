@@ -1,10 +1,9 @@
 import { useState, useCallback, useContext } from "react";
 import { useHistory, withRouter } from "react-router-dom";
 import {
-    UserPermissions, Permissions
+    Permissions
 } from "../../Contexts/userPermissions";
 import AddressSubForm from "../AddressSubForm";
-import { registerUser } from "../../Mock/authentication";
 
 function PasswordWithConfirmationField({
   id, 
@@ -58,7 +57,7 @@ function CreateAccountForm() {
 
 
   const history = useHistory();
-  const { setUserPermissions } = useContext(UserPermissions);
+  const { setPermissions } = useContext(Permissions);
 
   const handleInputChange = useCallback((event) => {
     event.target.setCustomValidity("");
@@ -89,15 +88,16 @@ function CreateAccountForm() {
       .then(data => {
         if (data.authenticated) {
           if (data.isAdmin) {
-            setUserPermissions(UserPermissions.ADMIN);
+            setPermissions(Permissions.ADMIN);
           } else {
-            setUserPermissions(UserPermissions.USER);
+            setPermissions(Permissions.USER);
           }
         }
+        history.goBack();
       }).catch((reason) => {
         event.target["email"].setCustomValidity(reason);
       })
-  }, [signUpData, history, setUserPermissions]);
+  }, [signUpData, history, setPermissions]);
 
 
   return (

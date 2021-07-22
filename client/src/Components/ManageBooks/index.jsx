@@ -2,35 +2,41 @@ import React, { useEffect, useState } from "react";
 import BookTable from "./Table";
 import BookAddForm from "./AddForm";
 
-import { getBooks } from "../../Mock/getBooks";
-
 function ManageBooks() {
   const [loadingBooks, setLoadingBooks] = useState(false);
   const [books, setBooks] = useState([]);
   useEffect(() => {
     async function fetchBooks() {
-      setLoadingBooks(true);
-      const response = await getBooks();
-      setBooks(response);
-      setLoadingBooks(false);
+      try {
+        setLoadingBooks(true);
+        const response = await fetch('http://127.0.0.1:3333/api/books');
+        const data = await response.json();
+        setBooks(data);
+        setLoadingBooks(false);
+      } catch (error) {
+        console.log(error);
+      }
     }
-
     fetchBooks();
   }, []);
 
   const [addNewBookOpen, setAddNewBookOpen] = useState(false);
 
   const addNewBook = async (newBookData) => {
-    const configs = {
-      method: 'POST',
-      headers: new Headers({'Content-Type': 'application/json'}),
-      body: JSON.stringify(newBookData)
-    };
-    const response = await fetch('http://127.0.0.1:3333/api/users', configs);
-    const data = response.json();
-    const id = data.id;
-    setBooks([...books, { ...newBookData, id }]);
-    setAddNewBookOpen(false);
+    try {
+      const configs = {
+        method: 'POST',
+        headers: new Headers({'Content-Type': 'application/json'}),
+        body: JSON.stringify(newBookData)
+      };
+      const response = await fetch('http://127.0.0.1:3333/api/books', configs);
+      const data = await response.json();
+      const id = data.id;
+      setBooks([...books, { ...newBookData, id }]);
+      setAddNewBookOpen(false);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const [selected, setSelected] = useState(null);
@@ -40,24 +46,42 @@ function ManageBooks() {
     setSelected(rowData);
   };
 
-  const editBook = (newData) => {
+  const editBook = async (newData) => {
     // perform server book edit
+    try {
+      const configs = {
+        method: 'PUT',
+        headers: new Headers({'Content-Type': 'application/json'}),
+        body: JSON.stringify(newData)
+      };
+      await fetch(`http://127.0.0.1:3333/api/books/${newData.id}`, configs);
+      const booksNew = books.filter((item) => {
+        return item.id !== newData.id;
+      });
+      setSelected(newData);
+      setBooks([...booksNew, newData]);
+      setEditOpen(false);
+    } catch (error) {
+      console.error(error);
+    }
 
-    const booksNew = books.filter((item) => {
-      return item.id !== newData.id;
-    });
-    setSelected(newData);
-    setBooks([...booksNew, newData]);
-    setEditOpen(false);
   };
 
-  const deleteBook = () => {
-    setBooks(
-      books.filter((item) => {
-        return item.id !== selected.id;
-      })
-    );
-    setSelected(null);
+  const deleteBook = async () => {
+    try {
+      const configs = {
+        method: 'DELETE',
+      };
+      await fetch(`http://127.0.0.1:3333/api/books/${selected.id}`, configs);
+      setBooks(
+        books.filter((item) => {
+          return item.id !== selected.id;
+        })
+      );
+      setSelected(null);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

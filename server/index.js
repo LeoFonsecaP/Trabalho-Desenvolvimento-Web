@@ -35,15 +35,14 @@ app.use(cookieParser());
 app.get('/api/books', serveBooks);
 app.get('/api/books/:bookId', serveBookDescription);
 
-
-/* Needs to work */
+/* Needs to be tested */
 app.post('/api/books', authenticate, addBook);
 app.put('/api/books/:bookId', authenticate, updateBook);
 app.delete('/api/books/:bookId', authenticate, deleteBook);
-
 app.get('/api/auth', authenticate, serveAuthenticationStatus);
 app.post('/api/auth', verifyCredentials, generateAuthentication);
 
+/* Needs to work */
 app.post('/api/users', createNewUser, generateAuthentication);
 app.put('/api/users/:patch');
 app.delete('/api/users');
