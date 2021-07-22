@@ -8,15 +8,10 @@ const WEEK_IN_SECONDS = 604800;
  * It will pass the users id and if it is an administrator through 
  * request.locals to the next middleware.
  */
-export async function authenticate(request, response, next) {
-  if (process.env.NODE_ENV === 'DEV') {
-    console.log("DEV mode");
-    next();
-    return;
-  }
+export function authenticate(request, response, next) {
   if (!isUndefined(request.cookies.accessToken)) {
     try {
-      const token = jwt.verify(request.cookies.access_token, process.env.JWT_PRIVATE_KEY);
+      const token = jwt.verify(request.cookies.accessToken, process.env.JWT_PRIVATE_KEY);
       if (isUndefined(token)) {
         response.status(401).send();
         console.warn('Detected invalid authentication token.');
@@ -42,22 +37,24 @@ export async function authenticate(request, response, next) {
  * request.locals.
  */
 export function generateAuthentication(request, response) {
-  jwt.sign(
+  const token = jwt.sign(
     {id: request.locals.userId, isAdmin: request.locals.userIsAdmin},
     process.env.JWT_PRIVATE_KEY,
-    {expiresIn: WEEK_IN_SECONDS}
-  ).then((token) => {
-    if (process.env.NODE_ENV === 'DEV') {
-      console.debug(`generated the token ${token}`)
-    }
-    response.cookie('accessToken', token, {
-      httpOnly: true,
-    }).status(200).json({
-      authenticated: true,
-      isAdmin: tokenContent.isAdmin
-    }).send();
-  }).catch((error) => {
-    response.status(500).send();
-    console.error(`[Error] ${error}`);
-  });
+  );
+  response.cookie('accessToken', token, {
+    httpOnly: true,
+    maxAge: WEEK_IN_SECONDS 
+  }).status(200).json({
+    authenticated: true,
+    isAdmin: request.locals.userIsAdmin
+  }).send();
+  console.debug('Finished setting the authentication token.');
+  console.debug({id: request.locals.userId, isAdmin: request.locals.userIsAdmin});
+}
+
+export function serveAuthenticationStatus(request, response) {
+  response.status(200).json({
+    authenticated: true,
+    isAdmin: request.locals.senderIsAdmin
+  }).send();
 }

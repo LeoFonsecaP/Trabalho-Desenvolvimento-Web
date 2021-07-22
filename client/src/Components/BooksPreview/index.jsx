@@ -1,12 +1,12 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useLocation } from 'react-router-dom';
 import { getBookPreviews } from '../../Mock/getBooks'
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 function ActiveFilterButton({ property, filters }) {
   return (
     <Link
       name={property}
-      to={`/home/${filters}`}
+      to={filters}
       replace={true}
     >
       <button className='btn-principal'> {property} </button>
@@ -18,7 +18,7 @@ function DefaultFilterButton({ property, filters }) {
   return (
     <Link
       name={property}
-      to={`/home/${filters}`}
+      to={filters}
       replace={true}
     >
       <button> {property} </button>
@@ -26,24 +26,42 @@ function DefaultFilterButton({ property, filters }) {
   );
 }
 
+function urlQueryStringToFiltersArray(urlQueryString) {
+  return (new URLSearchParams(decodeURI(urlQueryString))).getAll('filters[]');
+}
+
+function filtersArrayToUrlQueryString(filters) {
+  return filters.reduce((previous, filter) => {
+    previous.append('filters[]', filter);
+    return previous;
+  }, new URLSearchParams()).toString();
+}
+
 function FilterButton({ property }) {
-  const { filters } = useParams();
-  const propertyRegex = new RegExp(`${property},`);
-  const filterIsEmpty = typeof filters === "undefined";
-  if (!filterIsEmpty && filters.search(propertyRegex) !== -1) {
-    const link_to = filters.replace(propertyRegex, '');
-    return <ActiveFilterButton property={property} filters={link_to}/>;
-  } 
-  const propertyFiltStr = `${property},`;
-  const link_to = filterIsEmpty ? propertyFiltStr : filters + propertyFiltStr;
-  return <DefaultFilterButton property={property} filters={link_to}/>;
+  const { search } = useLocation();
+  let activeFilters = urlQueryStringToFiltersArray(search);
+  let Component = null
+  if (activeFilters.includes(property)) {
+    activeFilters = activeFilters.filter(value => value != property);
+    Component = ActiveFilterButton;
+  } else {
+    activeFilters.push(property);
+    Component = DefaultFilterButton;
+  }
+  const newSearchParams = filtersArrayToUrlQueryString(activeFilters);
+  return (
+    <Component
+      property={property}
+      filters={encodeURI(`/books?${newSearchParams}`)}
+    />
+  );
 }
 
 function BookPreview({ title, author, img, price, id }) {
   return (
     <Link
       className={"grid-item text-center block-link"}
-      to={`/book/${id}`}
+      to={`/books/${id}`}
     >
       <div>
         <h3>{title}</h3>
@@ -64,39 +82,30 @@ function BooksList({ filters }) {
     errorOccurred: false
   });
 
-  useEffect(() => {
-    getBookPreviews(filters)
-      .then((bookPreviews) => {
-        setState({
-          books: bookPreviews,
-          isLoading: false,
-          errorOccurred: false
-        })
-      }).catch(() => {
-        setState({
-          books: [],
-          isLoading: false,
-          errorOccurred: true,
-        })
+  const fetchBooks = useCallback(async () => {
+    const queryString = filtersArrayToUrlQueryString(filters);
+    try {
+      let uri = 'http://127.0.0.1:3333/api/books';
+      if (queryString !== '') {
+        uri += `?${queryString}`;
+      }
+      const response = await fetch(uri);
+      const data = await response.json();
+      setState({
+        books: data,
+        isLoading: false,
+        errorOccurred: false
       })
+    } catch (error) {
+      setState({
+        books: [],
+        isLoading: false,
+        errorOccurred: true,
+      })
+    }
   }, [filters]);
 
-  const refetchPreview = () => {
-    getBookPreviews(filters)
-      .then((bookPreviews) => {
-        setState({
-          books: bookPreviews,
-          isLoading: false,
-          errorOccurred: false
-        })
-      }).catch(() => {
-        setState({
-          books: [],
-          isLoading: false,
-          errorOccurred: true,
-        })
-      })
-  }
+  useEffect(fetchBooks, [fetchBooks]);
 
   if (state.isLoading) {
     return <div className="text-center"> Carregando... </div>
@@ -106,7 +115,7 @@ function BooksList({ filters }) {
         <p>
           Falha no carregamento, tente novamente.
         </p>
-        <button className="btn-principal" onClick={refetchPreview}>
+        <button className="btn-principal" onClick={fetchBooks}>
           Recarregar
         </button>
       </div>
@@ -120,40 +129,8 @@ function BooksList({ filters }) {
   }
 }
 
-const ALL_FILTERS = [
-  "Mistério", 
-  "Aventura",
-  "Romance",
-  "Autoajuda",
-  "Direito",
-  "Economia",
-  "Ciências",
-  "Tecnologia"
-]
-
 function BooksFilterableList() {
-  const { filters } = useParams();
-
-  function parseUrlFilters(params) {
-    let newFilters = {}
-    if (typeof params == "undefined") {
-      for (let filter in ALL_FILTERS) {
-        newFilters[ALL_FILTERS[filter]] = true;
-      }
-    } else {
-      for (let filter in ALL_FILTERS) {
-        newFilters[ALL_FILTERS[filter]] = false;
-      }
-      const splitted = params.split(",")
-      for (let filter in splitted) {
-        if (ALL_FILTERS.includes(splitted[filter])) {
-          newFilters[splitted[filter]] = true;
-        }
-      }
-    }
-    return newFilters;
-  }
-
+  const { search } = useLocation();
   return (
     <div>
       <hr/>
@@ -168,7 +145,7 @@ function BooksFilterableList() {
         <FilterButton property="Tecnologia"/>
       </div>
       <hr/>
-      <BooksList filters={parseUrlFilters(filters)}/>
+      <BooksList filters={urlQueryStringToFiltersArray(search)}/>
     </div>
   )
 }

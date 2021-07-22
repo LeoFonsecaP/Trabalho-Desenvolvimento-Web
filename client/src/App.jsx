@@ -35,13 +35,13 @@ function App() {
                 <Cart />
               </Route>
               <Route exact path="/">
-                <Redirect to="/home/" />
+                <Redirect to="/books" />
               </Route>
-              <Route path="/home/:filters?">
-                <Home />
-              </Route>
-              <Route path="/book/:book">
+              <Route path="/books/:book">
                 <Book />
+              </Route>
+              <Route path="/books">
+                <Home />
               </Route>
               <PrivateRoute
                 path="/checkout"
@@ -62,7 +62,7 @@ function App() {
                 <SignUp/>
               </PrivateRoute>
               <Route>
-                <Redirect to="/home/"/>
+                <Redirect to="/books"/>
               </Route>
             </Switch>
 

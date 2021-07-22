@@ -1,26 +1,26 @@
-import { getBook } from "../../Mock/getBooks";
 import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 
 import cartContext from "../../Contexts/cart";
 
-function GetSpecificBook(id) {
+function GetSpecificBook({ id }) {
   const [ShowPreview, SetPreview] = useState(false);
   const [Book, setBook] = useState([]);
   const [LoadingBooks, setLoadingBooks] = useState(false);
 
   const { addItem } = useContext(cartContext);
 
-  useEffect(() => {
-    async function fetchBooks() {
-      setLoadingBooks(true);
-      const response = await getBook(id);
-      if (response !== undefined) {
-        setBook(response);
-        setLoadingBooks(false);
-      }
+  useEffect(async () => {
+    const uri = `http://127.0.0.1:3333/api/books/${id}`;
+    setLoadingBooks(true);
+    try {
+      const response = await fetch(uri);
+      const data = await response.json();
+      setBook(data);
+      setLoadingBooks(false);
+    } catch (error) {
+      console.error(error);
     }
-    fetchBooks();
   }, [id]);
 
   if (LoadingBooks) {

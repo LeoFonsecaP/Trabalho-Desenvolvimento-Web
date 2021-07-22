@@ -1,15 +1,12 @@
-import { useLocation } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import GetSpecificBook from '../../Components/SpecificBook'
 
 
 
 function Book() {
-	const idString = useLocation().pathname.substring(6); 
-	const idNum = parseInt(idString, 10)
+  const { book } = useParams();
 
-  return (
-	  GetSpecificBook(idNum)
-  );
+  return <GetSpecificBook id={book}/>;
 }
 
 export default Book;

@@ -53,7 +53,7 @@ function CreateAccountForm() {
     email: "",
     password: "",
     address: {},
-    permissions: Permissions.USER
+    isAdmin: false
   });
 
 
@@ -73,13 +73,30 @@ function CreateAccountForm() {
 
   const submit = useCallback((event) => {
     event.preventDefault();
-    registerUser(signUpData)
-      .then((permissions) => {
-        setUserPermissions(permissions);
-        history.goBack();
+    const configs = {
+      method: 'POST',
+      headers: new Headers({'Content-Type': 'application/json'}),
+      body: JSON.stringify({
+        name: signUpData.username,
+        email: signUpData.email,
+        password: signUpData.password,
+        isAdmin: signUpData.isAdmin,
+        ...signUpData.address
+      })
+    };
+    fetch('http://127.0.0.1:3333/api/users', configs)
+      .then(response => response.json())
+      .then(data => {
+        if (data.authenticated) {
+          if (data.isAdmin) {
+            setUserPermissions(UserPermissions.ADMIN);
+          } else {
+            setUserPermissions(UserPermissions.USER);
+          }
+        }
       }).catch((reason) => {
         event.target["email"].setCustomValidity(reason);
-      });
+      })
   }, [signUpData, history, setUserPermissions]);
 
 

@@ -20,9 +20,15 @@ function ManageBooks() {
 
   const [addNewBookOpen, setAddNewBookOpen] = useState(false);
 
-  const addNewBook = (newBookData) => {
-    // perform server book insert and get new row id...
-    const id = books[books.length - 1]?.id + 1;
+  const addNewBook = async (newBookData) => {
+    const configs = {
+      method: 'POST',
+      headers: new Headers({'Content-Type': 'application/json'}),
+      body: JSON.stringify(newBookData)
+    };
+    const response = await fetch('http://127.0.0.1:3333/api/users', configs);
+    const data = response.json();
+    const id = data.id;
     setBooks([...books, { ...newBookData, id }]);
     setAddNewBookOpen(false);
   };

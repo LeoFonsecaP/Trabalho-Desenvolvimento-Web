@@ -11,7 +11,17 @@ export async function serveBooks(request, response) {
       queryObj,
       {_id: 1, title: 1, author: 1, price: 1, imgPath: 1}
     ).toArray();
-    response.status(200).json(queryResults).send();
+    response.status(200).json(
+      queryResults.map(match => {
+        return {
+          id: match._id.valueOf(),
+          title: match.title,
+          author: match.author,
+          price: match.price,
+          imgPath: match.imgPath
+        }
+      })
+    );
   } catch (error) {
     response.status(500).send();
     console.error(error);
@@ -19,17 +29,15 @@ export async function serveBooks(request, response) {
 }
 
 export async function serveBookDescription(request, response) {
-  const bookId = request.params.bookId;
-  const books = useDatabase().collection('books');
   try {
+    const bookId = new ObjectId(request.params.bookId);
+    const books = useDatabase().collection('books');
     const queryResults = await books.findOne({_id: bookId});
-    console.debug(queryResults);
     if (isUndefined(queryResults)) {
-      console.debug('Entered here');
       response.status(404).send();
       return;
     }
-    response.status(200).json(queryResults).send();
+    response.status(200).json(queryResults);
   } catch (error) {
     response.status(500).send();
     console.error(error);
@@ -77,7 +85,7 @@ export async function addBook(request, response) {
       console.debug('Inserted the following book to the database');
       console.debug(request.body);
     }
-    response.status(201).send();
+    response.status(201).json({id: insertionResult.insertedId});
   } catch (error) {
     response.status(500).send();
     console.error(error);
