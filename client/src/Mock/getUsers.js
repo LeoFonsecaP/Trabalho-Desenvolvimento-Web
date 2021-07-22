@@ -7,9 +7,7 @@ export async function getUsers() {
   return [
     {
       name: "Leonardo",
-      address: {
-        street: "Avenida Paulista",
-      },
+      address: "Avenida Paulista",
       phone: "12-93456-7890",
       email: "leo@leo.cm",
     },
