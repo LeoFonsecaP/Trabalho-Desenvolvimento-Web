@@ -15,6 +15,7 @@ function OrderTable({ orders, loading }) {
             <th>Número</th>
             <th>Complemento</th>
             <th>Status</th>
+            <th>Data de compra</th>
           </tr>
         </thead>
         <tbody>
@@ -30,6 +31,7 @@ function OrderTable({ orders, loading }) {
                 <td>{order.number}</td>
                 <td>{order.complement}</td>
                 <td>{order.status}</td>
+                <td>{order.time}</td>
               </tr>
             );
           })}
