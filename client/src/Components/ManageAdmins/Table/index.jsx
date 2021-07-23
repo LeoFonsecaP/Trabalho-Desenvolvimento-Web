@@ -1,6 +1,6 @@
 import React from "react";
 
-function AdminTable({ selectRow, admins, loading }) {
+function AdminTable({ admins, loading }) {
   return (
     /*  O usuario deve poder selecionar um administrador e esolher edita-lo ou exclui-lo  */
     <div className="wrapperTable">
@@ -20,7 +20,7 @@ function AdminTable({ selectRow, admins, loading }) {
         <tbody>
           {admins.map((admin) => {
             return (
-              <tr key={admin.id} onClick={() => selectRow(admin)}>
+              <tr key={admin.id}>
                 <td>{admin.email}</td>
                 <td>{admin.county}</td>
                 <td>{admin.state}</td>

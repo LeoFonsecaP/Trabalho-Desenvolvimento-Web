@@ -43,13 +43,13 @@ app.get('/api/users', serveUsers);
 app.get('/api/admins', serveAdmins);
 app.put('/api/users/:userId', authenticate, updateUser);
 app.delete('/api/users/:userId', authenticate, deleteUser);
-
-/* Needs to be tested */
 app.post('/api/books', authenticate, addBook);
 app.put('/api/books/:bookId', authenticate, updateBook);
 app.delete('/api/books/:bookId', authenticate, deleteBook);
 app.get('/api/auth', authenticate, serveAuthenticationStatus);
 app.post('/api/auth', verifyCredentials, generateAuthentication);
+
+/* Needs to be tested */
 
 /* Needs to work */
 app.post('/api/users', createNewUser, generateAuthentication);
