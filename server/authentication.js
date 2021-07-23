@@ -9,7 +9,6 @@ const WEEK_IN_SECONDS = 604800;
  * request.locals to the next middleware.
  */
 export function authenticate(request, response, next) {
-  console.log(request)
   console.log(request.cookies);
   if (!isUndefined(request.cookies.accessToken)) {
     try {

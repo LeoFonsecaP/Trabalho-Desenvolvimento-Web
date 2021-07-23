@@ -2,30 +2,26 @@ import React, { useEffect, useState } from "react";
 import UserTable from "./Table";
 import UserAddForm from "./AddForm";
 
-import { getUsers } from "../../Mock/getUsers";
 
 function ManageUsers() {
   const [loadingUsers, setLoadingUsers] = useState(false);
   const [users, setUsers] = useState([]);
   useEffect(() => {
     async function fetchUsers() {
-      setLoadingUsers(true);
-      const response = await getUsers();
-      setUsers(response);
-      setLoadingUsers(false);
+      try {
+        setLoadingUsers(true);
+        const response = await fetch('http://127.0.0.1:3333/api/users');
+        const data = await response.json();
+        console.log(data);
+        setUsers(data);
+        setLoadingUsers(false);
+      } catch (error) {
+        console.log(error);
+      }
     }
-
     fetchUsers();
   }, []);
 
-  const [addNewUserOpen, setAddNewUserOpen] = useState(false);
-
-  const addNewUser = (newUserData) => {
-    // perform server user insert and get new row id...
-    const id = users[users.length - 1]?.id + 1;
-    setUsers([...users, { ...newUserData, id }]);
-    setAddNewUserOpen(false);
-  };
 
   const [selected, setSelected] = useState(null);
   const [editOpen, setEditOpen] = useState(false);
@@ -34,24 +30,60 @@ function ManageUsers() {
     setSelected(rowData);
   };
 
-  const editUser = (newData) => {
-    // perform server user edit
+  const editUser = async (newUserData) => {
+    // perform server book edit
+    try {
+      const configs = {
+        method: 'PUT',
+        headers: new Headers({'Content-Type': 'application/json'}),
+        credentials: 'include',
+        body: JSON.stringify({
+          email: newUserData.email,
+          county: newUserData.county,
+          state: newUserData.state,
+          cep: newUserData.cep,
+          neighbourhood: newUserData.neighbourhood,
+          street: newUserData.street,
+          number: newUserData.number,
+          complement: newUserData.complement,
+          isAdmin: newUserData.isAdmin,
+        })
+      };
+      console.log(newUserData.id);
+      console.log(`http://127.0.0.1:3333/api/users/${newUserData.id}`);
+      const response = await fetch(`http://127.0.0.1:3333/api/users/${newUserData.id}`, configs);
+        if (response.ok) {
+        const userNew = users.filter((item) => {
+          return item.id !== newUserData.id;
+        });
+        setSelected(newUserData);
+        setUsers([...userNew, newUserData]);
+        setEditOpen(false);
+      }
+    } catch (error) {
+      console.error(error);
+    }
 
-    const userNew = users.filter((item) => {
-      return item.id !== newData.id;
-    });
-    setSelected(newData);
-    setUsers([...userNew, newData]);
-    setEditOpen(false);
   };
 
-  const deleteUser = () => {
-    setUsers(
-      users.filter((item) => {
-        return item.id !== selected.id;
-      })
-    );
-    setSelected(null);
+  const deleteUser = async () => {
+    try {
+      const configs = {
+        method: 'DELETE',
+        credentials: 'include',
+      };
+      const response = await fetch(`http://127.0.0.1:3333/api/users/${selected.id}`, configs);
+      if (response.ok) {
+        setUsers(
+          users.filter((item) => {
+            return item.id !== selected.id;
+          })
+        );
+        setSelected(null);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -63,32 +95,12 @@ function ManageUsers() {
        users={users}
        loading={loadingUsers} 
        />
-
-      <div className="text-right">
-        <button
-          className="btn-principal"
-          onClick={() => {
-            setAddNewUserOpen(!addNewUserOpen);
-            if (!addNewUserOpen) {
-              setSelected(null);
-            }
-          }}
-        >
-          {!addNewUserOpen ? "Adicionar" : "Cancelar"}
-        </button>
-      </div>
-
-      {addNewUserOpen && (
-        <UserAddForm
-          submitAction={addNewUser}
-          setAddNewUserOpen={setAddNewUserOpen}
-        />
-      )}
+       
       {/* Manage selected user user */}
       {selected && (
         <>
           <h3>Usuário:</h3>
-          <h4>{selected.name}</h4>
+          <h4>{selected.email}</h4>
           <button
             style={{ marginRight: 10 }}
             onClick={() => {

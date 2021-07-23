@@ -7,22 +7,28 @@ function UserTable({ selectRow, users, loading }) {
       <table id="clientes">
         <thead>
           <tr>
-            <th>Id</th>
-            <th>Nome</th>
-            <th>Endereço</th>
-            <th>Telefone</th>
             <th>E-mail</th>
+            <th>Cidade</th>
+            <th>Estado</th>
+            <th>CEP</th>
+            <th>Bairro</th>
+            <th>Rua</th>
+            <th>Número</th>
+            <th>Complemento</th>
           </tr>
         </thead>
         <tbody>
           {users.map((user) => {
             return (
               <tr key={user.id} onClick={() => selectRow(user)}>
-                <td>{user.id}</td>
-                <td>{user.name}</td>
-                <td>{user.address}</td>
-                <td>{user.phone}</td>
                 <td>{user.email}</td>
+                <td>{user.county}</td>
+                <td>{user.state}</td>
+                <td>{user.cep}</td>
+                <td>{user.neighbourhood}</td>
+                <td>{user.street}</td>
+                <td>{user.number}</td>
+                <td>{user.complement}</td>
               </tr>
             );
           })}

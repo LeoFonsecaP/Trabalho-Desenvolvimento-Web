@@ -8,7 +8,11 @@ import {
 } from './authentication.js';
 import { 
   verifyCredentials,
-  createNewUser
+  createNewUser,
+  serveUsers,
+  deleteUser,
+  updateUser,
+  serveAdmins
 } from './users.js';
 import {
   serveBooks,
@@ -35,6 +39,10 @@ app.use(cookieParser());
 /* Is working */
 app.get('/api/books', serveBooks);
 app.get('/api/books/:bookId', serveBookDescription);
+app.get('/api/users', serveUsers);
+app.get('/api/admins', serveAdmins);
+app.put('/api/users/:userId', authenticate, updateUser);
+app.delete('/api/users/:userId', authenticate, deleteUser);
 
 /* Needs to be tested */
 app.post('/api/books', authenticate, addBook);
@@ -45,9 +53,7 @@ app.post('/api/auth', verifyCredentials, generateAuthentication);
 
 /* Needs to work */
 app.post('/api/users', createNewUser, generateAuthentication);
-app.put('/api/users/:patch');
-app.delete('/api/users');
-app.get('/api/users');
+
 
 app.post('/api/orders', authenticate, addOrder);
 app.get('/api/orders', authenticate, serveOrders);

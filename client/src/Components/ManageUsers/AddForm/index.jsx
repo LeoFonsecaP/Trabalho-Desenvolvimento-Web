@@ -2,10 +2,15 @@ import React, { useState } from "react";
 
 function UserAddForm({ submitAction, setAddNewUserOpen, data }) {
   const [userData, setUserData] = useState({
-    name: (data && data.name) || "",
-    address: (data && data.address) || "",
-    phone: (data && data.phone) || "",
+    county: (data && data.county) || "",
+    state: (data && data.state) || "",
+    cep: (data && data.cep) || "",
     email: (data && data.email) || "",
+    neighbourhood: (data && data.neighbourhood) || "",
+    street: (data && data.street) || "",
+    number: (data && data.number) || "",
+    complement: (data && data.complement) || "",
+    isAdmin: (data && data.isAdmin) || "",
   });
 
   const handleInputChange = (event) => {
@@ -33,37 +38,8 @@ function UserAddForm({ submitAction, setAddNewUserOpen, data }) {
   return (
     <form className="folded-box">
       <h3 className="folded-titulo">{data ? "Editar" : "Novo"} usuário</h3>
-      <label htmlFor="nameUser">Nome</label>
-      <input
-        type="text"
-        id="nameUser"
-        name="name"
-        placeholder="Nome"
-        value={userData.name}
-        onChange={handleInputChange}
-      />
 
-      <label htmlFor="address">Endereço</label>
-      <input
-        type="text"
-        id="address"
-        name="address"
-        placeholder="Endereço"
-        value={userData.address}
-        onChange={handleInputChange}
-      />
-
-      <label htmlFor="phoneUser">Telefone</label>
-      <input
-        type="text"
-        id="phoneUser"
-        name="phone"
-        placeholder="Telefone"
-        value={userData.phone}
-        onChange={handleInputChange}
-      />
-
-      <label htmlFor="emailUseer">E-mail</label>
+      <label htmlFor="emailUser">E-mail</label>
       <input
         type="text"
         id="emailUser"
@@ -72,6 +48,86 @@ function UserAddForm({ submitAction, setAddNewUserOpen, data }) {
         value={userData.email}
         onChange={handleInputChange}
       />
+
+      <label htmlFor="countyUser">Cidade</label>
+      <input
+        type="text"
+        id="countyUser"
+        name="county"
+        placeholder="Cidade"
+        value={userData.county}
+        onChange={handleInputChange}
+      />
+
+      <label htmlFor="stateUser">Estado</label>
+      <input
+        type="text"
+        id="stateUser"
+        name="state"
+        placeholder="Estado"
+        value={userData.state}
+        onChange={handleInputChange}
+      />
+
+      <label htmlFor="cepUser">CEP</label>
+      <input
+        type="text"
+        id="cepUser"
+        name="cep"
+        placeholder="CEP"
+        value={userData.cep}
+        onChange={handleInputChange}
+      />
+
+      <label htmlFor="neighbourhoodUser">Bairro</label>
+      <input
+        type="text"
+        id="neighbourhoodUser"
+        name="neighbourhood"
+        placeholder="Bairro"
+        value={userData.neighbourhood}
+        onChange={handleInputChange}
+      />
+
+      <label htmlFor="streetUser">Rua</label>
+      <input
+        type="text"
+        id="streetUser"
+        name="street"
+        placeholder="Rua"
+        value={userData.street}
+        onChange={handleInputChange}
+      />
+
+      <label htmlFor="numberUser">Número</label>
+      <input
+        type="text"
+        id="numberUser"
+        name="number"
+        placeholder="Número"
+        value={userData.number}
+        onChange={handleInputChange}
+      />
+
+      <label htmlFor="complementUser">Complemento</label>
+      <input
+        type="text"
+        id="complementUser"
+        name="complement"
+        placeholder="Complemento"
+        value={userData.complement}
+        onChange={handleInputChange}
+      />
+
+      <label htmlFor="complementUser">É administrador?</label>
+      <input
+        type="checkbox"
+        id="isAdminUser"
+        name="isAdmin"
+        checked={userData.isAdmin}
+        onChange={handleInputChange}
+      />
+
 
       <div className="text-right">
         <button

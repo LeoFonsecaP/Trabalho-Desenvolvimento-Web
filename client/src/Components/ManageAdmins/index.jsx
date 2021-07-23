@@ -2,21 +2,27 @@ import React, { useEffect, useState } from "react";
 import AdminTable from "./Table";
 import AdminForm from "./Form";
 
-import { getAdmins } from "../../Mock/getAdmins";
 
 function ManageAdmins() {
   const [loadingAdmins, setLoadingAdmins] = useState(false);
   const [admins, setAdmins] = useState([]);
   useEffect(() => {
     async function fetchAdmins() {
-      setLoadingAdmins(true);
-      const response = await getAdmins();
-      setAdmins(response);
-      setLoadingAdmins(false);
-    }
-
+       try {
+          setLoadingAdmins(true);
+          const response = await fetch('http://127.0.0.1:3333/api/admins');
+          const data = await response.json();
+          console.log(data);
+          setAdmins(data);
+          setLoadingAdmins(false);
+        } catch (error) {
+          console.log(error);
+        }
+      }
     fetchAdmins();
   }, []);
+  
+  
 
   const [addNewAdminOpen, setAddNewAdminOpen] = useState(false);
 

@@ -1,6 +1,88 @@
 import bcrypt from 'bcrypt';
 import { useDatabase } from './database.js';
 import { isUndefined } from './utils.js';
+import { ObjectId } from 'mongodb';
+
+export async function serveUsers(request, response) {
+  try {
+    const users = useDatabase().collection('users');
+    const queryResults = await users.find().toArray();
+    response.status(200).json(
+      queryResults.map(match => {
+        const id = match._id.valueOf();
+        delete match._id;
+        return {...match, id: id}
+      })
+    );
+  } catch (error) {
+    response.status(500).send();
+    console.error(error);
+  }
+}
+
+export async function serveAdmins(request, response) {
+  try {
+    const users = useDatabase().collection('users');
+    const queryResults = await users.find({isAdmin: true}).toArray();
+    response.status(200).json(
+      queryResults.map(match => {
+        const id = match._id.valueOf();
+        delete match._id;
+        return {...match, id: id}
+      })
+    );
+  } catch (error) {
+    response.status(500).send();
+    console.error(error);
+  }
+}
+
+export async function updateUser(request, response) {
+  try {
+    const userId = new ObjectId(request.params.userId)
+    const users = useDatabase().collection('users');
+    const updateDoc = {$set: {...request.body}};
+    const filter = {_id: userId};
+    const options = { upsert: false };
+    if (process.env.NODE_ENV !== 'DEV' && !request.senderIsAdmin) {
+      response.status(401).send();
+      console.warn('Someone without credentails tried to alter a books info.');
+      return;
+    }
+    const updateResults = await users.updateOne(filter, updateDoc, options);
+    if (isUndefined(updateResults) || updateResults.modifiedCount === 0) {
+      response.status(404).send();
+      return;
+    }
+    response.status(200).send();
+    console.log(`Updated ${updateResults.modifiedCount} users.`);
+  } catch (error) {
+    response.status(500).send();
+    console.error(error);
+  }
+}
+
+
+export async function deleteUser(request, response) {
+  try {
+    const userId = new ObjectId(request.params.userId);
+    console.log(userId)
+    const users = useDatabase().collection('users');
+    const deleteResult = await users.deleteOne({_id: userId});
+    if (isUndefined(deleteResult) || deleteResult.deletedCount === 0) {
+      response.status(404).send();
+      return;
+    }
+    if (process.env.NODE_ENV === 'DEV') {
+      console.debug(`Removed the user with id ${userId}`);
+    }
+    console.log(deleteResult);
+    response.status(200).send();
+  } catch (error) {
+    response.status(500).send();
+    console.error(error);
+  }
+}
 
 export async function createNewUser(request, response, next) {
   if (process.env.NODE_ENV === 'DEV') {
