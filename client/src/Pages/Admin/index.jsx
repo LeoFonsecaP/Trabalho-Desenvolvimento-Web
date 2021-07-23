@@ -1,6 +1,7 @@
 import React from "react";
 import ManageAdmins from "../../Components/ManageAdmins";
 import ManageBooks from "../../Components/ManageBooks";
+import ManageOrders from "../../Components/ManageOrders";
 import ManageUsers from "../../Components/ManageUsers";
 
 function Admin() {
@@ -10,6 +11,7 @@ function Admin() {
       <ManageAdmins />
       <ManageBooks />
       <ManageUsers />
+      <ManageOrders />
     </div>
   );
 }
