@@ -56,7 +56,7 @@ function FilterButton({ property }) {
   );
 }
 
-function BookPreview({ title, author, img, price, id }) {
+function BookPreview({ title, author, coverUrl, price, id }) {
   return (
     <Link
       className={"grid-item text-center block-link"}
@@ -66,7 +66,7 @@ function BookPreview({ title, author, img, price, id }) {
         <h3>{title}</h3>
         <p className="small-font">{author}</p>
         <div className="grid-item-img-wrapper">
-            <img src={img} alt={"Falha ao carregar imagem."}/>
+            <img src={coverUrl} alt={"Falha ao carregar imagem."}/>
         </div>
         <p>Preço: R${price}</p>
       </div>
@@ -106,6 +106,7 @@ function BooksList({ filters }) {
 
   useEffect(fetchBooks, [fetchBooks]);
 
+  console.log(state.books);
   if (state.isLoading) {
     return <div className="text-center"> Carregando... </div>
   } else if (state.errorOccurred) {

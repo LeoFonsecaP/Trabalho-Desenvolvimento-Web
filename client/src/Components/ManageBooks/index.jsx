@@ -11,6 +11,7 @@ function ManageBooks() {
         setLoadingBooks(true);
         const response = await fetch('http://127.0.0.1:3333/api/books');
         const data = await response.json();
+        console.log(data);
         setBooks(data);
         setLoadingBooks(false);
       } catch (error) {
@@ -27,13 +28,26 @@ function ManageBooks() {
       const configs = {
         method: 'POST',
         headers: new Headers({'Content-Type': 'application/json'}),
-        body: JSON.stringify(newBookData)
+        body: JSON.stringify({
+          title: newBookData.title,
+          author: newBookData.author,
+          coverUrl: newBookData.coverUrl,
+          previewUrl: newBookData.previewUrl,
+          price: newBookData.price,
+          genre: newBookData.genre,
+          description: newBookData.description,
+          availableQuantity: newBookData.availableQuantity,
+          soldQuantity: newBookData.soldQuantity,
+        })
       };
+      console.log(configs.body.length * 2 / 1000 / 1000);
       const response = await fetch('http://127.0.0.1:3333/api/books', configs);
-      const data = await response.json();
-      const id = data.id;
-      setBooks([...books, { ...newBookData, id }]);
-      setAddNewBookOpen(false);
+      if (response.ok) {
+        const data = await response.json();
+        const id = data.id;
+        setBooks([...books, { ...newBookData, id }]);
+        setAddNewBookOpen(false);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -52,15 +66,29 @@ function ManageBooks() {
       const configs = {
         method: 'PUT',
         headers: new Headers({'Content-Type': 'application/json'}),
-        body: JSON.stringify(newData)
+        body: JSON.stringify({
+          title: newData.title,
+          author: newData.author,
+          coverUrl: newData.coverUrl,
+          previewUrl: newData.previewUrl,
+          price: newData.price,
+          genre: newData.genre,
+          description: newData.description,
+          availableQuantity: newData.availableQuantity,
+          soldQuantity: newData.soldQuantity,
+        })
       };
-      await fetch(`http://127.0.0.1:3333/api/books/${newData.id}`, configs);
-      const booksNew = books.filter((item) => {
-        return item.id !== newData.id;
-      });
-      setSelected(newData);
-      setBooks([...booksNew, newData]);
-      setEditOpen(false);
+      console.log(newData.id);
+      console.log(`http://127.0.0.1:3333/api/books/${newData.id}`);
+      const response = await fetch(`http://127.0.0.1:3333/api/books/${newData.id}`, configs);
+        if (response.ok) {
+        const booksNew = books.filter((item) => {
+          return item.id !== newData.id;
+        });
+        setSelected(newData);
+        setBooks([...booksNew, newData]);
+        setEditOpen(false);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -72,13 +100,15 @@ function ManageBooks() {
       const configs = {
         method: 'DELETE',
       };
-      await fetch(`http://127.0.0.1:3333/api/books/${selected.id}`, configs);
-      setBooks(
-        books.filter((item) => {
-          return item.id !== selected.id;
-        })
-      );
-      setSelected(null);
+      const response = await fetch(`http://127.0.0.1:3333/api/books/${selected.id}`, configs);
+      if (response.ok) {
+        setBooks(
+          books.filter((item) => {
+            return item.id !== selected.id;
+          })
+        );
+        setSelected(null);
+      }
     } catch (error) {
       console.error(error);
     }

@@ -9,6 +9,10 @@ const WEEK_IN_SECONDS = 604800;
  * request.locals to the next middleware.
  */
 export function authenticate(request, response, next) {
+  if (process.env.NODE_ENV === 'DEV') {
+    next();
+    return;
+  }
   if (!isUndefined(request.cookies.accessToken)) {
     try {
       const token = jwt.verify(request.cookies.accessToken, process.env.JWT_PRIVATE_KEY);

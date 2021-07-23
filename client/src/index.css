@@ -214,9 +214,19 @@ th {
   margin-bottom: 15px;
 }
 
+form img {
+  display: block;
+  height: 500px;
+  width: 300px;
+  object-fit: contain;
+  margin: 5px auto;
+}
+
 input[type="text"],
 input[type="email"],
 select,
+textarea
+input[type="file"],
 input[type="password"] {
   width: 100%;
   padding: 12px 20px;

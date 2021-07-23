@@ -3,15 +3,36 @@ import React, { useState } from "react";
 function BookAddForm({ submitAction, setAddNewBookOpen, data }) {
   const [bookData, setBookData] = useState({
     title: (data && data.title) || "",
+    author: (data && data.author) || "",
+    coverUrl: (data && data.coverUrl) || "",
+    coverPath: (data && data.coverPath) || "",
+    previewUrl: (data && data.previewUrl) || "",
+    previewPath: (data && data.previewPath) || "",
+    description: (data && data.description) || "",
+    genre: (data && data.genre) || "",
     price: (data && data.price) || "",
-    availableQtd: (data && data.availableQtd) || "",
-    soldQtd: 0,
+    availableQuantity: (data && data.availableQuantity) || "",
+    soldQuantity: 0,
   });
 
   const handleInputChange = (event) => {
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
+    let imgResource = '';
+    if (name === 'coverPath' || name === 'previewPath') {
+      imgResource = name.replace('Path', 'Url');
+      console.log(imgResource);
+      const reader = new FileReader();
+      reader.readAsDataURL(target.files[0])
+      reader.onload = () => {
+        console.log(reader.result);
+        setBookData({
+          ...bookData,
+          [imgResource]: reader.result,
+        });
+      };
+    }
 
     setBookData({
       ...bookData,
@@ -22,8 +43,6 @@ function BookAddForm({ submitAction, setAddNewBookOpen, data }) {
   const submit = (event) => {
     event.preventDefault();
     // validate data is needed
-    submitAction(bookData);
-
     if (!data) {
       submitAction(bookData);
     } else {
@@ -43,6 +62,71 @@ function BookAddForm({ submitAction, setAddNewBookOpen, data }) {
         placeholder="Título"
         onChange={handleInputChange}
       />
+      
+      <label htmlFor="authorBook">Autor</label>
+      <input
+        type="text"
+        id="authorBook"
+        name="author"
+        value={bookData.author}
+        placeholder="Autor"
+        onChange={handleInputChange}
+      />
+
+      <div>
+        <label htmlFor="coverPathBook">Capa</label>
+        {bookData.coverUrl !== "" && (
+          <img src={bookData.coverUrl}/>
+        )}  
+        <input
+          type="file"
+          id="coverPathBook"
+          name="coverPath"
+          value={bookData.coverPath}
+          placeholder="coverPath"
+          onChange={handleInputChange}
+        />
+      </div>
+      <div> 
+        <label htmlFor="previewPathBook">Preview</label>
+        {bookData.previewUrl !== "" && (
+          <img src={bookData.previewUrl}/>
+        )}  
+        <input
+          type="file"
+          id="previewPathBook"
+          name="previewPath"
+          value={bookData.previewPath}
+          placeholder="previewPath"
+          onChange={handleInputChange}
+        />
+      </div>
+      
+      <label htmlFor="genreBook">Genre</label>
+      <select
+        id="genreBook"
+        name="genre"
+        value={bookData.genre}
+        onChange={handleInputChange}
+      >
+        <option value="" defaultValue disabled>Categoria</option>
+        <option value="Mistério">Mistério</option>
+        <option value="Aventura">Aventura</option>
+        <option value="Romance">Romance</option>
+        <option value="Autoajuda">Autoajuda</option>
+        <option value="Direito">Direito</option>
+        <option value="Economia">Economia</option>
+        <option value="Ciências">Ciências</option>
+        <option value="Tecnologia">Tecnologia</option>
+      </select>
+      
+      <label htmlFor="descriptionBook">Descrição</label>
+      <textarea
+        id="descriptionBook"
+        name="description"
+        value={bookData.description}
+        onChange={handleInputChange}
+      />
 
       <label htmlFor="priceBook">Preço</label>
       <input
@@ -58,8 +142,8 @@ function BookAddForm({ submitAction, setAddNewBookOpen, data }) {
       <input
         type="text"
         id="availableQtdBook"
-        name="availableQtd"
-        value={bookData.availableQtd}
+        name="availableQuantity"
+        value={bookData.availableQuantity}
         placeholder="Quantidade disponível"
         onChange={handleInputChange}
       />

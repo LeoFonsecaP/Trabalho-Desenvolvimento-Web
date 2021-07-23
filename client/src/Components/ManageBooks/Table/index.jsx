@@ -8,9 +8,10 @@ function BookTable({ selectRow, books, loading }) {
       <table id="livros">
         <thead>
           <tr>
-            <th>Id</th>
             <th>Titulo</th>
+            <th>Autor</th>
             <th>Preço</th>
+            <th>Categoria</th>
             <th>Quantidade em estoque</th>
             <th>Quantidade vendida</th>
           </tr>
@@ -19,11 +20,12 @@ function BookTable({ selectRow, books, loading }) {
           {books.map((book) => {
             return (
               <tr key={book.id} onClick={() => selectRow(book)}>
-                <td>{book.id}</td>
                 <td>{book.title}</td>
+                <td>{book.author}</td>
                 <td>R$ {book.price}</td>
-                <td>{book.availableQtd}</td>
-                <td>{book.soldQtd}</td>
+                <td>{book.genre}</td>
+                <td>{book.availableQuantity}</td>
+                <td>{book.soldQuantity}</td>
               </tr>
             );
           })}

@@ -40,7 +40,7 @@ function GetSpecificBook({ id }) {
         <div className="card minheight">
           <div className="flex-box flex-box-wrap">
             <img
-              src={Book.img}
+              src={Book.coverUrl}
               alt={"Falha ao carregar imagem."}
               className="img-livro"
             />
@@ -51,8 +51,8 @@ function GetSpecificBook({ id }) {
               <p>{Book.description}</p>
             </div>
             <div className="pagamento">
-              <h2>Vendidos: {Book.soldQtd}</h2>
-              <h2>Em estoque: {Book.availableQtd}</h2>
+              <h2>Vendidos: {Book.soldQuantity}</h2>
+              <h2>Em estoque: {Book.availableQuantity}</h2>
               <h1>R$ {Book.price}</h1>
               <button
                 className="btn-principal"
@@ -76,7 +76,7 @@ function GetSpecificBook({ id }) {
           {ShowPreview && (
             <div className="folded-box text-center preview">
               <img
-                src={Book.preview}
+                src={Book.previewUrl}
                 alt={"Falha ao carregar imagem."}
                 className="preview"
               />
