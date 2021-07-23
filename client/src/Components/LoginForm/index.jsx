@@ -22,10 +22,12 @@ function LoginForm() {
       const configs = {
         method: 'POST',
         headers: new Headers({'Content-Type': 'application/json'}),
+        credentials: 'include',
         body: JSON.stringify(loginData)
       };
-      const response = await fetch('http://127.0.0.1:3333/api/users', configs);
-      const data = response.json();
+      const response = await fetch('http://127.0.0.1:3333/api/auth', configs);
+      const data = await response.json();
+      console.log(data);
       if (data.authenticated) {
         setUserPermissions(data.isAdmin ? Permissions.ADMIN : Permissions.USER);
         history.goBack();

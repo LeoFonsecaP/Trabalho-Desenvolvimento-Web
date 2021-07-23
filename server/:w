@@ -19,11 +19,8 @@ export function authenticate(request, response, next) {
         console.warn('Detected invalid authentication token.');
         return;
       } else {
-        request.locals = {
-          ...request.locals,
-          senderId: token.id,
-          senderIsAdmin: token.isAdmin
-        }
+        request.locals.senderId = token.id;
+        request.locals.senderIsAdmin = token.isAdmin;
         next();
       }
     } catch (error) {

@@ -1,6 +1,7 @@
 import { useState, useCallback, useContext } from "react";
 import { useHistory, withRouter } from "react-router-dom";
 import {
+    UserPermissions,
     Permissions
 } from "../../Contexts/userPermissions";
 import AddressSubForm from "../AddressSubForm";
@@ -57,7 +58,7 @@ function CreateAccountForm() {
 
 
   const history = useHistory();
-  const { setPermissions } = useContext(Permissions);
+  const { setUserPermissions } = useContext(UserPermissions);
 
   const handleInputChange = useCallback((event) => {
     event.target.setCustomValidity("");
@@ -75,6 +76,7 @@ function CreateAccountForm() {
     const configs = {
       method: 'POST',
       headers: new Headers({'Content-Type': 'application/json'}),
+      credentials: 'include',
       body: JSON.stringify({
         name: signUpData.username,
         email: signUpData.email,
@@ -88,16 +90,16 @@ function CreateAccountForm() {
       .then(data => {
         if (data.authenticated) {
           if (data.isAdmin) {
-            setPermissions(Permissions.ADMIN);
+            setUserPermissions(Permissions.ADMIN);
           } else {
-            setPermissions(Permissions.USER);
+            setUserPermissions(Permissions.USER);
           }
         }
         history.goBack();
       }).catch((reason) => {
         event.target["email"].setCustomValidity(reason);
       })
-  }, [signUpData, history, setPermissions]);
+  }, [signUpData, history, setUserPermissions]);
 
 
   return (

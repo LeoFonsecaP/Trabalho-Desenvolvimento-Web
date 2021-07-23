@@ -28,6 +28,7 @@ function ManageBooks() {
       const configs = {
         method: 'POST',
         headers: new Headers({'Content-Type': 'application/json'}),
+        credentials: 'include',
         body: JSON.stringify({
           title: newBookData.title,
           author: newBookData.author,
@@ -66,6 +67,7 @@ function ManageBooks() {
       const configs = {
         method: 'PUT',
         headers: new Headers({'Content-Type': 'application/json'}),
+        credentials: 'include',
         body: JSON.stringify({
           title: newData.title,
           author: newData.author,
@@ -99,6 +101,7 @@ function ManageBooks() {
     try {
       const configs = {
         method: 'DELETE',
+        credentials: 'include',
       };
       const response = await fetch(`http://127.0.0.1:3333/api/books/${selected.id}`, configs);
       if (response.ok) {
