@@ -1,11 +1,18 @@
 import { useDatabase } from './database.js';
 import { isUndefined } from './utils.js';
+import { ObjectId } from 'mongodb';
 
 export async function addOrder(request, response) {
   const orders = useDatabase().collection('orders');
+  const users = useDatabase().collection('users');
   try {
-      console.log(request.body);
-    const insertionResult = await orders.insertOne(request.body);
+    const time = new Date();
+    const email = users.findOne(
+      {_id: new ObjectId(request.locals.senderId)},
+      {_id: 0, email: 1}
+    );
+    console.log({...request.body, ...email, time: time});
+      const insertionResult = await orders.insertOne({...request.body, ...email, time: time});
     if (isUndefined(insertionResult)) {
       response.status(409).send();
       return;

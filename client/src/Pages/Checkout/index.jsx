@@ -14,9 +14,7 @@ function Checkout() {
 
 
   const [checkoutData, setCheckoutData] = useState({
-    name: "",
     address: {},
-    email: "",
     cardname: "",
     cardnumber: "",
     cardmonth: "",
@@ -26,13 +24,17 @@ function Checkout() {
   });
   
   const setAddressData = useCallback((address) => {
-    setCheckoutData((signUpData) => ({...signUpData, address}));
+    console.log('And here');
+    setCheckoutData((checkoutData) => ({...checkoutData, address}));
   }, [])
 
   const handleInputChange = (event) => {
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
+    console.log(name);
+    console.log(value);
+    console.log(checkoutData);
 
     setCheckoutData({
       ...checkoutData,
@@ -41,17 +43,14 @@ function Checkout() {
   };
   
   const submit = useCallback((event) => {
+    console.log(checkoutData);
     event.preventDefault();
-    if (checkoutData.name &&
-        checkoutData.address &&
-        checkoutData.city &&
-        checkoutData.state &&
-        checkoutData.email &&
-        checkoutData.zip && 
+    if (checkoutData.address &&
         checkoutData.cardname && 
         checkoutData.cardnumber && 
         checkoutData.cardmonth && 
-        checkoutData.cardyear){
+        checkoutData.cardyear &&
+        checkoutData.cvv){
           const configs = {
             method: 'POST',
             headers: new Headers({'Content-Type': 'application/json'}),
@@ -63,7 +62,8 @@ function Checkout() {
               cardyear: checkoutData.cardyear,
               cvv: checkoutData.cvv,
               shipping: checkoutData.shipping,
-              ...checkoutData.address
+              itens: itensCart.map(item => item._id),
+              ...checkoutData.address,
             })
           };
           fetch('http://127.0.0.1:3333/api/orders', configs);
@@ -73,7 +73,7 @@ function Checkout() {
     } else {
       setShowError(true);
     }
-  }, [signUpData, history, setUserPermissions]);
+  }, []);
 
   useEffect(() => {
     let sum = 0;
@@ -92,23 +92,9 @@ function Checkout() {
           <div className="form-3-sides">
             <div className="form-left">
               <h2>Informações</h2>
-            <form className = "folded-box">
-                  <input 
-                  type="text" 
-                  name="name"  
-                  placeholder="Nome Completo"
-                  onChange={handleInputChange}
-                  ></input>
-
-                  <input 
-                  type="text"
-                  name="email"
-                  placeholder="email@exemplo.com"
-                  onChange={handleInputChange}
-                  ></input>
-
-                  <AddressSubForm
-                    setAddress={setAddressData}
+            <form className = "folded-box" onSubmit={submit}>
+                <AddressSubForm
+                  setAddress={setAddressData}
                   />
                 <h2>Pagamento</h2>
                   <input 
@@ -171,6 +157,11 @@ function Checkout() {
 
                     &nbsp;Shipping address same as billing
                   </label>
+                  <input
+                    type="submit"
+                    value="Finalizar"
+                    className="btn-principal"
+                  />
               </form>
             </div>
             <div className="form-right">

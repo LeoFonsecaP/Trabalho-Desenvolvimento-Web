@@ -56,7 +56,7 @@ app.post('/api/users', createNewUser, generateAuthentication);
 
 
 app.post('/api/orders', authenticate, addOrder);
-app.get('/api/orders', authenticate, serveOrders);
+app.get('/api/orders', serveOrders);
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
