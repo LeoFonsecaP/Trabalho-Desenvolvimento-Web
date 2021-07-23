@@ -1,7 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import cartContext from "../../Contexts/cart";
 import ItemCheckout from "../../Components/itemCheckout";
+import AddressSubForm from "../../Components/AddressSubForm";
 
 
 function Checkout() {
@@ -14,20 +15,19 @@ function Checkout() {
 
   const [checkoutData, setCheckoutData] = useState({
     name: "",
-    address: "",
+    address: {},
     email: "",
-    city: "",
-    state: "",
-    zip: "",
     cardname: "",
     cardnumber: "",
     cardmonth: "",
     cardyear: "",
     cvv: "",
     shipping: "",
-
-
   });
+  
+  const setAddressData = useCallback((address) => {
+    setCheckoutData((signUpData) => ({...signUpData, address}));
+  }, [])
 
   const handleInputChange = (event) => {
     const target = event.target;
@@ -39,10 +39,9 @@ function Checkout() {
       [name]: value,
     });
   };
-
-  const submit = (event) => {
+  
+  const submit = useCallback((event) => {
     event.preventDefault();
-    // validate data
     if (checkoutData.name &&
         checkoutData.address &&
         checkoutData.city &&
@@ -53,15 +52,28 @@ function Checkout() {
         checkoutData.cardnumber && 
         checkoutData.cardmonth && 
         checkoutData.cardyear){
+          const configs = {
+            method: 'POST',
+            headers: new Headers({'Content-Type': 'application/json'}),
+            credentials: 'include',
+            body: JSON.stringify({
+              cardname: checkoutData.cardname,
+              cardnumber: checkoutData.cardnumber,
+              cardmonth: checkoutData.cardmonth,
+              cardyear: checkoutData.cardyear,
+              cvv: checkoutData.cvv,
+              shipping: checkoutData.shipping,
+              ...checkoutData.address
+            })
+          };
+          fetch('http://127.0.0.1:3333/api/orders', configs);
           setShowError(false);
           setFinishOrder(true);
           clearCart();
-        }
-      else {
+    } else {
       setShowError(true);
     }
-  };
-
+  }, [signUpData, history, setUserPermissions]);
 
   useEffect(() => {
     let sum = 0;
@@ -80,7 +92,7 @@ function Checkout() {
           <div className="form-3-sides">
             <div className="form-left">
               <h2>Informações</h2>
-            <form className = "checkout">
+            <form className = "folded-box">
                   <input 
                   type="text" 
                   name="name"  
@@ -95,65 +107,9 @@ function Checkout() {
                   onChange={handleInputChange}
                   ></input>
 
-                  <input 
-                  type="text" 
-                  name="address" 
-                  placeholder="Endereço"
-                  onChange={handleInputChange}
-                  ></input>
-
-                  <input 
-                  type="text" 
-                  name="city" 
-                  className="mip" 
-                  placeholder="Cidade"
-                  onChange={handleInputChange}
-                  ></input>
-
-                  <select name="state" className="sel" onChange={handleInputChange}>
-                    <option value="" disabled selected hidden>Estado</option>
-                    <option value="AC">Acre</option>
-                    <option value="AL">Alagoas</option>
-                    <option value="AP">Amapá</option>
-                    <option value="AM">Amazonas</option>
-                    <option value="BA">Bahia</option>
-                    <option value="CE">Ceará</option>
-                    <option value="DF">Distrito Federal</option>
-                    <option value="ES">Espírito Santo</option>
-                    <option value="GO">Goiás</option>
-                    <option value="MA">Maranhão</option>
-                    <option value="MT">Mato Grosso</option>
-                    <option value="MS">Mato Grosso do Sul</option>
-                    <option value="MG">Minas Gerais</option>
-                    <option value="PA">Pará</option>
-                    <option value="PB">Paraíba</option>
-                    <option value="PR">Paraná</option>
-                    <option value="PE">Pernambuco</option>
-                    <option value="PI">Piauí</option>
-                    <option value="RJ">Rio de Janeiro</option>
-                    <option value="RN">Rio Grande do Norte</option>
-                    <option value="RS">Rio Grande do Sul</option>
-                    <option value="RO">Rondônia</option>
-                    <option value="RR">Roraima</option>
-                    <option value="SC">Santa Catarina</option>
-                    <option value="SP">São Paulo</option>
-                    <option value="SE">Sergipe</option>
-                    <option value="TO">Tocantins</option>
-                    <option value="EX">Estrangeiro</option>
-                  </select>
-
-                  <input 
-                  type="text" 
-                  name="zip" 
-                  placeholder="CEP" 
-                  className="sip"
-                  onChange={handleInputChange}
-                  ></input>
-                </form>
-            </div>
-
-            <div className="form-center">
-              <form className="checkout">
+                  <AddressSubForm
+                    setAddress={setAddressData}
+                  />
                 <h2>Pagamento</h2>
                   <input 
                   type="text" 
