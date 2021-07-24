@@ -31,7 +31,7 @@ function OrderTable({ orders, loading }) {
                 <td>{order.number}</td>
                 <td>{order.complement}</td>
                 <td>{order.status}</td>
-                <td>{order.time}</td>
+                <td>{order.orderTime}</td>
               </tr>
             );
           })}

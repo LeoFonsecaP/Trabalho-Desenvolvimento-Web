@@ -24,7 +24,6 @@ function Checkout() {
   });
   
   const setAddressData = useCallback((address) => {
-    console.log('And here');
     setCheckoutData((checkoutData) => ({...checkoutData, address}));
   }, [])
 
@@ -32,9 +31,6 @@ function Checkout() {
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
-    console.log(name);
-    console.log(value);
-    console.log(checkoutData);
 
     setCheckoutData({
       ...checkoutData,
@@ -42,8 +38,7 @@ function Checkout() {
     });
   };
   
-  const submit = useCallback((event) => {
-    console.log(checkoutData);
+  const submit = (event) => {
     event.preventDefault();
     if (checkoutData.address &&
         checkoutData.cardname && 
@@ -51,6 +46,8 @@ function Checkout() {
         checkoutData.cardmonth && 
         checkoutData.cardyear &&
         checkoutData.cvv){
+          const time = new Date();
+          const order_time = time.getDate() + "/" + time.getMonth() + "/" + time.getFullYear();
           const configs = {
             method: 'POST',
             headers: new Headers({'Content-Type': 'application/json'}),
@@ -62,6 +59,8 @@ function Checkout() {
               cardyear: checkoutData.cardyear,
               cvv: checkoutData.cvv,
               shipping: checkoutData.shipping,
+              status: "Confirmada",
+              orderTime: order_time,
               itens: itensCart.map(item => item._id),
               ...checkoutData.address,
             })
@@ -73,7 +72,7 @@ function Checkout() {
     } else {
       setShowError(true);
     }
-  }, []);
+  };
 
   useEffect(() => {
     let sum = 0;
@@ -92,7 +91,7 @@ function Checkout() {
           <div className="form-3-sides">
             <div className="form-left">
               <h2>Informações</h2>
-            <form className = "folded-box" onSubmit={submit}>
+            <form className = "folded-box">
                 <AddressSubForm
                   setAddress={setAddressData}
                   />
@@ -157,11 +156,6 @@ function Checkout() {
 
                     &nbsp;Shipping address same as billing
                   </label>
-                  <input
-                    type="submit"
-                    value="Finalizar"
-                    className="btn-principal"
-                  />
               </form>
             </div>
             <div className="form-right">
