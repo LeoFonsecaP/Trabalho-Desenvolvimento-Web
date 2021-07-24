@@ -20,7 +20,7 @@ function Cart() {
 
   const changeQtd = (curItem, action) => {
     if (action === "add") {
-      if (curItem.qtdWanted < curItem.availableQtd) {
+      if (curItem.qtdWanted < curItem.availableQuantity) {
         addItem(curItem);
       } else {
         alert("Quantidade em estoque atingida!");
