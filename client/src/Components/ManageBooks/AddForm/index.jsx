@@ -19,12 +19,12 @@ function BookAddForm({ submitAction, setAddNewBookOpen, data }) {
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
-    let imgResource = '';
-    if (name === 'coverPath' || name === 'previewPath') {
-      imgResource = name.replace('Path', 'Url');
+    let imgResource = "";
+    if (name === "coverPath" || name === "previewPath") {
+      imgResource = name.replace("Path", "Url");
       console.log(imgResource);
       const reader = new FileReader();
-      reader.readAsDataURL(target.files[0])
+      reader.readAsDataURL(target.files[0]);
       reader.onload = () => {
         console.log(reader.result);
         setBookData({
@@ -62,7 +62,7 @@ function BookAddForm({ submitAction, setAddNewBookOpen, data }) {
         placeholder="Título"
         onChange={handleInputChange}
       />
-      
+
       <label htmlFor="authorBook">Autor</label>
       <input
         type="text"
@@ -73,12 +73,11 @@ function BookAddForm({ submitAction, setAddNewBookOpen, data }) {
         onChange={handleInputChange}
       />
 
-      <div>
+      <div className="row">
         <label htmlFor="coverPathBook">Capa</label>
         {bookData.coverUrl !== "" && (
-           // eslint-disable-next-line
-          <img src={bookData.coverUrl}/>
-        )}  
+          <img src={bookData.coverUrl} alt="Book cover" />
+        )}
         <input
           type="file"
           id="coverPathBook"
@@ -88,12 +87,14 @@ function BookAddForm({ submitAction, setAddNewBookOpen, data }) {
           onChange={handleInputChange}
         />
       </div>
-      <div> 
-        <label htmlFor="previewPathBook">Preview</label>
+      <div className="row">
+        <label htmlFor="previewPathBook" className="label">
+          Preview
+        </label>
         {bookData.previewUrl !== "" && (
-           // eslint-disable-next-line
-          <img src={bookData.previewUrl}/>
-        )}  
+
+          <img src={bookData.previewUrl} alt="Book preview" />
+        )}
         <input
           type="file"
           id="previewPathBook"
@@ -103,15 +104,19 @@ function BookAddForm({ submitAction, setAddNewBookOpen, data }) {
           onChange={handleInputChange}
         />
       </div>
-      
-      <label htmlFor="genreBook">Genre</label>
+
+      <label htmlFor="genreBook" className="label">
+        Genre
+      </label>
       <select
         id="genreBook"
         name="genre"
         value={bookData.genre}
         onChange={handleInputChange}
       >
-        <option value="" defaultValue disabled>Categoria</option>
+        <option value="" defaultValue disabled>
+          Categoria
+        </option>
         <option value="Mistério">Mistério</option>
         <option value="Aventura">Aventura</option>
         <option value="Romance">Romance</option>
@@ -121,14 +126,16 @@ function BookAddForm({ submitAction, setAddNewBookOpen, data }) {
         <option value="Ciências">Ciências</option>
         <option value="Tecnologia">Tecnologia</option>
       </select>
-      
-      <label htmlFor="descriptionBook">Descrição</label>
-      <textarea
-        id="descriptionBook"
-        name="description"
-        value={bookData.description}
-        onChange={handleInputChange}
-      />
+
+      <div className="row">
+        <label htmlFor="descriptionBook">Descrição</label>
+        <textarea
+          id="descriptionBook"
+          name="description"
+          value={bookData.description}
+          onChange={handleInputChange}
+        />
+      </div>
 
       <label htmlFor="priceBook">Preço</label>
       <input

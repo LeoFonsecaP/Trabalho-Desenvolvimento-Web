@@ -99,7 +99,7 @@ body {
   box-sizing: border-box;
 }
 
-.minheight{
+.minheight {
   min-height: 75vh;
 }
 
@@ -159,6 +159,14 @@ input[type="submit"]:hover {
 /* Tabela */
 .wrapperTable {
   overflow-x: auto;
+  margin-bottom: 15px;
+}
+
+.row {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 table {
@@ -216,8 +224,8 @@ th {
 
 form img {
   display: block;
-  height: 500px;
-  width: 300px;
+  max-height: 500px;
+  max-width: 300px;
   object-fit: contain;
   margin: 5px auto;
 }
@@ -225,8 +233,8 @@ form img {
 input[type="text"],
 input[type="email"],
 select,
-textarea
-input[type="file"],
+textarea input[type="file"],
+textarea,
 input[type="password"] {
   width: 100%;
   padding: 12px 20px;
@@ -245,63 +253,63 @@ input[type="password"].error {
 
 /* Formulario de compra */
 
-.checkout .sip{
+.checkout .sip {
   width: 30%;
   margin-left: 2px;
   margin-right: 2px;
   min-width: 100px;
 }
 
-.checkout .mip{
+.checkout .mip {
   width: 35%;
   margin-left: 2px;
   margin-right: 2px;
-  min-width:120px;
+  min-width: 120px;
 }
 
-.checkout input{
+.checkout input {
   border-radius: 8px;
 }
 
-.checkout select{
+.checkout select {
   border-radius: 8px;
 }
 
-.form-3-sides{
+.form-3-sides {
   display: flex;
   flex-wrap: wrap;
   padding: 0 5px;
   min-height: 75vh;
 }
 
-.form-left{
+.form-left {
   width: 30%;
   float: left;
   margin-right: 3%;
-  margin-left: 1%;  
+  margin-left: 1%;
 }
 
-.form-center{
+.form-center {
   margin-left: 3%;
   margin-right: 3%;
   float: middle;
   width: 30%;
 }
 
-.form-right{
+.form-right {
   margin-left: 3%;
   float: right;
   width: 26%;
 }
 
-.sel{
+.sel {
   background-color: white;
   padding: 10px;
   max-width: 100px;
   border: 1px solid darkgrey;
 }
 
-.price h3{
+.price h3 {
   font-size: 1.2em;
   margin: 6px 0;
 }
@@ -341,7 +349,7 @@ nav li a {
   padding: 15px;
   transition: opacity 0.6s;
 }
-.fa-shopping-cart{
+.fa-shopping-cart {
   font-size: 35px;
   margin-top: 8px;
 }
@@ -375,11 +383,10 @@ nav li link:hover {
   align-items: center;
 }
 
-.conclusao{
+.conclusao {
   width: 30%;
-  margin:auto;
+  margin: auto;
 }
-
 
 /* Fim cabeçalho */
 
