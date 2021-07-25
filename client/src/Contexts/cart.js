@@ -18,7 +18,7 @@ export const CartProvider = ({ children }) => {
 
     let found = false;
     itens = itens.map((curItem) => {
-      if (curItem.id === item.id) {
+      if (curItem._id === item._id) {
         found = true;
         return { ...curItem, qtdWanted: curItem.qtdWanted + 1 };
       }
@@ -38,12 +38,12 @@ export const CartProvider = ({ children }) => {
     localStorage.clear();
     setItensCard([]);
     setNumberOfItens(0);
-  }
+  };
 
   const removeItem = (item, allOfThem = false) => {
     let found = false;
     let itens = itensCart.map((curItem) => {
-      if (curItem.id === item.id && curItem.qtdWanted > 1) {
+      if (curItem._id === item._id && curItem.qtdWanted > 1) {
         found = true;
         return {
           ...curItem,
@@ -55,7 +55,7 @@ export const CartProvider = ({ children }) => {
 
     if (!found || allOfThem) {
       itens = itensCart.filter((curItem) => {
-        return curItem.id !== item.id;
+        return curItem._id !== item._id;
       });
     }
     localStorage.setItem("itensCart", JSON.stringify(itens));

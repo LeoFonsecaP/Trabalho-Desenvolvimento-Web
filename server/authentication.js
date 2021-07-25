@@ -53,6 +53,8 @@ export function generateAuthentication(request, response) {
       httpOnly: true,
       maxAge: WEEK_IN_SECONDS,
       path: "/",
+      sameSite: "none",
+      secure: true,
     })
     .status(200)
     .json({
