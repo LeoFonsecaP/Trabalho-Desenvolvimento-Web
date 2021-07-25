@@ -90,8 +90,10 @@ Para instalar o sistema e ser capaz de executa-lo em seu computador, primeiramen
 Agora, dentro da pasta do cliente ou servidor, rode o comando `npm install` para instalar as dependencias do projeto e em sequencia, o comando `npm start` para executa-lo.
 
 Isso deve ser feito nas duas pastas, um terminal deve rodar o servidor e outro o site. Além disso, para o login na correção, foi criada uma conta no site.
+
 Login: correcao@nota.10
 Senha: nota10
+
 A conta foi feita administradora para possibilidade de testes de operações com livros e usuários.
 
 # Problemas
