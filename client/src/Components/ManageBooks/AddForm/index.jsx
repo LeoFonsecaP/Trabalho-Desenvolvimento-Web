@@ -76,6 +76,7 @@ function BookAddForm({ submitAction, setAddNewBookOpen, data }) {
       <div>
         <label htmlFor="coverPathBook">Capa</label>
         {bookData.coverUrl !== "" && (
+           // eslint-disable-next-line
           <img src={bookData.coverUrl}/>
         )}  
         <input
@@ -90,6 +91,7 @@ function BookAddForm({ submitAction, setAddNewBookOpen, data }) {
       <div> 
         <label htmlFor="previewPathBook">Preview</label>
         {bookData.previewUrl !== "" && (
+           // eslint-disable-next-line
           <img src={bookData.previewUrl}/>
         )}  
         <input
