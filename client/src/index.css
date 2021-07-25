@@ -134,6 +134,10 @@ input[type="submit"]:hover {
 
 .text-right {
   text-align: right;
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  text-align: right;
 }
 
 .text-center {
@@ -278,28 +282,19 @@ input[type="password"].error {
 .form-3-sides {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
   padding: 0 5px;
-  min-height: 75vh;
+  margin: 20px 0;
 }
 
-.form-left {
-  width: 30%;
-  float: left;
-  margin-right: 3%;
-  margin-left: 1%;
+.form-col {
+  width: 49%;
 }
-
-.form-center {
-  margin-left: 3%;
-  margin-right: 3%;
-  float: middle;
-  width: 30%;
-}
-
-.form-right {
-  margin-left: 3%;
-  float: right;
-  width: 26%;
+@media (max-width: 820px) {
+  .form-col {
+    width: 100%;
+  }
 }
 
 .sel {

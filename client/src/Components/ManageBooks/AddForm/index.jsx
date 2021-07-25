@@ -52,7 +52,7 @@ function BookAddForm({ submitAction, setAddNewBookOpen, data }) {
 
   return (
     <form className="folded-box">
-      <h3 className="folded-titulo">Novo administrador</h3>
+      <h3 className="folded-titulo">Novo livro</h3>
       <label htmlFor="titleBook">Título</label>
       <input
         type="text"
