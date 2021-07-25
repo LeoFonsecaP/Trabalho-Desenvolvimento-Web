@@ -1,47 +1,41 @@
-import { Link, useLocation } from 'react-router-dom';
-import { useEffect, useState, useCallback } from 'react';
+import { Link, useLocation } from "react-router-dom";
+import { useEffect, useState, useCallback } from "react";
 
 function ActiveFilterButton({ property, filters }) {
   return (
-    <Link
-      name={property}
-      to={filters}
-      replace={true}
-    >
-      <button className='btn-principal'> {property} </button>
+    <Link name={property} to={filters} replace={true}>
+      <button className="btn-principal"> {property} </button>
     </Link>
   );
 }
 
 function DefaultFilterButton({ property, filters }) {
   return (
-    <Link
-      name={property}
-      to={filters}
-      replace={true}
-    >
+    <Link name={property} to={filters} replace={true}>
       <button> {property} </button>
     </Link>
   );
 }
 
 function urlQueryStringToFiltersArray(urlQueryString) {
-  return (new URLSearchParams(decodeURI(urlQueryString))).getAll('filters[]');
+  return new URLSearchParams(decodeURI(urlQueryString)).getAll("filters[]");
 }
 
 function filtersArrayToUrlQueryString(filters) {
-  return filters.reduce((previous, filter) => {
-    previous.append('filters[]', filter);
-    return previous;
-  }, new URLSearchParams()).toString();
+  return filters
+    .reduce((previous, filter) => {
+      previous.append("filters[]", filter);
+      return previous;
+    }, new URLSearchParams())
+    .toString();
 }
 
 function FilterButton({ property }) {
   const { search } = useLocation();
   let activeFilters = urlQueryStringToFiltersArray(search);
-  let Component = null
+  let Component = null;
   if (activeFilters.includes(property)) {
-    activeFilters = activeFilters.filter(value => value !== property);
+    activeFilters = activeFilters.filter((value) => value !== property);
     Component = ActiveFilterButton;
   } else {
     activeFilters.push(property);
@@ -58,15 +52,12 @@ function FilterButton({ property }) {
 
 function BookPreview({ title, author, coverUrl, price, id }) {
   return (
-    <Link
-      className={"grid-item text-center block-link"}
-      to={`/books/${id}`}
-    >
+    <Link className={"grid-item text-center block-link"} to={`/books/${id}`}>
       <div>
         <h3>{title}</h3>
         <p className="small-font">{author}</p>
         <div className="grid-item-img-wrapper">
-            <img src={coverUrl} alt={"Falha ao carregar imagem."}/>
+          <img src={coverUrl} alt={"Falha ao carregar imagem."} />
         </div>
         <p>Preço: R${price}</p>
       </div>
@@ -78,14 +69,14 @@ function BooksList({ filters }) {
   const [state, setState] = useState({
     books: [],
     isLoading: true,
-    errorOccurred: false
+    errorOccurred: false,
   });
 
   const fetchBooks = useCallback(async () => {
     const queryString = filtersArrayToUrlQueryString(filters);
     try {
-      let uri = 'http://127.0.0.1:3333/api/books';
-      if (queryString !== '') {
+      let uri = "http://127.0.0.1:3333/api/books";
+      if (queryString !== "") {
         uri += `?${queryString}`;
       }
       const response = await fetch(uri);
@@ -93,14 +84,14 @@ function BooksList({ filters }) {
       setState({
         books: data,
         isLoading: false,
-        errorOccurred: false
-      })
+        errorOccurred: false,
+      });
     } catch (error) {
       setState({
         books: [],
         isLoading: false,
         errorOccurred: true,
-      })
+      });
     }
   }, [filters]);
 
@@ -108,13 +99,11 @@ function BooksList({ filters }) {
 
   console.log(state.books);
   if (state.isLoading) {
-    return <div className="text-center"> Carregando... </div>
+    return <div className="text-center"> Carregando... </div>;
   } else if (state.errorOccurred) {
     return (
       <div className="text-center error-message">
-        <p>
-          Falha no carregamento, tente novamente.
-        </p>
+        <p>Falha no carregamento, tente novamente.</p>
         <button className="btn-principal" onClick={fetchBooks}>
           Recarregar
         </button>
@@ -122,10 +111,12 @@ function BooksList({ filters }) {
     );
   } else {
     return (
-    <div className="grid">
-        {state.books.map((bookProps, idx) => <BookPreview key={idx} {...bookProps}/>)}
-    </div>
-    )
+      <div className="grid">
+        {state.books.map((bookProps, idx) => (
+          <BookPreview key={idx} {...bookProps} />
+        ))}
+      </div>
+    );
   }
 }
 
@@ -133,21 +124,21 @@ function BooksFilterableList() {
   const { search } = useLocation();
   return (
     <div>
-      <hr/>
+      <hr />
       <div className="flex-box flex-bos-wrap">
-        <FilterButton property="Mistério"/>
-        <FilterButton property="Aventura"/>
-        <FilterButton property="Romance"/>
-        <FilterButton property="Autoajuda"/>
-        <FilterButton property="Direito"/>
-        <FilterButton property="Economia"/>
-        <FilterButton property="Ciências"/>
-        <FilterButton property="Tecnologia"/>
+        <FilterButton property="Mistério" />
+        <FilterButton property="Aventura" />
+        <FilterButton property="Romance" />
+        <FilterButton property="Autoajuda" />
+        <FilterButton property="Direito" />
+        <FilterButton property="Economia" />
+        <FilterButton property="Ciências" />
+        <FilterButton property="Tecnologia" />
       </div>
-      <hr/>
-      <BooksList filters={urlQueryStringToFiltersArray(search)}/>
+      <hr />
+      <BooksList filters={urlQueryStringToFiltersArray(search)} />
     </div>
-  )
+  );
 }
 
 export default BooksFilterableList;
