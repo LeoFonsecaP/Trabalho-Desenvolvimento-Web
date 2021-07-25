@@ -92,6 +92,7 @@ Agora, dentro da pasta do cliente ou servidor, rode o comando `npm install` para
 Isso deve ser feito nas duas pastas, um terminal deve rodar o servidor e outro o site. Além disso, para o login na correção, foi criada uma conta no site.
 
 Login: correcao@nota.10
+
 Senha: nota10
 
 A conta foi feita administradora para possibilidade de testes de operações com livros e usuários.
