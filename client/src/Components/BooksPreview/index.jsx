@@ -121,19 +121,25 @@ function BooksList({ filters }) {
 }
 
 function BooksFilterableList() {
+  const categories = [
+    "Mistério",
+    "Aventura",
+    "Romance",
+    "Autoajuda",
+    "Direito",
+    "Economia",
+    "Ciências",
+    "Tecnologia",
+  ];
+
   const { search } = useLocation();
   return (
     <div>
       <hr />
       <div className="flex-box flex-bos-wrap">
-        <FilterButton property="Mistério" />
-        <FilterButton property="Aventura" />
-        <FilterButton property="Romance" />
-        <FilterButton property="Autoajuda" />
-        <FilterButton property="Direito" />
-        <FilterButton property="Economia" />
-        <FilterButton property="Ciências" />
-        <FilterButton property="Tecnologia" />
+        {categories.map((cat) => {
+          return <FilterButton key={cat} property={cat} />;
+        })}
       </div>
       <hr />
       <BooksList filters={urlQueryStringToFiltersArray(search)} />
