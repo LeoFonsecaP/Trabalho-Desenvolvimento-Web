@@ -69,15 +69,10 @@ export async function addBook(request, response) {
     return;
   }
   try {
-    console.log(request.body);
     const insertionResult = await books.insertOne(request.body);
     if (isUndefined(insertionResult)) {
       response.status(409).send();
       return;
-    }
-    if (process.env.NODE_ENV === "DEV") {
-      console.debug("Inserted the following book to the database");
-      console.debug(request.body);
     }
     response.status(201).json({ id: insertionResult.insertedId });
   } catch (error) {

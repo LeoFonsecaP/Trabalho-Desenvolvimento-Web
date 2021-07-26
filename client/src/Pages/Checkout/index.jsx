@@ -62,7 +62,7 @@ function Checkout() {
           shipping: checkoutData.shipping,
           status: "Confirmada",
           orderTime: order_time,
-          itens: itensCart.map((item) => item._id),
+          itens: itensCart.map((item) => ({_id: item._id, quantityWanted: item.qtdWanted})),
           ...checkoutData.address,
         }),
       };

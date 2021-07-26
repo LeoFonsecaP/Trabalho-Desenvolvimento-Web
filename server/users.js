@@ -130,7 +130,9 @@ export async function updateUserInfo(request, response, next) {
       { id: request.senderId },
       record
     );
-    console.info(`Updated ${updateResult.nModified}`);
+    if (isUndefined(updateResult) || updateResult.modifiedCount === 0) {
+      response.status(404).send();
+    }
     next();
   } catch (error) {
     response.status(500);
@@ -144,19 +146,16 @@ export async function verifyCredentials(request, response, next) {
   const options = { projection: { id: 1, password: 1, isAdmin: 1 } };
   try {
     const queryResult = await users.findOne(queryObj, options);
-    console.log(queryResult);
     if (isUndefined(queryResult)) {
       response.status(401).send();
       return;
     }
     if (await bcrypt.compare(request.body.password, queryResult.password)) {
-      console.log(queryResult);
       request.locals = {
         ...request.locals,
         userId: queryResult._id.toHexString(),
         userIsAdmin: queryResult.isAdmin,
       };
-      console.log(request.locals);
       next();
     }
   } catch (error) {

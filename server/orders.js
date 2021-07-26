@@ -19,16 +19,32 @@ export async function addOrder(request, response) {
       return;
     }
     const booksQuery = {
-      _id: {$in: request.body.itens.map(ObjectId)}
+      _id: {$in: request.body.itens.map((item) => ObjectId(item._id))}
     }
     const booksBought = await books.find(
       booksQuery,
-      {_id: 1, availableQuantity: 1, soldQuantity: 1}
+      {projection: {_id: 1, availableQuantity: 1, soldQuantity: 1}}
     ).toArray();
-    console.log(booksBought);
-    const updateResults = await books.updateMany(booksQuery, updateOperation);
-    if (isUndefined(updateResults) || updateResults.modifiedCount === 0) {
-      response.status(404).send();
+    for (let i = 0; i < booksBought.length; i++) {
+      let availableQuantity = Number.parseInt(booksBought[i].availableQuantity);
+      const quantity = request.body.itens[i].quantityWanted;
+      if (availableQuantity > quantity) {
+        const updateResults = await books.updateOne(
+          {_id: booksBought[i]._id},
+          { 
+            $set: {
+              availableQuantity: booksBought[i].availableQuantity - quantity,
+              soldQuantity: booksBought[i].soldQuantity + quantity,
+            }
+          }
+        );
+        if (isUndefined(updateResults) || updateResults.modifiedCount === 0) {
+          response.status(404).send();
+        }
+      } else {
+        response.status(404).send();
+        return;
+      }
     }
     response.status(201).send();
   } catch (error) {
