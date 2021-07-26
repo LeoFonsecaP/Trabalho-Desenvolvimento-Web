@@ -8,10 +8,11 @@ export async function addOrder(request, response) {
   const books = useDatabase().collection("books");
   const id = ObjectId(request.locals.senderId);
   try {
-    const email = await users.findOne({ _id: id }, { _id: 0, email: 1 });
+    const user = await users.findOne({ _id: id }, { _id: 0, email: 1 });
+    const email = user.email;
     const insertionResult = await orders.insertOne({
       ...request.body,
-      ...email,
+      email,
     });
     if (isUndefined(insertionResult)) {
       response.status(409).send();
