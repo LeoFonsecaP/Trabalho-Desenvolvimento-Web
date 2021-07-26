@@ -22,8 +22,8 @@ import PrivateRoute from "./Components/PrivateRoute";
 function App() {
   return (
     <CartProvider>
-      <UserPermissionsProvider>
-        <Router>
+      <Router>
+        <UserPermissionsProvider>
           <div className="App">
             <Header />
 
@@ -68,8 +68,8 @@ function App() {
 
             <Footer />
           </div>
-        </Router>
-      </UserPermissionsProvider>
+        </UserPermissionsProvider>
+      </Router>
     </CartProvider>
   );
 }

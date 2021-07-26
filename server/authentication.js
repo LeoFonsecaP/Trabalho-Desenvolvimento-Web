@@ -1,7 +1,7 @@
 import { isUndefined } from "./utils.js";
 import jwt from "jsonwebtoken";
 
-const WEEK_IN_SECONDS = 604800;
+const WEEK_IN_SECONDS = 604800000;
 
 /*
  * Authenticates the user by verifying if it has a signed jwt token.
@@ -9,7 +9,10 @@ const WEEK_IN_SECONDS = 604800;
  * request.locals to the next middleware.
  */
 export function authenticate(request, response, next) {
+  console.log('Cookies:');
   console.log(request.cookies);
+  console.log('accessToken:');
+  console.log(request.cookies.accessToken);
   if (!isUndefined(request.cookies.accessToken)) {
     try {
       const token = jwt.verify(
@@ -51,7 +54,8 @@ export function generateAuthentication(request, response) {
   response
     .cookie("accessToken", token, {
       httpOnly: true,
-      maxAge: WEEK_IN_SECONDS,
+      //maxAge: WEEK_IN_SECONDS,
+      expires: false,
       path: "/",
       sameSite: "none",
       secure: true,
@@ -62,11 +66,6 @@ export function generateAuthentication(request, response) {
       isAdmin: request.locals.userIsAdmin,
     })
     .send();
-  console.debug("Finished setting the authentication token.");
-  console.debug({
-    id: request.locals.userId,
-    isAdmin: request.locals.userIsAdmin,
-  });
 }
 
 export function serveAuthenticationStatus(request, response) {

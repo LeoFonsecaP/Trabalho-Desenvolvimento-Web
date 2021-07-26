@@ -44,9 +44,9 @@ export async function updateUser(request, response) {
     const updateDoc = { $set: { ...request.body } };
     const filter = { _id: userId };
     const options = { upsert: false };
-    if (process.env.NODE_ENV !== "DEV" && !request.senderIsAdmin) {
+    if (!request.senderIsAdmin) {
       response.status(401).send();
-      console.warn("Someone without credentails tried to alter a books info.");
+      console.warn("Someone without the proper credentails tried to alter a books info.");
       return;
     }
     const updateResults = await users.updateOne(filter, updateDoc, options);
@@ -55,7 +55,6 @@ export async function updateUser(request, response) {
       return;
     }
     response.status(200).send();
-    console.log(`Updated ${updateResults.modifiedCount} users.`);
   } catch (error) {
     response.status(500).send();
     console.error(error);
@@ -65,17 +64,12 @@ export async function updateUser(request, response) {
 export async function deleteUser(request, response) {
   try {
     const userId = new ObjectId(request.params.userId);
-    console.log(userId);
     const users = useDatabase().collection("users");
     const deleteResult = await users.deleteOne({ _id: userId });
     if (isUndefined(deleteResult) || deleteResult.deletedCount === 0) {
       response.status(404).send();
       return;
     }
-    if (process.env.NODE_ENV === "DEV") {
-      console.debug(`Removed the user with id ${userId}`);
-    }
-    console.log(deleteResult);
     response.status(200).send();
   } catch (error) {
     response.status(500).send();
@@ -85,7 +79,6 @@ export async function deleteUser(request, response) {
 
 export async function createNewUser(request, response, next) {
   if (process.env.NODE_ENV === "DEV") {
-    console.debug(request.body);
   }
   const users = useDatabase().collection("users");
   const queryObj = { email: request.body.email };
@@ -103,9 +96,6 @@ export async function createNewUser(request, response, next) {
       ...request.body,
       password: hash,
     });
-    console.info(
-      `Creted the new user with the id ${insertionResult.insertedId}`
-    );
     request.locals = {
       ...request.locals,
       userId: insertionResult.insertedId.toHexString(),
@@ -157,9 +147,6 @@ export async function verifyCredentials(request, response, next) {
     console.log(queryResult);
     if (isUndefined(queryResult)) {
       response.status(401).send();
-      if (process.env.NODE_ENV === "DEV") {
-        console.debug("Attempt to login failed.");
-      }
       return;
     }
     if (await bcrypt.compare(request.body.password, queryResult.password)) {

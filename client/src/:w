@@ -17,15 +17,13 @@ function UserPermissionsProvider({ children }) {
   useEffect(() => {
     (async () => {
       try{
-        const response = await fetch('http://127.0.0.1:3333/api/auth');
-        if (response.ok) {
-          const responseData = await response.json();
-          if (responseData.authenticated) {
-            setUserPermissions(responseData.isAdmin ? Permissions.ADMIN : Permissions.USER);
-          } else {
-            setUserPermissions(Permissions.GUEST);
-          }
-        }
+      const response = await fetch('http://127.0.0.1:3333/api/auth');
+      const responseData = await response.json();
+      if (responseData.authenticated) {
+        setUserPermissions(responseData.isAdmin ? Permissions.ADMIN : Permissions.USER);
+      } else {
+        setUserPermissions(Permissions.GUEST);
+      }
       } catch (error) {
         console.error(error);
       }
