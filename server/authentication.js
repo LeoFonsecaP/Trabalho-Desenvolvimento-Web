@@ -9,10 +9,6 @@ const WEEK_IN_SECONDS = 604800000;
  * request.locals to the next middleware.
  */
 export function authenticate(request, response, next) {
-  console.log('Cookies:');
-  console.log(request.cookies);
-  console.log('accessToken:');
-  console.log(request.cookies.accessToken);
   if (!isUndefined(request.cookies.accessToken)) {
     try {
       const token = jwt.verify(

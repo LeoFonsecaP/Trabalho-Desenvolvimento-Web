@@ -20,9 +20,11 @@ export async function addOrder(request, response) {
     const booksQuery = {
       _id: {$in: request.body.itens.map(ObjectId)}
     }
-    const updateOperation = {
-      $inc: {availableQuantity: -1, soldQuantity: 1}
-    }
+    const booksBought = await books.find(
+      booksQuery,
+      {_id: 1, availableQuantity: 1, soldQuantity: 1}
+    ).toArray();
+    console.log(booksBought);
     const updateResults = await books.updateMany(booksQuery, updateOperation);
     if (isUndefined(updateResults) || updateResults.modifiedCount === 0) {
       response.status(404).send();
