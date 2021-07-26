@@ -46,8 +46,9 @@ function Checkout() {
       checkoutData.cvv
     ) {
       const time = new Date();
+      const hour = time.toTimeString((time.getMinutes())).substring(0, 5); 
       const order_time =
-        time.getDate() + "/" + time.getMonth() + "/" + time.getFullYear();
+        time.getDate() + "/" + time.getMonth() + "/" + time.getFullYear() + "  " +hour;
       const configs = {
         method: "POST",
         headers: new Headers({ "Content-Type": "application/json" }),
