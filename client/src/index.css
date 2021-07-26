@@ -80,10 +80,6 @@ body {
   align-items: center;
 }
 
-.flex-box-wrap {
-  flex-wrap: wrap;
-}
-
 .container {
   width: 95%;
   max-width: 1280px;
@@ -513,12 +509,11 @@ nav li link:hover {
 }
 
 .img-livro {
-  width: 200px;
+  width: 15%;
 }
 
 .info-livro {
-  flex: 2;
-  margin: 0 50px;
+  width: 45%;
 }
 
 .info-livro h3 {
@@ -531,8 +526,36 @@ nav li link:hover {
 
 .pagamento {
   padding: 20px 0;
-  flex: 1;
+  width: 30%;
   text-align: center;
+}
+
+@media (max-width: 1100px) {
+  .img-livro {
+    width: 30%;
+  }
+  .info-livro {
+    width: 65%;
+  }
+  .pagamento {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .flex-box {
+    justify-content: center;
+  }
+
+  .img-livro {
+    width: 50%;
+  }
+  .info-livro {
+    width: 100%;
+  }
+  .pagamento {
+    width: 100%;
+  }
 }
 
 .preview {

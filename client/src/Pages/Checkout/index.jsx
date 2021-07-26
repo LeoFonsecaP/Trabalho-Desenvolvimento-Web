@@ -114,8 +114,9 @@ function Checkout() {
                   className="sel"
                   name="cardmonth"
                   onChange={handleInputChange}
+                  defaultValue=""
                 >
-                  <option value="" disabled selected hidden>
+                  <option value="" disabled hidden>
                     Mês
                   </option>
                   <option value="1">Janeiro</option>
@@ -165,7 +166,7 @@ function Checkout() {
               <h2>Resumo da compra</h2>
               {itensCart &&
                 itensCart.map((item) => {
-                  return <ItemCheckout item={item} />;
+                  return <ItemCheckout key={item._id} item={item} />;
                 })}
               <span className="price">
                 <h3>TOTAL: R$ {Number(totalPrice).toFixed(2)}</h3>

@@ -22,7 +22,7 @@ function GetSpecificBook({ id }) {
       } catch (error) {
         console.error(error);
       }
-    })()
+    })();
   }, [id]);
 
   if (LoadingBooks) {
@@ -38,7 +38,7 @@ function GetSpecificBook({ id }) {
     return (
       <div className="container">
         <div className="card minheight">
-          <div className="flex-box flex-box-wrap">
+          <div className="flex-box">
             <img
               src={Book.coverUrl}
               alt={"Falha ao carregar imagem."}
