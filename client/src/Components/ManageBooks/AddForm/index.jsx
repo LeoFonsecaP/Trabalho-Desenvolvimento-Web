@@ -92,6 +92,7 @@ function BookAddForm({ submitAction, setAddNewBookOpen, data }) {
           Preview
         </label>
         {bookData.previewUrl !== "" && (
+
           <img src={bookData.previewUrl} alt="Book preview" />
         )}
         <input

@@ -100,5 +100,6 @@ A conta foi feita administradora para possibilidade de testes de operações com
 # Problemas
 
 O mês da order está incorreto. A função getMonth(), por algum motivo, retorna junho, ao invés de julho.
+Como estamos armazenando a imagem no banco, o retorno é lento e, por isso, os livros da página inicial e as páginas de livros específicos demoram um pouco para carregar. Além disso, o filtro por categorias demora para ser aplicado.
 
 # Comentários
