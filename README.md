@@ -85,9 +85,9 @@ Utilizando os testes manuais descritos no plano de testes, foi possivel observar
 
 # Procedimentos de instalação
 
-Para instalar o sistema e ser capaz de executa-lo em seu computador, primeiramente é necessário instalar o [Node.js](https://nodejs.org/) e o NPM (que vem junto com a instalação do Node).
+Para instalar o sistema e ser capaz de executa-lo em seu computador, primeiramente é necessário instalar o [Node.js](https://nodejs.org/) e o NPM (que vem junto com a instalação do Node). Pode-se utilizar também o gestor de pacotes Yarn, em vez do NPM.
 
-Agora, dentro da pasta do cliente ou servidor, rode o comando `npm install` para instalar as dependencias do projeto e em sequencia, o comando `npm start` para executa-lo.
+Agora, dentro da pasta do cliente ou servidor, rode o comando `npm install` ou `yarn` para instalar as dependencias do projeto e em sequencia, o comando `npm start` ou `yarn start` para executa-lo.
 
 Isso deve ser feito nas duas pastas, um terminal deve rodar o servidor e outro o site. Além disso, para o login na correção, foi criada uma conta no site.
 

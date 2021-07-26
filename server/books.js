@@ -55,7 +55,6 @@ export async function updateBook(request, response) {
       return;
     }
     response.status(200).send();
-    console.log(`Updated ${updateResults.modifiedCount} books.`);
   } catch (error) {
     response.status(500).send();
     console.error(error);

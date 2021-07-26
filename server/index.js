@@ -45,13 +45,13 @@ app.put("/api/books/:bookId", authenticate, updateBook);
 app.delete("/api/books/:bookId", authenticate, deleteBook);
 app.get("/api/auth", authenticate, serveAuthenticationStatus);
 app.post("/api/auth", verifyCredentials, generateAuthentication);
+app.post("/api/orders", authenticate, addOrder);
 
 /* Needs to be tested */
 
 /* Needs to work */
 app.post("/api/users", createNewUser, generateAuthentication);
 
-app.post("/api/orders", authenticate, addOrder);
 app.get("/api/orders", serveOrders);
 
 const port = process.env.PORT || 8080;

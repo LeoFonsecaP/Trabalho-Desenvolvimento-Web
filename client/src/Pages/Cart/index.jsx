@@ -45,7 +45,7 @@ function Cart() {
             itensCart.map((item) => {
               return (
                 <ItemCart
-                  key={item.id}
+                  key={item._id}
                   item={item}
                   changeQtd={changeQtd}
                   deleteItem={deleteItem}
