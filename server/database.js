@@ -1,3 +1,5 @@
+import dotenv from "dotenv";
+dotenv.config();
 import { MongoClient } from "mongodb";
 
 const dbPassword = process.env.DB_PASSWORD;
