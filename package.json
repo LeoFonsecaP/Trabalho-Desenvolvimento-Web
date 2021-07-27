@@ -1,0 +1,13 @@
+{
+  "name": "mundo-das-letras",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "client": "cd client && npm start",
+    "build": "cd client && npm install && npm run build",
+    "start": "cd server && npm start"
+  },
+  "repository": "https://github.com/LeoFonsecaP/Trabalho-Desenvolvimento-Web.git",
+  "author": "FbFDestro <fbfdestro@gmail.com>",
+  "license": "MIT"
+}
