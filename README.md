@@ -2,6 +2,8 @@
 
 Repositório contendo os arquivos desenvolvidos para o trabalho de desenvolvimento web. Grupo com Cesar Guibo e Fabio Destro.
 
+## [https://mundo-das-letras.herokuapp.com/](https://mundo-das-letras.herokuapp.com/)
+
 ## Desenvolvido por:
 
 - Fabio Fogarin Destro, 10284667
@@ -75,6 +77,8 @@ O usuário pode visitar seu carrinho, onde ele pode confirmar a compra, editar a
 
 A aplicação front-end foi desenvolvida utilizando a tecnologia [React.js](https://pt-br.reactjs.org/) e o código está sub-divido em páginas e componentes, buscando separar as funcionalidades e utilizar os conceitos de componentes para obter um código de fácil manutenção e reusabilidade.
 
+A aplicação back-end foi desenvolvida utilizando Node.js e Express. Foi desenvolvida uma API que recebe e responde requisições do cliente front-end. O aplicação back-end também conta com um banco de dados não relacional MongoDB.
+
 # Plano pra teste
 
 Os testes foram executados de forma manual a partir de um navegador, em que todos os fluxos de páginas e ações foram executados verificando se o resultado esperado era obtido.
@@ -87,9 +91,17 @@ Utilizando os testes manuais descritos no plano de testes, foi possivel observar
 
 Para instalar o sistema e ser capaz de executa-lo em seu computador, primeiramente é necessário instalar o [Node.js](https://nodejs.org/) e o NPM (que vem junto com a instalação do Node). Pode-se utilizar também o gestor de pacotes Yarn, em vez do NPM.
 
-Agora, dentro da pasta do cliente ou servidor, rode o comando `npm install` ou `yarn` para instalar as dependencias do projeto e em sequencia, o comando `npm start` ou `yarn start` para executa-lo.
+Na pasta principal do projeto, basta utilizar o comando `yarn buid` caso deseje atualizar a versão do cliente que será exibida pelo servidor. Em sequência rode o comando `yarn start` para instalar as dependencias necessárias e iniciar o servidor.
+
+IMPORTANTE: Para o correto funcionamento do servidor, é necessário adicionar um arquivo `.env` na pasta do servidor, com variavies de ambiente, que não estão expostas no GitHub já que contém dados sensiveis. O arquivo será disponibilizado pelo grupo aos revisores caso necessário. Um alternativa é a versão online do sistema, que pode ser acessada em: [https://mundo-das-letras.herokuapp.com/](https://mundo-das-letras.herokuapp.com/).
+
+Outra opção é executar em paralelo o servidor e o cliente, tendo assim mais controle sobre mudanças efetuadas. Está opção é mais indicada caso tenho o interesse em efetuar mudanças e observar seus efeitos imediatamente.
+
+Para fazer isso, dentro da pasta do cliente ou servidor, rode o comando `npm install` ou `yarn` para instalar as dependencias do projeto e em sequencia, o comando `npm start` ou `yarn start` para executa-lo.
 
 Isso deve ser feito nas duas pastas, um terminal deve rodar o servidor e outro o site. Além disso, para o login na correção, foi criada uma conta no site.
+
+# Login de acesso
 
 Login: correcao@nota.10
 
@@ -99,7 +111,6 @@ A conta foi feita administradora para possibilidade de testes de operações com
 
 # Problemas
 
-O mês da order está incorreto. A função getMonth(), por algum motivo, retorna junho, ao invés de julho.
-Como estamos armazenando a imagem no banco, o retorno é lento e, por isso, os livros da página inicial e as páginas de livros específicos demoram um pouco para carregar. Além disso, o filtro por categorias demora para ser aplicado.
+Como estamos armazenando imagems no banco de dados, o retorno é lento e, por isso, os livros da página inicial e as páginas de livros específicos demoram um pouco para carregar. Além disso, o filtro por categorias demora para ser aplicado.
 
 # Comentários
