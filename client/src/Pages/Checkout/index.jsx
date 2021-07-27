@@ -46,9 +46,15 @@ function Checkout() {
       checkoutData.cvv
     ) {
       const time = new Date();
-      const hour = time.toTimeString((time.getMinutes())).substring(0, 5); 
+      const hour = time.toTimeString(time.getMinutes()).substring(0, 5);
       const order_time =
-        time.getDate() + "/" + time.getMonth() + "/" + time.getFullYear() + "  " +hour;
+        time.getDate() +
+        "/" +
+        (+time.getMonth() + 1) +
+        "/" +
+        time.getFullYear() +
+        "  " +
+        hour;
       const configs = {
         method: "POST",
         headers: new Headers({ "Content-Type": "application/json" }),
@@ -62,7 +68,10 @@ function Checkout() {
           shipping: checkoutData.shipping,
           status: "Confirmada",
           orderTime: order_time,
-          itens: itensCart.map((item) => ({_id: item._id, quantityWanted: item.qtdWanted})),
+          itens: itensCart.map((item) => ({
+            _id: item._id,
+            quantityWanted: item.qtdWanted,
+          })),
           ...checkoutData.address,
         }),
       };
