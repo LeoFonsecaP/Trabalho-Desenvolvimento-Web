@@ -75,7 +75,7 @@ function BooksList({ filters }) {
   const fetchBooks = useCallback(async () => {
     const queryString = filtersArrayToUrlQueryString(filters);
     try {
-      let uri = "http://127.0.0.1:3333/api/books";
+      let uri = "/api/books";
       if (queryString !== "") {
         uri += `?${queryString}`;
       }

@@ -9,7 +9,7 @@ function ManageUsers() {
     async function fetchUsers() {
       try {
         setLoadingUsers(true);
-        const response = await fetch("http://127.0.0.1:3333/api/users");
+        const response = await fetch("/api/users");
         const data = await response.json();
         console.log(data);
         setUsers(data);
@@ -48,11 +48,8 @@ function ManageUsers() {
         }),
       };
       console.log(newUserData.id);
-      console.log(`http://127.0.0.1:3333/api/users/${newUserData.id}`);
-      const response = await fetch(
-        `http://127.0.0.1:3333/api/users/${newUserData.id}`,
-        configs
-      );
+      console.log(`/api/users/${newUserData.id}`);
+      const response = await fetch(`/api/users/${newUserData.id}`, configs);
       if (response.ok) {
         const userNew = users.filter((item) => {
           return item.id !== newUserData.id;
@@ -72,10 +69,7 @@ function ManageUsers() {
         method: "DELETE",
         credentials: "include",
       };
-      const response = await fetch(
-        `http://127.0.0.1:3333/api/users/${selected.id}`,
-        configs
-      );
+      const response = await fetch(`/api/users/${selected.id}`, configs);
       if (response.ok) {
         setUsers(
           users.filter((item) => {

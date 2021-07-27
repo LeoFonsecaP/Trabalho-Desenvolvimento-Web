@@ -12,7 +12,7 @@ function GetSpecificBook({ id }) {
 
   useEffect(() => {
     (async () => {
-      const uri = `http://127.0.0.1:3333/api/books/${id}`;
+      const uri = `/api/books/${id}`;
       setLoadingBooks(true);
       try {
         const response = await fetch(uri);

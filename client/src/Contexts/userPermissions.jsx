@@ -15,7 +15,7 @@ function UserPermissionsProvider({ children }) {
     (async () => {
       try {
         setLoadingAuth(true);
-        const response = await fetch("http://127.0.0.1:3333/api/auth", {
+        const response = await fetch("/api/auth", {
           credentials: "include",
         });
         if (response.ok) {

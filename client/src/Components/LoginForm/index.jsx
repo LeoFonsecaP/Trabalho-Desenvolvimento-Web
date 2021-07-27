@@ -28,7 +28,7 @@ function LoginForm() {
           credentials: "include",
           body: JSON.stringify(loginData),
         };
-        const response = await fetch("http://127.0.0.1:3333/api/auth", configs);
+        const response = await fetch("/api/auth", configs);
         const data = await response.json();
         console.log(data);
         if (data.authenticated) {

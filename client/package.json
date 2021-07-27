@@ -39,5 +39,6 @@
   },
   "devDependencies": {
     "@fortawesome/react-fontawesome": "^0.1.14"
-  }
+  },
+  "proxy": "http://localhost:3333"
 }

@@ -35,7 +35,7 @@ export function getUserPermissions() {
 }
 
 export async function logoffUser() {
-  await fetch("http://127.0.0.1:3333/api/logout", { credentials: "include" });
+  await fetch("/api/logout", { credentials: "include" });
   return new Promise((resolve) => {
     setTimeout(() => {
       window.sessionStorage.removeItem("currentUser");

@@ -9,7 +9,7 @@ function ManageBooks() {
     async function fetchBooks() {
       try {
         setLoadingBooks(true);
-        const response = await fetch('http://127.0.0.1:3333/api/books');
+        const response = await fetch("/api/books");
         const data = await response.json();
         console.log(data);
         setBooks(data);
@@ -26,9 +26,9 @@ function ManageBooks() {
   const addNewBook = async (newBookData) => {
     try {
       const configs = {
-        method: 'POST',
-        headers: new Headers({'Content-Type': 'application/json'}),
-        credentials: 'include',
+        method: "POST",
+        headers: new Headers({ "Content-Type": "application/json" }),
+        credentials: "include",
         body: JSON.stringify({
           title: newBookData.title,
           author: newBookData.author,
@@ -39,10 +39,10 @@ function ManageBooks() {
           description: newBookData.description,
           availableQuantity: newBookData.availableQuantity,
           soldQuantity: newBookData.soldQuantity,
-        })
+        }),
       };
-      console.log(configs.body.length * 2 / 1000 / 1000);
-      const response = await fetch('http://127.0.0.1:3333/api/books', configs);
+      console.log((configs.body.length * 2) / 1000 / 1000);
+      const response = await fetch("/api/books", configs);
       if (response.ok) {
         const data = await response.json();
         const id = data.id;
@@ -65,9 +65,9 @@ function ManageBooks() {
     // perform server book edit
     try {
       const configs = {
-        method: 'PUT',
-        headers: new Headers({'Content-Type': 'application/json'}),
-        credentials: 'include',
+        method: "PUT",
+        headers: new Headers({ "Content-Type": "application/json" }),
+        credentials: "include",
         body: JSON.stringify({
           title: newData.title,
           author: newData.author,
@@ -78,12 +78,12 @@ function ManageBooks() {
           description: newData.description,
           availableQuantity: newData.availableQuantity,
           soldQuantity: newData.soldQuantity,
-        })
+        }),
       };
       console.log(newData.id);
-      console.log(`http://127.0.0.1:3333/api/books/${newData.id}`);
-      const response = await fetch(`http://127.0.0.1:3333/api/books/${newData.id}`, configs);
-        if (response.ok) {
+      console.log(`/api/books/${newData.id}`);
+      const response = await fetch(`/api/books/${newData.id}`, configs);
+      if (response.ok) {
         const booksNew = books.filter((item) => {
           return item.id !== newData.id;
         });
@@ -94,16 +94,15 @@ function ManageBooks() {
     } catch (error) {
       console.error(error);
     }
-
   };
 
   const deleteBook = async () => {
     try {
       const configs = {
-        method: 'DELETE',
-        credentials: 'include',
+        method: "DELETE",
+        credentials: "include",
       };
-      const response = await fetch(`http://127.0.0.1:3333/api/books/${selected.id}`, configs);
+      const response = await fetch(`/api/books/${selected.id}`, configs);
       if (response.ok) {
         setBooks(
           books.filter((item) => {
@@ -121,11 +120,7 @@ function ManageBooks() {
     <div className="card">
       <h2>Gerenciar livros</h2>
 
-      <BookTable 
-      selectRow={selectRow}
-      books={books}
-      loading={loadingBooks}
-      />
+      <BookTable selectRow={selectRow} books={books} loading={loadingBooks} />
 
       <div className="text-right">
         <button

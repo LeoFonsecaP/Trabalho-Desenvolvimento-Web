@@ -75,7 +75,7 @@ function Checkout() {
           ...checkoutData.address,
         }),
       };
-      fetch("http://127.0.0.1:3333/api/orders", configs);
+      fetch("/api/orders", configs);
       setShowError(false);
       setFinishOrder(true);
       clearCart();
