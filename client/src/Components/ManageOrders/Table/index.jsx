@@ -4,7 +4,7 @@ function OrderTable({ orders, loading }) {
   return (
     <div className="wrapperTable">
       <table id="orders">
-      <thead>
+        <thead>
           <tr>
             <th>Usuário</th>
             <th>Cidade</th>
@@ -21,7 +21,7 @@ function OrderTable({ orders, loading }) {
         <tbody>
           {orders.map((order) => {
             return (
-              <tr key={order.id}>
+              <tr key={order._id}>
                 <td>{order.email}</td>
                 <td>{order.county}</td>
                 <td>{order.state}</td>

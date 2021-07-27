@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import UserTable from "./Table";
 import UserAddForm from "./AddForm";
 
-
 function ManageUsers() {
   const [loadingUsers, setLoadingUsers] = useState(false);
   const [users, setUsers] = useState([]);
@@ -10,7 +9,7 @@ function ManageUsers() {
     async function fetchUsers() {
       try {
         setLoadingUsers(true);
-        const response = await fetch('http://127.0.0.1:3333/api/users');
+        const response = await fetch("http://127.0.0.1:3333/api/users");
         const data = await response.json();
         console.log(data);
         setUsers(data);
@@ -21,7 +20,6 @@ function ManageUsers() {
     }
     fetchUsers();
   }, []);
-
 
   const [selected, setSelected] = useState(null);
   const [editOpen, setEditOpen] = useState(false);
@@ -34,9 +32,9 @@ function ManageUsers() {
     // perform server book edit
     try {
       const configs = {
-        method: 'PUT',
-        headers: new Headers({'Content-Type': 'application/json'}),
-        credentials: 'include',
+        method: "PUT",
+        headers: new Headers({ "Content-Type": "application/json" }),
+        credentials: "include",
         body: JSON.stringify({
           email: newUserData.email,
           county: newUserData.county,
@@ -47,12 +45,15 @@ function ManageUsers() {
           number: newUserData.number,
           complement: newUserData.complement,
           isAdmin: newUserData.isAdmin,
-        })
+        }),
       };
       console.log(newUserData.id);
       console.log(`http://127.0.0.1:3333/api/users/${newUserData.id}`);
-      const response = await fetch(`http://127.0.0.1:3333/api/users/${newUserData.id}`, configs);
-        if (response.ok) {
+      const response = await fetch(
+        `http://127.0.0.1:3333/api/users/${newUserData.id}`,
+        configs
+      );
+      if (response.ok) {
         const userNew = users.filter((item) => {
           return item.id !== newUserData.id;
         });
@@ -63,16 +64,18 @@ function ManageUsers() {
     } catch (error) {
       console.error(error);
     }
-
   };
 
   const deleteUser = async () => {
     try {
       const configs = {
-        method: 'DELETE',
-        credentials: 'include',
+        method: "DELETE",
+        credentials: "include",
       };
-      const response = await fetch(`http://127.0.0.1:3333/api/users/${selected.id}`, configs);
+      const response = await fetch(
+        `http://127.0.0.1:3333/api/users/${selected.id}`,
+        configs
+      );
       if (response.ok) {
         setUsers(
           users.filter((item) => {
@@ -90,12 +93,8 @@ function ManageUsers() {
     <div className="card">
       <h2>Gerenciar usuários</h2>
 
-      <UserTable
-       selectRow={selectRow}
-       users={users}
-       loading={loadingUsers} 
-       />
-       
+      <UserTable selectRow={selectRow} users={users} loading={loadingUsers} />
+
       {/* Manage selected user user */}
       {selected && (
         <>

@@ -38,17 +38,17 @@ export async function serveBookDescription(request, response) {
 }
 
 export async function updateBook(request, response) {
+  if (!request.locals.senderIsAdmin) {
+    response.status(401).send();
+    console.warn("Someone without credentails tried to alter a books info.");
+    return;
+  }
   try {
     const bookId = new ObjectId(request.params.bookId);
     const books = useDatabase().collection("books");
     const updateDoc = { $set: { ...request.body } };
     const filter = { _id: bookId };
     const options = { upsert: false };
-    if (process.env.NODE_ENV !== "DEV" && !request.senderIsAdmin) {
-      response.status(401).send();
-      console.warn("Someone without credentails tried to alter a books info.");
-      return;
-    }
     const updateResults = await books.updateOne(filter, updateDoc, options);
     if (isUndefined(updateResults) || updateResults.modifiedCount === 0) {
       response.status(404).send();
@@ -62,12 +62,12 @@ export async function updateBook(request, response) {
 }
 
 export async function addBook(request, response) {
-  const books = useDatabase().collection("books");
-  if (process.env.NODE_ENV !== "DEV" && !request.senderIsAdmin) {
+  if (!request.locals.senderIsAdmin) {
     response.status(401).send();
     console.warn("Someone without credentails tried to alter a books info.");
     return;
   }
+  const books = useDatabase().collection("books");
   try {
     const insertionResult = await books.insertOne(request.body);
     if (isUndefined(insertionResult)) {
@@ -83,6 +83,11 @@ export async function addBook(request, response) {
 
 export async function deleteBook(request, response) {
   try {
+    if (!request.locals.senderIsAdmin) {
+      response.status(401).send();
+      console.warn("Someone without credentails tried to delete a books info.");
+      return;
+    }
     const bookId = new ObjectId(request.params.bookId);
     const books = useDatabase().collection("books");
     const deleteResult = await books.deleteOne({ _id: bookId });

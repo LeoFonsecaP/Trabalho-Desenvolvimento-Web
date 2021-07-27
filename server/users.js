@@ -44,9 +44,11 @@ export async function updateUser(request, response) {
     const updateDoc = { $set: { ...request.body } };
     const filter = { _id: userId };
     const options = { upsert: false };
-    if (!request.senderIsAdmin) {
+    if (!request.locals.senderIsAdmin) {
       response.status(401).send();
-      console.warn("Someone without the proper credentails tried to alter a books info.");
+      console.warn(
+        "Someone without the proper credentails tried to alter a user info."
+      );
       return;
     }
     const updateResults = await users.updateOne(filter, updateDoc, options);
