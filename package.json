@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "client": "cd client && yarn start",
-    "build": "cd client && yarn install && yar build",
+    "build": "cd client && yarn install && yarn build",
     "start": "cd server && yarn start"
   },
   "repository": "https://github.com/LeoFonsecaP/Trabalho-Desenvolvimento-Web.git",
