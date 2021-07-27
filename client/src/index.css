@@ -422,6 +422,10 @@ nav li link:hover {
   width: 40px;
 }
 
+.margin {
+  margin: 10px;
+}
+
 #buyBtn {
   color: #fff;
   font-size: 17px;

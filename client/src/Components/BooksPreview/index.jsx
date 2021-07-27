@@ -99,7 +99,7 @@ function BooksList({ filters }) {
 
   console.log(state.books);
   if (state.isLoading) {
-    return <div className="text-center"> Carregando... </div>;
+    return <div className="text-center margin">Carregando...</div>;
   } else if (state.errorOccurred) {
     return (
       <div className="text-center error-message">
