@@ -3,22 +3,23 @@ import { useContext } from "react";
 import { UserPermissions, Permissions } from "../../Contexts/userPermissions";
 
 function PrivateRoute({ path, requiredPermissions, children }) {
-  const { userPermissions } = useContext(UserPermissions);
+  const { userPermissions, loadingAuth } = useContext(UserPermissions);
+
+  if (loadingAuth) {
+    return <div>Loading...</div>;
+  }
+
   if (requiredPermissions.includes(userPermissions)) {
-    return (
-      <Route path={path}>
-        {children}
-      </Route>
-    );
-  } 
+    return <Route path={path}>{children}</Route>;
+  }
   if (
     (userPermissions === Permissions.USER &&
-    requiredPermissions.includes(Permissions.ADMIN)) ||
+      requiredPermissions.includes(Permissions.ADMIN)) ||
     requiredPermissions.includes(Permissions.GUEST)
   ) {
-    return <Redirect to={"/home"}/>
+    return <Redirect to={"/home"} />;
   }
-  return <Redirect to={"/login"} push={true}/>;
+  return <Redirect to={"/login"} push={true} />;
 }
 
 export default PrivateRoute;

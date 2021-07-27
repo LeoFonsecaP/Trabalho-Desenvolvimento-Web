@@ -9,7 +9,10 @@ const WEEK_IN_SECONDS = 604800000;
  * request.locals to the next middleware.
  */
 export function authenticate(request, response, next) {
-  if (!isUndefined(request.cookies.accessToken)) {
+  if (
+    !isUndefined(request.cookies.accessToken) &&
+    request.cookies.accessToken !== ""
+  ) {
     try {
       const token = jwt.verify(
         request.cookies.accessToken,
@@ -50,8 +53,7 @@ export function generateAuthentication(request, response) {
   response
     .cookie("accessToken", token, {
       httpOnly: true,
-      //maxAge: WEEK_IN_SECONDS,
-      expires: false,
+      expires: new Date(Date.now() + 8 * 3600000),
       path: "/",
       sameSite: "none",
       secure: true,
@@ -60,16 +62,29 @@ export function generateAuthentication(request, response) {
     .json({
       authenticated: true,
       isAdmin: request.locals.userIsAdmin,
-    })
-    .send();
+    });
 }
 
 export function serveAuthenticationStatus(request, response) {
-  response
+  response.status(200).json({
+    authenticated: true,
+    isAdmin: request.locals.senderIsAdmin,
+  });
+}
+
+export function logout(req, res) {
+  console.log("Logging user out!");
+  res
+    .cookie("accessToken", "", {
+      httpOnly: true,
+      expires: new Date(Date.now() + 8 * 3600000),
+      path: "/",
+      sameSite: "none",
+      secure: true,
+    })
     .status(200)
     .json({
-      authenticated: true,
-      isAdmin: request.locals.senderIsAdmin,
-    })
-    .send();
+      authenticated: false,
+      isAdmin: false,
+    });
 }

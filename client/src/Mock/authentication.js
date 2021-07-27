@@ -1,14 +1,17 @@
-import { Permissions } from "../Contexts/userPermissions"
+import { Permissions } from "../Contexts/userPermissions";
 
 export function loginUser({ email, password }) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       const queryResult = window.localStorage.getItem("registeredUsers");
       const users = queryResult === null ? [] : JSON.parse(queryResult);
-      const user = users.find((user) => user.email === email);  
+      const user = users.find((user) => user.email === email);
       if (typeof user !== "undefined" && user.password === password) {
-        const currentUser = {id: user.id, permissions: user.permissions};
-        window.sessionStorage.setItem("currentUser", JSON.stringify(currentUser));
+        const currentUser = { id: user.id, permissions: user.permissions };
+        window.sessionStorage.setItem(
+          "currentUser",
+          JSON.stringify(currentUser)
+        );
         resolve(currentUser.permissions);
       } else {
         reject("O Email ou a senha não é válido.");
@@ -31,7 +34,8 @@ export function getUserPermissions() {
   });
 }
 
-export function logoffUser() {
+export async function logoffUser() {
+  await fetch("http://127.0.0.1:3333/api/logout", { credentials: "include" });
   return new Promise((resolve) => {
     setTimeout(() => {
       window.sessionStorage.removeItem("currentUser");
@@ -49,10 +53,13 @@ export function registerUser(user) {
         reject("Um usuário com esse email já existe.");
       } else {
         window.localStorage.removeItem("registeredUsers");
-        users.push({id: users.length, ...user});
-        window.localStorage.setItem("registeredUsers", JSON.stringify(users))
-        const currentUser = {id: user.id, permissions: user.permissions};
-        window.sessionStorage.setItem("currentUser", JSON.stringify(currentUser));
+        users.push({ id: users.length, ...user });
+        window.localStorage.setItem("registeredUsers", JSON.stringify(users));
+        const currentUser = { id: user.id, permissions: user.permissions };
+        window.sessionStorage.setItem(
+          "currentUser",
+          JSON.stringify(currentUser)
+        );
         resolve(currentUser.permissions);
       }
     }, 500);
