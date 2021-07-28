@@ -15,8 +15,10 @@ import Home from "./Pages/Home";
 import Book from "./Pages/Book";
 import Checkout from "./Pages/Checkout";
 import Login from "./Pages/Login";
-import SignUp from "./Pages/SignUp"
-import UserPermissionsProvider, { Permissions } from "./Contexts/userPermissions";
+import SignUp from "./Pages/SignUp";
+import UserPermissionsProvider, {
+  Permissions,
+} from "./Contexts/userPermissions";
 import PrivateRoute from "./Components/PrivateRoute";
 
 function App() {
@@ -28,9 +30,12 @@ function App() {
             <Header />
 
             <Switch>
-              <Route path="/admin">
+              <PrivateRoute
+                path="/admin"
+                requiredPermissions={[Permissions.ADMIN]}
+              >
                 <Admin />
-              </Route>
+              </PrivateRoute>
               <Route path="/cart">
                 <Cart />
               </Route>
@@ -53,16 +58,16 @@ function App() {
                 path="/login"
                 requiredPermissions={[Permissions.GUEST]}
               >
-                <Login/>
+                <Login />
               </PrivateRoute>
               <PrivateRoute
                 path="/signup"
                 requiredPermissions={[Permissions.GUEST]}
               >
-                <SignUp/>
+                <SignUp />
               </PrivateRoute>
               <Route>
-                <Redirect to="/books"/>
+                <Redirect to="/books" />
               </Route>
             </Switch>
 
